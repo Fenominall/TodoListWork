@@ -46,7 +46,7 @@ public final class TodoFeedItemsMapper {
         _ data: Data,
         from response: HTTPURLResponse
     ) throws -> [TodoItem] {
-        guard response.statusCode == 200 else {
+        guard response.isOK else {
             throw Error.invalidData
         }
         let root = try jsonDecoder.decode(Root.self, from: data)
