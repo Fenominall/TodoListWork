@@ -26,12 +26,19 @@ public final class RemoteFeedLoader: FeedLoader {
     // MARK: - Methods
     public func loadFeed(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { [weak self] result in
-            switch result {
-                
-            case .success((_, _)):
-                break
-            case .failure(_):
-                break
+            // safety mechanism to prevent executing logic in the closure when the self instance(RemoteFeedLoader) has been deallocated
+            guard self != nil else { return }
+            do {
+                switch result {
+                    
+                case let .success((data, response)):
+                    let todos = try TodoFeedItemsMapper.map(data, from: response)
+                    completion(.success(todos))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            } catch let error {
+                completion(.failure(error))
             }
         }
     }
