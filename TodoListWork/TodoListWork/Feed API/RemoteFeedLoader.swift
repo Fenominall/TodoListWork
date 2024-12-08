@@ -12,7 +12,7 @@ public final class RemoteFeedLoader: FeedLoader {
     private let url: URL
     private let client: HTTPClient
     
-    public typealias Result = FeedLoader.Result
+    public typealias LoadResult = FeedLoader.Result
     
     // MARK: - Lifecycle
     public init(
@@ -24,7 +24,7 @@ public final class RemoteFeedLoader: FeedLoader {
     }
     
     // MARK: - Methods
-    public func loadFeed(completion: @escaping (Result) -> Void) {
+    public func loadFeed(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { [weak self] result in
             switch result {
                 
