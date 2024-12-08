@@ -6,8 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4FB8D9852D05BD1700EDFAF2 /* TodoListWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4FB8D9862D05BD1700EDFAF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FB8D9642D0593F800EDFAF2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FB8D96C2D0593F800EDFAF2;
+			remoteInfo = TodoListWork;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TodoListWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListWorkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,6 +44,11 @@
 			path = TodoListWork;
 			sourceTree = "<group>";
 		};
+		4FB8D9822D05BD1700EDFAF2 /* TodoListWorkTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TodoListWorkTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +59,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FB8D97E2D05BD1700EDFAF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FB8D9852D05BD1700EDFAF2 /* TodoListWork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -46,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				4FB8D96F2D0593F800EDFAF2 /* TodoListWork */,
+				4FB8D9822D05BD1700EDFAF2 /* TodoListWorkTests */,
 				4FB8D96E2D0593F800EDFAF2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */,
+				4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +124,29 @@
 			productReference = 4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4FB8D9802D05BD1700EDFAF2 /* TodoListWorkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FB8D9882D05BD1700EDFAF2 /* Build configuration list for PBXNativeTarget "TodoListWorkTests" */;
+			buildPhases = (
+				4FB8D97D2D05BD1700EDFAF2 /* Sources */,
+				4FB8D97E2D05BD1700EDFAF2 /* Frameworks */,
+				4FB8D97F2D05BD1700EDFAF2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FB8D9872D05BD1700EDFAF2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4FB8D9822D05BD1700EDFAF2 /* TodoListWorkTests */,
+			);
+			name = TodoListWorkTests;
+			packageProductDependencies = (
+			);
+			productName = TodoListWorkTests;
+			productReference = 4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,11 +154,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					4FB8D96C2D0593F800EDFAF2 = {
 						CreatedOnToolsVersion = 16.1;
 						LastSwiftMigration = 1610;
+					};
+					4FB8D9802D05BD1700EDFAF2 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
@@ -124,12 +181,20 @@
 			projectRoot = "";
 			targets = (
 				4FB8D96C2D0593F800EDFAF2 /* TodoListWork */,
+				4FB8D9802D05BD1700EDFAF2 /* TodoListWorkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4FB8D96B2D0593F800EDFAF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FB8D97F2D05BD1700EDFAF2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -146,7 +211,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FB8D97D2D05BD1700EDFAF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4FB8D9872D05BD1700EDFAF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FB8D96C2D0593F800EDFAF2 /* TodoListWork */;
+			targetProxy = 4FB8D9862D05BD1700EDFAF2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4FB8D9742D0593F800EDFAF2 /* Debug */ = {
@@ -342,6 +422,36 @@
 			};
 			name = Release;
 		};
+		4FB8D9892D05BD1700EDFAF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fenominall.TodoListWorkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4FB8D98A2D05BD1700EDFAF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fenominall.TodoListWorkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -359,6 +469,15 @@
 			buildConfigurations = (
 				4FB8D9742D0593F800EDFAF2 /* Debug */,
 				4FB8D9752D0593F800EDFAF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FB8D9882D05BD1700EDFAF2 /* Build configuration list for PBXNativeTarget "TodoListWorkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FB8D9892D05BD1700EDFAF2 /* Debug */,
+				4FB8D98A2D05BD1700EDFAF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
