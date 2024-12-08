@@ -23,6 +23,11 @@ public final class RemoteFeedLoader: FeedLoader {
         self.client = client
     }
     
+    private enum Error: Swift.Error {
+        case invalidData
+        case connectivity
+    }
+    
     // MARK: - Methods
     public func loadFeed(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { [weak self] result in
@@ -34,11 +39,11 @@ public final class RemoteFeedLoader: FeedLoader {
                 case let .success((data, response)):
                     let todos = try TodoFeedItemsMapper.map(data, from: response)
                     completion(.success(todos))
-                case let .failure(error):
-                    completion(.failure(error))
+                case .failure:
+                    completion(.failure(Error.connectivity))
                 }
-            } catch let error {
-                completion(.failure(error))
+            } catch {
+                completion(.failure(Error.invalidData))
             }
         }
     }
