@@ -7,11 +7,27 @@
 
 import Foundation
 
-struct TodoItem {
-    let id: Int
-    let title: String
-    let description: String?
-    let completed: Bool
-    let createdAt: Date
-    let userID: Int
+public struct TodoItem {
+    public let id: Int
+    public let title: String
+    public let description: String?
+    public let completed: Bool
+    public let createdAt: Date
+    public let userID: Int
+    
+    public init(
+        id: Int,
+        title: String,
+        description: String?,
+        completed: Bool,
+        createdAt: Date,
+        userID: Int
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.completed = completed
+        self.createdAt = createdAt
+        self.userID = userID
+    }
 }
