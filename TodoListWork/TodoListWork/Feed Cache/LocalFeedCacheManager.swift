@@ -8,7 +8,15 @@
 import Foundation
 
 public final class LocalFeedCacheManager {
+    // MARK: - Properties
+    private let store: TodoItemsStore
     
+    // MARK: - Lifecycle
+    init(store: TodoItemsStore) {
+        self.store = store
+    }
+    
+    // MARK: - Helpers
 }
 
 extension LocalFeedCacheManager: TodoItemsFeedLoader {
@@ -21,6 +29,7 @@ extension LocalFeedCacheManager: TodoItemsFeedCache {
     public func save(
         _ feed: [TodoItem],
         completion: @escaping (TodoItemsFeedCache.Result) -> Void
+        
     ) {
     }
 }
