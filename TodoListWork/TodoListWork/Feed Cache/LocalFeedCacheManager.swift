@@ -26,11 +26,26 @@ extension LocalFeedCacheManager: TodoItemsFeedCache {
 }
 
 extension LocalFeedCacheManager: TodoItemSaver {
-    public func save(_ item: TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+    public func save(
+        _ item: TodoItem,
+        completion: @escaping (TodoItemSaver.Result) -> Void
+    ) {
     
     }
     
-    public func update(_ item: TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+    public func update(
+        _ item: TodoItem,
+        completion: @escaping (TodoItemSaver.Result) -> Void
+    ) {
+        
+    }
+}
+
+extension LocalFeedCacheManager: TodoItemDeleter {
+    public func delete(
+        _ item: TodoItem,
+        completion: @escaping (TodoItemDeleter.Result) -> Void
+    ) {
         
     }
 }
