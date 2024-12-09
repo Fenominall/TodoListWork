@@ -8,7 +8,7 @@
 import Foundation
 
 public struct TodoItem {
-    public let id: Int
+    public let id: UUID
     public let title: String
     public let description: String?
     public let completed: Bool
@@ -16,7 +16,7 @@ public struct TodoItem {
     public let userID: Int
     
     public init(
-        id: Int,
+        id: UUID = UUID(),
         title: String,
         description: String?,
         completed: Bool,
