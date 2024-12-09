@@ -26,6 +26,7 @@ public final class LocalFeedCacheManager {
     }
 }
 
+// MARK: - Feed Loading
 extension LocalFeedCacheManager: TodoItemsFeedLoader {
     public func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
         store.retrieve { [weak self] result in
@@ -44,32 +45,48 @@ extension LocalFeedCacheManager: TodoItemsFeedLoader {
     }
 }
 
+// MARK: - Feed Caching
 extension LocalFeedCacheManager: TodoItemsFeedCache {
     public func save(
         _ feed: [TodoItem],
         completion: @escaping (TodoItemsFeedCache.Result) -> Void) {
             store.insert(feed.toLocale()) { [weak self] insertionError in
                 self?.execute(completion, result: insertionError)
+            }
         }
-    }
 }
 
+// MARK: - Saving and Updaing TodoItem
 extension LocalFeedCacheManager: TodoItemSaver {
     public func save(
         _ item: TodoItem,
-        completion: @escaping (TodoItemSaver.Result) -> Void
-    ) {
-    
-    }
+        completion: @escaping (TodoItemSaver.Result) -> Void) {
+            store.insert(convertToLcalTodoItem(item)) { [weak self] insertionError in
+                self?.execute(completion, result: insertionError)
+            }
+        }
     
     public func update(
         _ item: TodoItem,
-        completion: @escaping (TodoItemSaver.Result) -> Void
-    ) {
-        
+        completion: @escaping (TodoItemSaver.Result) -> Void) {
+            store.update(convertToLcalTodoItem(item)) { [weak self] result in
+                self?.execute(completion, result: result)
+            }
+        }
+    
+    private func convertToLcalTodoItem(_ item: TodoItem) -> LocalTodoItem {
+        LocalTodoItem(
+            id: item.id,
+            title: item.title,
+            description: item.description,
+            completed: item.completed,
+            createdAt: item.createdAt,
+            userID: item.userID
+        )
     }
 }
 
+// MARK: - Deleting Todoitem
 extension LocalFeedCacheManager: TodoItemDeleter {
     public func delete(
         _ item: TodoItem,
@@ -79,6 +96,7 @@ extension LocalFeedCacheManager: TodoItemDeleter {
     }
 }
 
+// MARK: - Converting mapping helpers
 private extension Array where Element == LocalTodoItem {
     func toModels() -> [TodoItem] {
         return map {
