@@ -10,3 +10,11 @@ import Foundation
 public final class LocalFeedCacheManager {
     
 }
+
+extension LocalFeedCacheManager: TodoItemsFeedLoader {
+    public func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
+        
+    }
+}
+
+
