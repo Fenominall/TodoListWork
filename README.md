@@ -77,6 +77,19 @@ So that I can add tasks even if I have no connectivity
 
 ---
 
+## Model Specs
+
+###TodoItem
+
+| Property      | Type                      |
+|---------------|---------------------------|
+| 'id'          | 'UUID'                    |
+| ‘title’       | 'String'                  |
+| 'description' | 'String' Optional         |
+| 'completed'   | 'Bool'                    |
+| 'createdAt'   | 'Date'                    |
+| 'userID'      | 'Int'                     |
+
 ## Use Case Flows
 
 ### Load Feed From Remote Use Case
