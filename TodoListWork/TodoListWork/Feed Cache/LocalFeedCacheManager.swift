@@ -21,7 +21,19 @@ public final class LocalFeedCacheManager {
 
 extension LocalFeedCacheManager: TodoItemsFeedLoader {
     public func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
-        
+        store.retrieve { [weak self] result in
+            guard self != nil else { return }
+            
+            switch result {
+            case let .success(.some(cachedFeed)):
+                let feed = cachedFeed.toModels()
+                completion(.success(feed))
+            case let .failure(error):
+                completion(.failure(error))
+            case .success(.none):
+                break
+            }
+        }
     }
 }
 
@@ -56,5 +68,20 @@ extension LocalFeedCacheManager: TodoItemDeleter {
         completion: @escaping (TodoItemDeleter.Result) -> Void
     ) {
         
+    }
+}
+
+private extension Array where Element == LocalTodoItem {
+    func toModels() -> [TodoItem] {
+        return map {
+            TodoItem(
+                id: $0.id,
+                title: $0.title,
+                description: $0.description,
+                completed: $0.completed,
+                createdAt: $0.createdAt,
+                userID: $0.userID
+            )
+        }
     }
 }
