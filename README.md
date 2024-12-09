@@ -7,25 +7,25 @@
 ---
 
 ### Narrative #1
-
+```
 As an online customer
 I want the app to load tasks from the network only on the first launch
 So that I can initialize my todo list and cache tasks for future offline use
-
+```
 #### Scenarios (Acceptance criteria):
 
 1. **On the first launch with connectivity:**
-
+    ```
     Given this is the user's first app launch
     And the user has connectivity
     When the user requests to see the todo list feed
     Then the app should fetch the latest feed from the network
     And cache the feed for future offline use
     And display the tasks in the app
-
+    ```
 
 2. **On the first launch with no connectivity or network errors:**
-
+    ```    
     Given this is the user's first app launch
     And there are cached tasks available
     When the user requests to see the todo list feed
@@ -34,46 +34,46 @@ So that I can initialize my todo list and cache tasks for future offline use
     And If the local cache is empty
     Then the user should see empty tasks list
     And allow the user to add new tasks manually
-
+    ```
 
 3. **On subsequent launches with connectivity or no connectivity:**
-
+    ```
     Given this is not the user's first app launch
     And there are cached tasks available
     When the user requests to see the todo list feed
     Then the app should load tasks from the cached data
     And display them in the app
-
+    ```
 
 4. **On subsequent launches with no cached tasks:**
-
+    ```
     Given this is not the user's first app launch
     And there are no cached tasks
     When the user requests to see the todo list feed
     Then the app should show the empty state screen
     And allow the user to add new tasks
-
+    ```
 
 ---
 
 ### Narrative #2
-
+```
 As an offline customer
 I want the app to show an empty todo list screen if no tasks are cached
 So that I can add tasks even if I have no connectivity
-
+```
 
 #### Scenarios (Acceptance criteria):
 
 1. **No cached tasks exist:**
-
+    ```
     Given the user has already launched the app before
     And there is no cached tasks available
     And the user has no connectivity
     When the user requests to see the todo list feed
     Then the app should show the empty state screen
     And allow the user to add new tasks
-
+    ```
 
 ---
 
