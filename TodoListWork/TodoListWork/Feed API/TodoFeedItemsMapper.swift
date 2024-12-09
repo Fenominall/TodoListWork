@@ -9,6 +9,7 @@ import Foundation
 
 public final class TodoFeedItemsMapper {
     
+    // MARK: - Nested Types
     private struct Root: Decodable {
         let todos: [RemoteTodoItem]
         
@@ -26,7 +27,7 @@ public final class TodoFeedItemsMapper {
         var item: TodoItem {
             
             return TodoItem(
-                id: id,
+                id: UUID(uuidString: String(id)) ?? UUID(),
                 title: todo,
                 description: nil,
                 completed: completed,
