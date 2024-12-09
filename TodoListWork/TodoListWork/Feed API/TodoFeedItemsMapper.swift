@@ -32,7 +32,7 @@ public final class TodoFeedItemsMapper {
                 description: nil,
                 completed: completed,
                 createdAt: Date(),
-                userID: userId
+                userId: userId
             )
         }
     }

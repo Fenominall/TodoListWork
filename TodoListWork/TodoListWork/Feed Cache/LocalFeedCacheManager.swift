@@ -81,7 +81,7 @@ extension LocalFeedCacheManager: TodoItemSaver {
             description: item.description,
             completed: item.completed,
             createdAt: item.createdAt,
-            userID: item.userID
+            userId: item.userId
         )
     }
 }
@@ -107,7 +107,7 @@ private extension Array where Element == LocalTodoItem {
                 description: $0.description,
                 completed: $0.completed,
                 createdAt: $0.createdAt,
-                userID: $0.userID
+                userId: $0.userId
             )
         }
     }
@@ -122,7 +122,7 @@ private extension Array where Element == TodoItem {
                 description: $0.description,
                 completed: $0.completed,
                 createdAt: $0.createdAt,
-                userID: $0.userID
+                userId: $0.userId
             )
         }
     }

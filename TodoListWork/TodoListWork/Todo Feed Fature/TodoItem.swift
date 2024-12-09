@@ -13,21 +13,21 @@ public struct TodoItem {
     public let description: String?
     public let completed: Bool
     public let createdAt: Date
-    public let userID: Int
+    public let userId: Int
     
     public init(
         id: UUID = UUID(),
         title: String,
         description: String?,
-        completed: Bool,
+        completed: Bool = false,
         createdAt: Date,
-        userID: Int
+        userId: Int
     ) {
         self.id = id
         self.title = title
         self.description = description
         self.completed = completed
         self.createdAt = createdAt
-        self.userID = userID
+        self.userId = userId
     }
 }
