@@ -7,12 +7,12 @@
 
 import Foundation
 
-public final class RemoteFeedLoader: FeedLoader {
+public final class RemoteFeedLoader: TodoItemsFeedLoader {
     // MARK: - Properties
     private let url: URL
     private let client: HTTPClient
     
-    public typealias LoadResult = FeedLoader.Result
+    public typealias LoadResult = TodoItemsFeedLoader.Result
     
     // MARK: - Lifecycle
     public init(
