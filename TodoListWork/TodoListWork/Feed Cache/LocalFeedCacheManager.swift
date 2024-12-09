@@ -17,6 +17,13 @@ public final class LocalFeedCacheManager {
     }
     
     // MARK: - Helpers
+    // A utility to safely execute a completion handler, ensuring that it's only called when it's non-nil
+    private typealias Completion<T> = (T) -> Void
+    
+    private func execute<T>(_ completion: Completion<T>?, result: T) {
+        guard completion != nil else { return }
+        completion?(result)
+    }
 }
 
 extension LocalFeedCacheManager: TodoItemsFeedLoader {
@@ -40,9 +47,10 @@ extension LocalFeedCacheManager: TodoItemsFeedLoader {
 extension LocalFeedCacheManager: TodoItemsFeedCache {
     public func save(
         _ feed: [TodoItem],
-        completion: @escaping (TodoItemsFeedCache.Result) -> Void
-        
-    ) {
+        completion: @escaping (TodoItemsFeedCache.Result) -> Void) {
+            store.insert(feed.toLocale()) { [weak self] insertionError in
+                self?.execute(completion, result: insertionError)
+        }
     }
 }
 
@@ -75,6 +83,21 @@ private extension Array where Element == LocalTodoItem {
     func toModels() -> [TodoItem] {
         return map {
             TodoItem(
+                id: $0.id,
+                title: $0.title,
+                description: $0.description,
+                completed: $0.completed,
+                createdAt: $0.createdAt,
+                userID: $0.userID
+            )
+        }
+    }
+}
+
+private extension Array where Element == TodoItem {
+    func toLocale() -> [LocalTodoItem] {
+        return map {
+            LocalTodoItem(
                 id: $0.id,
                 title: $0.title,
                 description: $0.description,
