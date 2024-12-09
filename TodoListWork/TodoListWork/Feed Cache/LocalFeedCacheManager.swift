@@ -69,8 +69,8 @@ extension LocalFeedCacheManager: TodoItemSaver {
     public func update(
         _ item: TodoItem,
         completion: @escaping (TodoItemSaver.Result) -> Void) {
-            store.update(convertToLcalTodoItem(item)) { [weak self] result in
-                self?.execute(completion, result: result)
+            store.update(convertToLcalTodoItem(item)) { [weak self] updationError in
+                self?.execute(completion, result: updationError)
             }
         }
     
@@ -90,9 +90,10 @@ extension LocalFeedCacheManager: TodoItemSaver {
 extension LocalFeedCacheManager: TodoItemDeleter {
     public func delete(
         _ item: TodoItem,
-        completion: @escaping (TodoItemDeleter.Result) -> Void
-    ) {
-        
+        completion: @escaping (TodoItemDeleter.Result) -> Void) {
+            store.delete(convertToLcalTodoItem(item)) { [weak self] deletionError in
+                self?.execute(completion, result: deletionError)
+            }
     }
 }
 
