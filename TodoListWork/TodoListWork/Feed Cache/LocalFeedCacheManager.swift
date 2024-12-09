@@ -17,4 +17,10 @@ extension LocalFeedCacheManager: TodoItemsFeedLoader {
     }
 }
 
-
+extension LocalFeedCacheManager: TodoItemsFeedCache {
+    public func save(
+        _ feed: [TodoItem],
+        completion: @escaping (TodoItemsFeedCache.Result) -> Void
+    ) {
+    }
+}
