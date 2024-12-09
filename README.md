@@ -79,7 +79,7 @@ So that I can add tasks even if I have no connectivity
 
 ## Model Specs
 
-###TodoItem
+### Todo Item
 
 | Property      | Type                      |
 |---------------|---------------------------|
@@ -90,6 +90,42 @@ So that I can add tasks even if I have no connectivity
 | 'createdAt'   | 'Date'                    |
 | 'userID'      | 'Int'                     |
 
+## Payload contract
+```
+GET / feed
+
+200 RESPONSE
+
+{
+  "todos": [
+    {
+      "id": 1,
+      "todo": "Do something nice for someone you care about",
+      "completed": false,
+      "userId": 152
+    },
+    {
+      "id": 2,
+      "todo": "Memorize a poem",
+      "completed": true,
+      "userId": 13
+    },
+    {
+      "id": 3,
+      "todo": "Watch a classic movie",
+      "completed": true,
+      "userId": 68
+    },
+    {
+      "id": 4,
+      "todo": "Watch a documentary",
+      "completed": false,
+      "userId": 84
+    }
+    ...
+    ]
+}
+```
 ## Use Case Flows
 
 ### Load Feed From Remote Use Case
