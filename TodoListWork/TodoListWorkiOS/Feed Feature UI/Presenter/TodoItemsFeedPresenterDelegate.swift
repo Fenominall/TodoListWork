@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import TodoListWork
+
+public protocol TodoItemsFeedPresenterDelegate {
+    func didSelectAddNewTodoItem()
+}
