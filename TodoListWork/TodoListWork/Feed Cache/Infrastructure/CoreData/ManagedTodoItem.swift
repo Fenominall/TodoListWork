@@ -36,16 +36,16 @@ extension ManagedTodoItem {
         cache: ManagedCache
     ) -> NSOrderedSet {
         let tasks = NSOrderedSet(array: localTasks.map { local in
-            let managedTask = ManagedTodoItem(context: context)
-            managedTask.id = local.id
-            managedTask.title = local.title
-            managedTask.descriptionText = local.description
-            managedTask.createdAt = local.createdAt
-            managedTask.completed = local.completed
-            managedTask.userId = local.userId
-            managedTask.cache = cache
+            let managedTodo = ManagedTodoItem(context: context)
+            managedTodo.id = local.id
+            managedTodo.title = local.title
+            managedTodo.descriptionText = local.description
+            managedTodo.createdAt = local.createdAt
+            managedTodo.completed = local.completed
+            managedTodo.userId = local.userId
+            managedTodo.cache = cache
             
-            return managedTask
+            return managedTodo
         })
         
         return tasks
