@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+public struct TodoItemsErrorViewModel {
+    public let message: String?
+    
+    static var noError: TodoItemsErrorViewModel {
+        return TodoItemsErrorViewModel(message: nil)
+    }
+    
+    static func error(message: String) -> TodoItemsErrorViewModel {
+        return TodoItemsErrorViewModel(message: message)
+    }
+}

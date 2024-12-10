@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+public protocol TodoItemsErrorView {
+    func display(_ viewModel: TodoItemsErrorViewModel)
+}
