@@ -11,4 +11,5 @@ enum CoreDataFeedStoreError: Error {
     case unableToCreateMutableCopy
     case todokNotFound
     case todoIDMismatch
+    case missingManagedObjectContext
 }
