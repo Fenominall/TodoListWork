@@ -32,7 +32,11 @@ extension CoreDataFeedStore: TodoItemsStore {
     }
     
     public func update(_ task: LocalTodoItem, completion: @escaping UpdatingCompletion) {
-        
+        performAsync { context in
+            completion(Result {
+                try ManagedCache.updateTask(task, context: context)
+            })
+        }
     }
     
     public func delete(_ task: LocalTodoItem, completion: @escaping DeletionCompletion) {

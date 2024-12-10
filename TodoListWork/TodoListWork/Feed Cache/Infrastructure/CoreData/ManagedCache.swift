@@ -83,3 +83,27 @@ extension ManagedCache {
         }
     }
 }
+
+// MARK: - Updating
+extension ManagedCache {
+    static func updateTask(
+        _ task: LocalTodoItem,
+        context: NSManagedObjectContext
+    ) throws {
+        guard let managedTask = try ManagedTodoItem.first(with: task, in: context) else {
+            throw CoreDataFeedStoreError.todokNotFound
+        }
+        
+        guard managedTask.id == task.id else {
+            throw CoreDataFeedStoreError.todoIDMismatch
+        }
+        
+        ManagedTodoItem.update(managedTask, with: task)
+        
+        do {
+            try context.save()
+        } catch {
+            throw error
+        }
+    }
+}
