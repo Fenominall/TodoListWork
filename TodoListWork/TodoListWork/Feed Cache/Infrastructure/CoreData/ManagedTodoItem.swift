@@ -65,4 +65,36 @@ extension ManagedTodoItem {
         
         return Set(ids ?? [])
     }
+    
+    static func first(
+        with localTodoItem: LocalTodoItem,
+        in context: NSManagedObjectContext
+    ) throws -> ManagedTodoItem? {
+        let request = NSFetchRequest<ManagedTodoItem>(
+            entityName: ManagedTodoItem.entity().name!
+        )
+        
+        let uuidPredicate = NSPredicate(
+            format: "id == %@",
+            localTodoItem.id as CVarArg
+        )
+        
+        request.predicate = uuidPredicate
+        request.returnsObjectsAsFaults = true
+        request.fetchLimit = 1
+        
+        return try context.fetch(request).first
+    }
+    
+    static func update(
+        _ managedTodo: ManagedTodoItem,
+        with task: LocalTodoItem
+    ) {
+        managedTodo.id = task.id
+        managedTodo.title = task.title
+        managedTodo.descriptionText = task.description
+        managedTodo.createdAt = task.createdAt
+        managedTodo.completed = task.completed
+        managedTodo.userId = task.userId
+    }
 }
