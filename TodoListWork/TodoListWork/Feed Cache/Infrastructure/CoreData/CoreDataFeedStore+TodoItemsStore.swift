@@ -20,7 +20,11 @@ extension CoreDataFeedStore: TodoItemsStore {
     }
     
     public func insert(_ tasks: [LocalTodoItem], completion: @escaping InsertionCompletion) {
-        
+        performAsync { context in
+            completion(Result {
+                try ManagedCache.insertTasks(tasks, in: context)
+            })
+        }
     }
     
     public func insert(_ task: LocalTodoItem, completion: @escaping InsertionCompletion) {
