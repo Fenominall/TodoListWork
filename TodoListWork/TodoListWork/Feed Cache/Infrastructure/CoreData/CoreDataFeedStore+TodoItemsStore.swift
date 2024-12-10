@@ -40,6 +40,11 @@ extension CoreDataFeedStore: TodoItemsStore {
     }
     
     public func delete(_ task: LocalTodoItem, completion: @escaping DeletionCompletion) {
-        
+        performAsync { context in
+            completion(Result {
+                try ManagedTodoItem.deleteTask(task, in: context)
+            })
+        }
+
     }
 }

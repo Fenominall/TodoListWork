@@ -18,6 +18,7 @@ final class ManagedTodoItem: NSManagedObject {
     @NSManaged var cache: ManagedCache?
 }
 
+// MARK: - Retririeving helpers
 extension ManagedTodoItem {
     var local: LocalTodoItem? {
         return LocalTodoItem(
@@ -29,7 +30,10 @@ extension ManagedTodoItem {
             userId: userId
         )
     }
-    
+}
+
+// MARK: - Insertion Helpers
+extension ManagedTodoItem {
     static func createManagedTodoitem(
         from localTasks: [LocalTodoItem],
         in context: NSManagedObjectContext,
@@ -65,7 +69,10 @@ extension ManagedTodoItem {
         
         return Set(ids ?? [])
     }
-    
+}
+
+// MARK: - Updation helpers
+extension ManagedTodoItem {
     static func first(
         with localTodoItem: LocalTodoItem,
         in context: NSManagedObjectContext
@@ -96,5 +103,37 @@ extension ManagedTodoItem {
         managedTodo.createdAt = task.createdAt
         managedTodo.completed = task.completed
         managedTodo.userId = task.userId
+    }
+}
+
+// MARK: - Deletion helpers
+extension ManagedTodoItem {
+    static func deleteTask(
+        _ task: LocalTodoItem,
+        in context: NSManagedObjectContext
+    ) throws {
+        // Ensure the cache exists before proceeding
+        guard let cache = try ManagedCache.find(in: context) else {
+            throw CoreDataFeedStoreError.missingManagedObjectContext
+        }
+        
+        // Find the task to delete
+        guard let managedTodo = try ManagedTodoItem.first(with: task, in: context) else {
+            throw CoreDataFeedStoreError.todokNotFound
+        }
+        
+        // Remove the task from the cache feed
+        if let mutableCache = cache.feed.mutableCopy() as? NSMutableOrderedSet {
+            mutableCache.remove(managedTodo)
+            cache.feed = mutableCache as NSOrderedSet
+        } else {
+            throw CoreDataFeedStoreError.unableToCreateMutableCopy
+        }
+        
+        // Delete the task from Core Data context
+        context.delete(managedTodo)
+        
+        // Save the context
+        try context.save()
     }
 }
