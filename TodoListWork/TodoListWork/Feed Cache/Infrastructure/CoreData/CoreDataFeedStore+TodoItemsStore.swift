@@ -28,7 +28,7 @@ extension CoreDataFeedStore: TodoItemsStore {
     }
     
     public func insert(_ task: LocalTodoItem, completion: @escaping InsertionCompletion) {
-        
+        insert([task], completion: completion)
     }
     
     public func update(_ task: LocalTodoItem, completion: @escaping UpdatingCompletion) {
