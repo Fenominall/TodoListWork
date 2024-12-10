@@ -10,7 +10,13 @@ import CoreData
 
 extension CoreDataFeedStore: TodoItemsStore {
     public func retrieve(completion: @escaping RetrievalCompletion) {
-        
+        performAsync { context in
+            completion(Result {
+                try ManagedCache.find(in: context).map {
+                    return $0.localTodoTasksFeed
+                }
+            })
+        }
     }
     
     public func insert(_ tasks: [LocalTodoItem], completion: @escaping InsertionCompletion) {
