@@ -8,7 +8,7 @@
 import TodoListWork
 
 public protocol TodoItemsFeedInteractorInput: AnyObject {
-    func loadTodoItemsFeed()
+    func loadFeed()
     func deleteTodoItem(_ item: TodoItem)
     func updateTodoItem(_ item: TodoItem)
 }
