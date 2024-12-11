@@ -8,9 +8,6 @@
       location = "container:TodoListWorkApp/TodoListWorkApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TodoListWork/TodoListWork.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
