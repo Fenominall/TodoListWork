@@ -9,6 +9,7 @@ import UIKit
 
 class TodoTaskTableViewCell: UITableViewCell {
     var checkmarkTappedHandler: ((Bool) -> Void)?
+    
     private var isTaskCompleted: Bool = false {
         didSet {
             updateCheckmarkState()
