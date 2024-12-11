@@ -12,6 +12,9 @@ enum AppImages {
     case squareAndPencil
     case circle
     case checkMarkCircle
+    case microphoneFill
+    case trash
+    case squareAndArrowUp
 }
 
 extension AppImages {
@@ -23,6 +26,12 @@ extension AppImages {
             return UIImage(systemName: "circle")
         case .checkMarkCircle:
             return UIImage(systemName: "checkmark.circle")
+        case .microphoneFill:
+            return UIImage(systemName: "microphone.fill")
+        case .trash:
+            return UIImage(systemName: "trash")
+        case .squareAndArrowUp:
+            return UIImage(systemName: "square.and.arrow.up")
         }
     }
 }
