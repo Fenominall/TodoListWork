@@ -38,12 +38,8 @@ public final class TodoListViewController: UIViewController {
         setupTodoTaskMenu()
         
         todoosTableView.register(TodoTaskTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemYellow]
     }
-    
+        
     private func setupTodoTaskMenu() {
         let edit = UIAction(title: "Редатировать", image: AppImages.squareAndPencil.image) { _ in
             

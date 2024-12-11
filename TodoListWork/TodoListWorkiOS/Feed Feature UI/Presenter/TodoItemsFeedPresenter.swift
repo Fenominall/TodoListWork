@@ -68,7 +68,7 @@ extension TodoItemsFeedPresenter: TodoItemsOperationInteractorOutput {
     }
     
     public func didFinishOperation(with error: any Error) {
-        errorView.display(.error(message: error.localizedDescription))
+        errorView.display(.error(message: "Невозможно загрузить задачи!"))
     }
 }
 
