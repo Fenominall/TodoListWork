@@ -5,7 +5,6 @@
 //  Created by Fenominall on 12/11/24.
 //
 
-import SnapKit
 import UIKit
 
 class TodoTaskTableViewCell: UITableViewCell {
@@ -106,30 +105,24 @@ class TodoTaskTableViewCell: UITableViewCell {
         contentView.addSubview(descriptionAndDatelabelsStackView)
         contentView.addSubview(divider)
         
-        checkmarkButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(12)
-            $0.leading.equalToSuperview()
-        }
-        
-        taskTitleLabel.snp.makeConstraints {
-            $0.leading.equalTo(checkmarkButton.snp.trailing).offset(6)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.centerY.equalTo(checkmarkButton.snp.centerY)
-        }
-        
-        descriptionAndDatelabelsStackView.snp.makeConstraints {
-            $0.top.equalTo(taskTitleLabel.snp.bottom).offset(8)
-            $0.leading.equalTo(taskDateLabel.snp.leading)
-            $0.trailing.equalTo(taskDateLabel.snp.trailing)
-        }
-        
-        divider.snp.makeConstraints {
-            $0.top.equalTo(descriptionAndDatelabelsStackView.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(1)
-        }
+        NSLayoutConstraint.activate([
+            checkmarkButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            checkmarkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            
+            taskTitleLabel.leadingAnchor.constraint(equalTo: checkmarkButton.trailingAnchor, constant: 6),
+            taskTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            taskTitleLabel.centerYAnchor.constraint(equalTo: checkmarkButton.centerYAnchor),
+            
+            descriptionAndDatelabelsStackView.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 8),
+            descriptionAndDatelabelsStackView.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
+            descriptionAndDatelabelsStackView.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
+            
+            divider.topAnchor.constraint(equalTo: descriptionAndDatelabelsStackView.bottomAnchor, constant: 12),
+            divider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            divider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            divider.heightAnchor.constraint(equalToConstant: 1),
+            divider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
     }
     
     // MARK: - Configuration

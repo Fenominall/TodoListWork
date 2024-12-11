@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 protocol TodoListFooterViewDelegate: AnyObject {
     func didTapAddNewTaskButton()
@@ -93,24 +92,22 @@ final class TodoListFooterView: UIView {
     }
     
     private func setConstraints() {
-        homeBarViewContainer.snp.makeConstraints {
-            $0.height.equalTo(34)
-            $0.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        footerViewContainer.snp.makeConstraints {
-            $0.height.equalTo(49)
-            $0.bottom.equalTo(homeBarViewContainer.snp.top)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        itemsCountLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalTo(footerViewContainer.snp.center)
-        }
-        
-        addNewItemButton.snp.makeConstraints {
-            $0.centerY.equalTo(footerViewContainer.snp.centerY)
-            $0.trailing.equalTo(footerViewContainer.snp.trailing).offset(-20)
-        }
+        NSLayoutConstraint.activate([
+            homeBarViewContainer.heightAnchor.constraint(equalToConstant: 34),
+            homeBarViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            homeBarViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            homeBarViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            footerViewContainer.heightAnchor.constraint(equalToConstant: 49),
+            footerViewContainer.bottomAnchor.constraint(equalTo: homeBarViewContainer.topAnchor),
+            footerViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            footerViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            itemsCountLabel.centerYAnchor.constraint(equalTo: footerViewContainer.centerYAnchor),
+            itemsCountLabel.centerXAnchor.constraint(equalTo: footerViewContainer.centerXAnchor),
+            
+            addNewItemButton.centerYAnchor.constraint(equalTo: footerViewContainer.centerYAnchor),
+            addNewItemButton.trailingAnchor.constraint(equalTo: footerViewContainer.trailingAnchor, constant: -20),
+        ])
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 public final class TodoListViewController: UIViewController {
     // MARK: - Properties
@@ -39,7 +38,7 @@ public final class TodoListViewController: UIViewController {
         setupTodoTaskMenu()
         
         todoosTableView.register(TodoTaskTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
-                
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemYellow]
@@ -76,16 +75,18 @@ extension TodoListViewController {
         view.addSubview(todoosTableView)
         view.addSubview(footerView)
         
-        footerView.snp.makeConstraints {
-            $0.bottom.leading.trailing.equalToSuperview()
-            $0.height.equalTo(83)
-        }
-        
-        todoosTableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(footerView.snp.top)
-        }
-        
+        NSLayoutConstraint.activate([
+            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footerView.heightAnchor.constraint(equalToConstant: 83),
+            
+            todoosTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            todoosTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            todoosTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            todoosTableView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
+            
+        ])
         // Bring the footer view to the front
         view.bringSubviewToFront(footerView)
     }
