@@ -13,17 +13,20 @@ public final class TodoItemsFeedPresenter {
     private let errorView: TodoItemsErrorView
     private let loadingView: TodoItemsLoadingView
     private let interactor: TodoItemsFeedInteractorInput
+    private let router: TodoItemsFeedRouterNavigator
     
     public init(
         view: TodoItemsFeedView,
         errorView: TodoItemsErrorView,
         loadingView: TodoItemsLoadingView,
-        interactor: TodoItemsFeedInteractorInput
+        interactor: TodoItemsFeedInteractorInput,
+        router: TodoItemsFeedRouterNavigator
     ) {
         self.view = view
         self.errorView = errorView
         self.loadingView = loadingView
         self.interactor = interactor
+        self.router = router
     }
 }
 
@@ -66,5 +69,16 @@ extension TodoItemsFeedPresenter: TodoItemsOperationInteractorOutput {
     
     public func didFinishOperation(with error: any Error) {
         errorView.display(.error(message: error.localizedDescription))
+    }
+}
+
+// MARK: - Router Navigation
+extension TodoItemsFeedPresenter {
+    public func navigateToAddTodoItem() {
+        router.addNewTask()
+    }
+    
+    public func navigateToTodoItemDetails(for item: TodoItem) {
+        router.navigateToTodoItemDetails(for: item)
     }
 }
