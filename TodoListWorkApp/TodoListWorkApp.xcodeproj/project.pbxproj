@@ -6,8 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4FE37F092D09E1A7007FD845 /* TodoListWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE37F082D09E1A7007FD845 /* TodoListWork.framework */; };
+		4FE37F0A2D09E1A7007FD845 /* TodoListWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE37F082D09E1A7007FD845 /* TodoListWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4FE37F0D2D09E1AA007FD845 /* TodoListWorkiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE37F0C2D09E1AA007FD845 /* TodoListWorkiOS.framework */; };
+		4FE37F0E2D09E1AA007FD845 /* TodoListWorkiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE37F0C2D09E1AA007FD845 /* TodoListWorkiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4FE37F0B2D09E1A7007FD845 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4FE37F0A2D09E1A7007FD845 /* TodoListWork.framework in Embed Frameworks */,
+				4FE37F0E2D09E1AA007FD845 /* TodoListWorkiOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4F81D6662D0934860098F307 /* TodoListWorkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListWorkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE37F082D09E1A7007FD845 /* TodoListWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TodoListWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE37F0C2D09E1AA007FD845 /* TodoListWorkiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TodoListWorkiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE37F092D09E1A7007FD845 /* TodoListWork.framework in Frameworks */,
+				4FE37F0D2D09E1AA007FD845 /* TodoListWorkiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				4F81D6682D0934860098F307 /* TodoListWorkApp */,
+				4FE37F072D09E1A7007FD845 /* Frameworks */,
 				4F81D6672D0934860098F307 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +85,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4FE37F072D09E1A7007FD845 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FE37F0C2D09E1AA007FD845 /* TodoListWorkiOS.framework */,
+				4FE37F082D09E1A7007FD845 /* TodoListWork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,6 +104,7 @@
 				4F81D6622D0934860098F307 /* Sources */,
 				4F81D6632D0934860098F307 /* Frameworks */,
 				4F81D6642D0934860098F307 /* Resources */,
+				4FE37F0B2D09E1A7007FD845 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

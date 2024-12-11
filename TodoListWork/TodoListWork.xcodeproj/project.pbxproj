@@ -52,22 +52,16 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4F4322CE2D08724300451D45 /* TodoListWorkiOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = TodoListWorkiOS;
 			sourceTree = "<group>";
 		};
 		4FB8D96F2D0593F800EDFAF2 /* TodoListWork */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = TodoListWork;
 			sourceTree = "<group>";
 		};
 		4FB8D9822D05BD1700EDFAF2 /* TodoListWorkTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = TodoListWorkTests;
 			sourceTree = "<group>";
 		};
