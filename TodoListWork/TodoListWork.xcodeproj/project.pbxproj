@@ -7,20 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F4322D52D08724300451D45 /* TodoListWorkiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4322CD2D08724300451D45 /* TodoListWorkiOS.framework */; };
 		4F4322E62D08728100451D45 /* TodoListWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */; platformFilter = ios; };
 		4F4322E72D08728100451D45 /* TodoListWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FB8D9852D05BD1700EDFAF2 /* TodoListWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4F4322D62D08724300451D45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4FB8D9642D0593F800EDFAF2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4F4322CC2D08724300451D45;
-			remoteInfo = TodoListWorkiOS;
-		};
 		4F4322E82D08728100451D45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FB8D9642D0593F800EDFAF2 /* Project object */;
@@ -53,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		4F4322CD2D08724300451D45 /* TodoListWorkiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TodoListWorkiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F4322D42D08724300451D45 /* TodoListWorkiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListWorkiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TodoListWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListWorkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,11 +53,6 @@
 		4F4322CE2D08724300451D45 /* TodoListWorkiOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TodoListWorkiOS;
-			sourceTree = "<group>";
-		};
-		4F4322D82D08724300451D45 /* TodoListWorkiOSTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TodoListWorkiOSTests;
 			sourceTree = "<group>";
 		};
 		4FB8D96F2D0593F800EDFAF2 /* TodoListWork */ = {
@@ -87,14 +73,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F4322E62D08728100451D45 /* TodoListWork.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F4322D12D08724300451D45 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F4322D52D08724300451D45 /* TodoListWorkiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +107,6 @@
 				4FB8D96F2D0593F800EDFAF2 /* TodoListWork */,
 				4FB8D9822D05BD1700EDFAF2 /* TodoListWorkTests */,
 				4F4322CE2D08724300451D45 /* TodoListWorkiOS */,
-				4F4322D82D08724300451D45 /* TodoListWorkiOSTests */,
 				4F4322E52D08728100451D45 /* Frameworks */,
 				4FB8D96E2D0593F800EDFAF2 /* Products */,
 			);
@@ -141,7 +118,6 @@
 				4FB8D96D2D0593F800EDFAF2 /* TodoListWork.framework */,
 				4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */,
 				4F4322CD2D08724300451D45 /* TodoListWorkiOS.framework */,
-				4F4322D42D08724300451D45 /* TodoListWorkiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,29 +166,6 @@
 			productName = TodoListWorkiOS;
 			productReference = 4F4322CD2D08724300451D45 /* TodoListWorkiOS.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		4F4322D32D08724300451D45 /* TodoListWorkiOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4F4322E02D08724300451D45 /* Build configuration list for PBXNativeTarget "TodoListWorkiOSTests" */;
-			buildPhases = (
-				4F4322D02D08724300451D45 /* Sources */,
-				4F4322D12D08724300451D45 /* Frameworks */,
-				4F4322D22D08724300451D45 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4F4322D72D08724300451D45 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				4F4322D82D08724300451D45 /* TodoListWorkiOSTests */,
-			);
-			name = TodoListWorkiOSTests;
-			packageProductDependencies = (
-			);
-			productName = TodoListWorkiOSTests;
-			productReference = 4F4322D42D08724300451D45 /* TodoListWorkiOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4FB8D96C2D0593F800EDFAF2 /* TodoListWork */ = {
 			isa = PBXNativeTarget;
@@ -274,9 +227,6 @@
 						CreatedOnToolsVersion = 16.1;
 						LastSwiftMigration = 1610;
 					};
-					4F4322D32D08724300451D45 = {
-						CreatedOnToolsVersion = 16.1;
-					};
 					4FB8D96C2D0593F800EDFAF2 = {
 						CreatedOnToolsVersion = 16.1;
 						LastSwiftMigration = 1610;
@@ -303,20 +253,12 @@
 				4FB8D96C2D0593F800EDFAF2 /* TodoListWork */,
 				4FB8D9802D05BD1700EDFAF2 /* TodoListWorkTests */,
 				4F4322CC2D08724300451D45 /* TodoListWorkiOS */,
-				4F4322D32D08724300451D45 /* TodoListWorkiOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4F4322CB2D08724300451D45 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F4322D22D08724300451D45 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,13 +289,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F4322D02D08724300451D45 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4FB8D9692D0593F800EDFAF2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,11 +306,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4F4322D72D08724300451D45 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4F4322CC2D08724300451D45 /* TodoListWorkiOS */;
-			targetProxy = 4F4322D62D08724300451D45 /* PBXContainerItemProxy */;
-		};
 		4F4322E92D08728100451D45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -397,7 +327,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -434,7 +364,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -458,43 +388,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		4F4322E12D08724300451D45 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fenominall.TodoListWorkiOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4F4322E22D08724300451D45 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5YJ9NPM7MQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fenominall.TodoListWorkiOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -736,15 +629,6 @@
 			buildConfigurations = (
 				4F4322DE2D08724300451D45 /* Debug */,
 				4F4322DF2D08724300451D45 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4F4322E02D08724300451D45 /* Build configuration list for PBXNativeTarget "TodoListWorkiOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4F4322E12D08724300451D45 /* Debug */,
-				4F4322E22D08724300451D45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
