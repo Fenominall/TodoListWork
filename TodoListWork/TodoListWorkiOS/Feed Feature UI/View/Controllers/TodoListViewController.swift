@@ -91,6 +91,10 @@ extension TodoListViewController {
         
         taskActionsMenu = UIMenu(title: "", children: [edit, share, delete])
     }
+    
+    private func cellController(for indexPath: IndexPath) -> TodoItemCellController {
+        return tableModel[indexPath.row]
+    }
 }
 
 // MARK: - UITableViewDataSource
