@@ -14,6 +14,7 @@ public final class TodoListViewController: UIViewController {
             todoosTableView.reloadData()
         }
     }
+    public var onRefresh: (() -> Void)?
     
     // MARK: - View Properties
     let footerView = TodoListFooterView()
@@ -53,7 +54,7 @@ public final class TodoListViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func refresh() {
-        
+        onRefresh?()
     }
 }
 
