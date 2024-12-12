@@ -15,10 +15,43 @@ final class TodoFeedUIComposer {
     static func todoFeedComposedWith(
         feedLoader: TodoItemsFeedLoader,
         todoSaver: TodoItemSaver,
-        totDeleter: TodoItemDeleter,
+        todoDeleter: TodoItemDeleter,
         navigationController: UINavigationController,
-        selection: @escaping (TodoItem) -> UIViewController
+        selection: @escaping (TodoItem) -> UIViewController,
+        addnewTodo: @escaping () -> UIViewController
     ) -> TodoListViewController {
-        return TodoListViewController()
+        let router = TodoItemsFeedRouter(
+            navigationController: navigationController,
+            todoDetailComposer: selection,
+            addTodoComposer: addnewTodo
+        )
+        
+        let view = TodoListViewController()
+        let interactor = TodoItemsFeedInteractor(
+            feedLoader: feedLoader,
+            todoSaver: todoSaver,
+            todoDeleter: todoDeleter
+        )
+        
+        let viewAdapter = TodoFeedViewAdapter(cotroller: view) { todo in
+            router.navigateToTodoItemDetails(for: todo)
+            return selection(todo)
+        }
+        
+        let presenter = TodoItemsFeedPresenter(
+            view: viewAdapter,
+            // Need to be weak TODO
+            errorView: view,
+            // Need to be weak TODO
+            loadingView: view,
+            interactor: interactor,
+            router: router
+        )
+        
+        view.onRefresh = presenter.viewDidLoad
+        interactor.loadingPresenter = presenter
+        interactor.processingPresenter = presenter
+        
+        return view
     }
 }
