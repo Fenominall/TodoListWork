@@ -126,20 +126,6 @@ class TodoItemTableViewCell: UITableViewCell {
         ])
     }
     
-    // MARK: - Configuration
-    func configure(
-        todoTitle: String,
-        todokDescription: String,
-        todokDate: String,
-        isCompleted: Bool,
-        todoStatusToogler: @escaping (Bool) -> Void
-    ) {
-        taskTitleLabel.text = todoTitle
-        taskDescriptionLabel.text = todokDescription
-        taskDateLabel.text = todokDate
-        isTaskCompleted = isCompleted
-    }
-    
     // MARK: - Helpers
     private func updateCheckmarkState() {
         let imageName = isTaskCompleted ? AppImages.checkMarkCircle.image : AppImages.circle.image
@@ -170,5 +156,15 @@ class TodoItemTableViewCell: UITableViewCell {
         roundedBackgroundView.layer.cornerRadius = 15
         roundedBackgroundView.layer.masksToBounds = true
         self.backgroundView = roundedBackgroundView
+    }
+}
+
+// MARK: - Cell Configuration
+extension TodoItemTableViewCell: ConfigureableCell {
+    func configure(with data: TodoItemFeedViewModel) {
+        taskTitleLabel.text = data.title
+        taskDescriptionLabel.text = data.description
+        taskDateLabel.text = dateConvertedToDMYString(date: data.createdAt)
+        isTaskCompleted = data.isCompleted
     }
 }

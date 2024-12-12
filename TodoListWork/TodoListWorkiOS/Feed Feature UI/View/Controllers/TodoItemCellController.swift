@@ -9,36 +9,40 @@ import Foundation
 import UIKit
 
 public final class TodoItemCellController {
+    private typealias TodoItemCellConfigurator = TableCellConfigurator<TodoItemTableViewCell, TodoItemFeedViewModel>
+    
+    private let cellConfigurator: TodoItemCellConfigurator
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
     private(set) var onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
     
     public init(viewModel: TodoItemFeedViewModel,
                 onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void) {
+        self.cellConfigurator = TableCellConfigurator(item: viewModel)
         self.viewModel = viewModel
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
     
-    public func view() -> UITableViewCell {
-        if cell == nil {
-            cell = binded(TodoItemTableViewCell())
-        }
-        return cell ?? UITableViewCell()
+    func registerCell(in tableView: UITableView) {
+        cellConfigurator.register(tableView)
     }
     
-    private func binded(_ cell: TodoItemTableViewCell) -> TodoItemTableViewCell {
-        cell.configure(
-            todoTitle: viewModel.title,
-            todokDescription: viewModel.description ?? "",
-            todokDate: dateConvertedToDMYString(date: viewModel.createdAt),
-            isCompleted: viewModel.isCompleted,
-            todoStatusToogler: { [weak self] isCompleted in
-                guard let self = self else { return }
-                
-                self.viewModel.isCompleted = isCompleted
-                self.onCompletedStatusToggle(self.viewModel)
-            }
-        )
+    func configureCell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: TableCellConfigurator<TodoItemTableViewCell, TodoItemFeedViewModel>.reuseIdentifier,
+            for: indexPath
+        ) as? TodoItemTableViewCell else {
+            return UITableViewCell()
+        }
+        cellConfigurator.configure(cell: cell)
+        
+        // Additional Configuration
+        cell.checkmarkTappedHandler = { [weak self] isCompleted in
+            guard let self = self else { return }
+            self.viewModel.isCompleted = isCompleted
+            self.onCompletedStatusToggle(self.viewModel)
+        }
+        
         return cell
     }
 }
