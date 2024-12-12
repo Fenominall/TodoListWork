@@ -6,26 +6,34 @@
 //
 
 import UIKit
+import TodoListWork
 import TodoListWorkiOS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
+    private lazy var httpClient: HTTPClient = {
+        URLSessionHTTPclient(session: URLSession(configuration: .ephemeral))
+    }()
+    
+    private lazy var baseURL = URL(string: "https://dummyjson.com/todos")!
+    private let navigationController = UINavigationController()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: scene)
         
-        
+        configureWindow()
         modifyUINavigationBarAppearence()
-        
-        let window = UIWindow(windowScene: windowScene)
+    }
+    
+    private func configureWindow() {
         let viewController = TodoListViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
         
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-        self.window = window
+        navigationController.viewControllers = [viewController]
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
     
     private func modifyUINavigationBarAppearence() {
