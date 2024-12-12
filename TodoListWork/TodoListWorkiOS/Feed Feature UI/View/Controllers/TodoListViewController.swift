@@ -44,18 +44,6 @@ public final class TodoListViewController: UIViewController {
         
         todoosTableView.register(TodoItemTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
     }
-        
-    private func setupTodoTaskMenu() {
-        let edit = UIAction(title: "Редатировать", image: AppImages.squareAndPencil.image) { _ in
-            
-        }
-        let share = UIAction(title: "Поделиться", image: AppImages.squareAndArrowUp.image) { _ in
-            
-        }
-        let delete = UIAction(title: "Удалить", image: AppImages.trash.image, attributes: .destructive) { _ in }
-        
-        taskActionsMenu = UIMenu(title: "", children: [edit, share, delete])
-    }
 }
 
 // MARK: - Helpers
