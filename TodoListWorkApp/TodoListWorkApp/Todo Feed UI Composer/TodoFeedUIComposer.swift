@@ -28,15 +28,16 @@ final class TodoFeedUIComposer {
         
         let view = TodoListViewController()
         let interactor = TodoItemsFeedInteractor(
-            feedLoader: feedLoader,
-            todoSaver: todoSaver,
-            todoDeleter: todoDeleter
+            feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader),
+            todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver),
+            todoDeleter: MainQueueDispatchDecorator(decoratee: todoDeleter)
         )
         
-        let viewAdapter = TodoFeedViewAdapter(cotroller: view) { todo in
-            router.navigateToTodoItemDetails(for: todo)
-            return selection(todo)
-        }
+        let viewAdapter = TodoFeedViewAdapter(
+            cotroller: view) { todo in
+                router.navigateToTodoItemDetails(for: todo)
+                return selection(todo)
+            }
         
         let presenter = TodoItemsFeedPresenter(
             view: viewAdapter,
