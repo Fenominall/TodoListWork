@@ -24,6 +24,18 @@ class TodoItemTableViewCell: UITableViewCell {
         }
     }
     // UI Elements
+    private lazy var containerView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var buttonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var checkmarkButton: UIButton = {
         let checkmarkButton = UIButton(type: .system)
         checkmarkButton.translatesAutoresizingMaskIntoConstraints = false
@@ -102,18 +114,30 @@ class TodoItemTableViewCell: UITableViewCell {
     
     // MARK: - Setup UI
     private func setupUI() {
-        contentView.addSubview(checkmarkButton)
-        contentView.addSubview(taskTitleLabel)
-        contentView.addSubview(descriptionAndDatelabelsStackView)
-        contentView.addSubview(divider)
+        contentView.addSubview(containerView)
+        containerView.addSubview(buttonContainer)
+        buttonContainer.addSubview(checkmarkButton)
+        containerView.addSubview(taskTitleLabel)
+        containerView.addSubview(descriptionAndDatelabelsStackView)
+        containerView.addSubview(divider)
         
         NSLayoutConstraint.activate([
-            checkmarkButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            checkmarkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            taskTitleLabel.leadingAnchor.constraint(equalTo: checkmarkButton.trailingAnchor, constant: 6),
-            taskTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            taskTitleLabel.centerYAnchor.constraint(equalTo: checkmarkButton.centerYAnchor),
+            buttonContainer.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            buttonContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            buttonContainer.widthAnchor.constraint(equalToConstant: 24),
+            buttonContainer.heightAnchor.constraint(equalToConstant: 24),
+            
+            checkmarkButton.centerYAnchor.constraint(equalTo: buttonContainer.centerYAnchor),
+            checkmarkButton.centerXAnchor.constraint(equalTo: buttonContainer.centerXAnchor),
+            
+            taskTitleLabel.leadingAnchor.constraint(equalTo: buttonContainer.trailingAnchor, constant: 10),
+            taskTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            taskTitleLabel.centerYAnchor.constraint(equalTo: buttonContainer.centerYAnchor),
             
             descriptionAndDatelabelsStackView.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 8),
             descriptionAndDatelabelsStackView.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
