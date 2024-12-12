@@ -9,21 +9,18 @@ import TodoListWork
 
 public final class TodoItemsFeedInteractor {
     private let feedLoader: TodoItemsFeedLoader
-    private let feedSaver: TodoItemsFeedCache
-    private let todoUpdater: TodoItemSaver
+    private let todoSaver: TodoItemSaver
     private let todoDeleter: TodoItemDeleter
     private weak var loadingPresenter: TodoItemsFeedLoadingInteractorOutput?
     private weak var processingPresenter: TodoItemsOperationInteractorOutput?
     
-    init(
+    public init(
         feedLoader: TodoItemsFeedLoader,
-        feedSaver: TodoItemsFeedCache,
-        todoUpdater: TodoItemSaver,
+        todoSaver: TodoItemSaver,
         todoDeleter: TodoItemDeleter
     ) {
         self.feedLoader = feedLoader
-        self.feedSaver = feedSaver
-        self.todoUpdater = todoUpdater
+        self.todoSaver = todoSaver
         self.todoDeleter = todoDeleter
     }
 }
@@ -49,7 +46,7 @@ extension TodoItemsFeedInteractor: TodoItemsFeedInteractorInput {
 // MARK: - Todo Item Updating
 extension TodoItemsFeedInteractor {
     public func updateTodoItem(_ item: TodoListWork.TodoItem) {
-        todoUpdater.update(item) { [weak self] result in
+        todoSaver.update(item) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
