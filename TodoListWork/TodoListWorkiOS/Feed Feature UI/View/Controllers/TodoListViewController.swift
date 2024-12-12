@@ -212,3 +212,17 @@ extension TodoListViewController: TodoListFooterViewDelegate {
         // TODO
     }
 }
+
+// MARK: - TodoItemsErrorView
+extension TodoListViewController: TodoItemsErrorView {
+    public func display(_ viewModel: TodoItemsErrorViewModel) {
+        // TODO
+    }
+}
+
+// MARK: - TodoItemsLoadingView
+extension TodoListViewController: TodoItemsLoadingView {
+    public func display(_ viewModel: TodoItemsLoadingViewModel) {
+        // TODO
+    }
+}
