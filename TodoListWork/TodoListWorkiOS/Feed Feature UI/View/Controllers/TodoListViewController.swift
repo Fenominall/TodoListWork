@@ -36,6 +36,7 @@ public final class TodoListViewController: UIViewController {
         tableView.backgroundColor = .systemBackground
         tableView.separatorStyle = .none
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        tableView.register(TodoItemTableViewCell.self, forCellReuseIdentifier: TodoItemTableViewCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -48,7 +49,7 @@ public final class TodoListViewController: UIViewController {
         setupConstraints()
         configureSearchController()
         setupTodoTaskMenu()
-        registerCells()
+        refresh()
     }
     
     // MARK: - Actions
@@ -63,10 +64,6 @@ extension TodoListViewController {
         title = "Задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-    }
-    
-    func registerCells() {
-        tableModel.forEach { $0.registerCell(in: todoosTableView) }
     }
     
     private func setDelegates() {
@@ -120,7 +117,7 @@ extension TodoListViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cellController(for: indexPath).configureCell(for: tableView, at: indexPath)
+        return cellController(for: indexPath).view()
     }
 }
 
