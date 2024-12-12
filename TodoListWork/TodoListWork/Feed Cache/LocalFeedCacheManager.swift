@@ -12,7 +12,7 @@ public final class LocalFeedCacheManager {
     private let store: TodoItemsStore
     
     // MARK: - Lifecycle
-    init(store: TodoItemsStore) {
+    public init(store: TodoItemsStore) {
         self.store = store
     }
     
