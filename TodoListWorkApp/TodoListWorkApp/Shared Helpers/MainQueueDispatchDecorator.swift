@@ -23,3 +23,33 @@ final class MainQueueDispatchDecorator<T> {
         completion()
     }
 }
+
+extension MainQueueDispatchDecorator: TodoItemsFeedLoader where T == TodoItemsFeedLoader {
+    func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
+        decoratee.loadFeed { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}
+
+extension MainQueueDispatchDecorator: TodoItemSaver where T == TodoItemSaver {
+    func save(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+        decoratee.save(item) { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+    
+    func update(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+        decoratee.update(item) { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}
+
+extension MainQueueDispatchDecorator: TodoItemDeleter where T == TodoItemDeleter {
+    func delete(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemDeleter.Result) -> Void) {
+        decoratee.delete(item) { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}
