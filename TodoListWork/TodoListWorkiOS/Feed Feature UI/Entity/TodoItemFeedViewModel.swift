@@ -11,7 +11,7 @@ public struct TodoItemFeedViewModel {
     public let id: UUID
     public let title: String
     public let description: String?
-    public let completed: Bool
+    public var isCompleted: Bool
     public let createdAt: Date
     public let userId: Int
     
@@ -26,7 +26,7 @@ public struct TodoItemFeedViewModel {
         self.id = id
         self.title = title
         self.description = description
-        self.completed = completed
+        self.isCompleted = completed
         self.createdAt = createdAt
         self.userId = userId
     }

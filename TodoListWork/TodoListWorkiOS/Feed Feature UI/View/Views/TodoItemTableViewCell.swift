@@ -127,18 +127,26 @@ class TodoItemTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configuration
+    func configure(
+        todoTitle: String,
+        todokDescription: String,
+        todokDate: String,
+        isCompleted: Bool,
+        todoStatusToogler: @escaping (Bool) -> Void
+    ) {
+        taskTitleLabel.text = todoTitle
+        taskDescriptionLabel.text = todokDescription
+        taskDateLabel.text = todokDate
+        isTaskCompleted = isCompleted
+    }
+    
+    // MARK: - Helpers
     private func updateCheckmarkState() {
         let imageName = isTaskCompleted ? AppImages.checkMarkCircle.image : AppImages.circle.image
         checkmarkButton.tintColor = .systemGray
         let checkMarkButtonColor: UIColor = isTaskCompleted ? .systemYellow : .systemGray
         checkmarkButton.tintColor = checkMarkButtonColor
         checkmarkButton.setImage(imageName, for: .normal)
-    }
-    
-    func configure(todoTitle: String, todokDescription: String, todokDate: String, isCompleted: Bool) {
-        taskTitleLabel.text = todoTitle
-        taskDescriptionLabel.text = todokDescription
-        taskDateLabel.text = todokDate
     }
     
     private func applyTextAttributes(for completed: Bool) -> [NSAttributedString.Key: Any] {

@@ -31,7 +31,13 @@ final class TodoItemCellController {
             todoTitle: viewModel.title,
             todokDescription: viewModel.description ?? "",
             todokDate: dateConvertedToDMYString(date: viewModel.createdAt),
-            isCompleted: viewModel.completed
+            isCompleted: viewModel.isCompleted,
+            todoStatusToogler: { [weak self] isCompleted in
+                guard let self = self else { return }
+                
+                self.viewModel.isCompleted = isCompleted
+                self.onCompletedStatusToggle(self.viewModel)
+            }
         )
         return cell
     }
