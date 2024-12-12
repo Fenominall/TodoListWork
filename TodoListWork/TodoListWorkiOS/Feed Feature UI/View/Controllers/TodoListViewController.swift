@@ -24,7 +24,13 @@ public final class TodoListViewController: UIViewController {
         return search
     }()
     
-    private let todoosTableView: UITableView = {
+    private lazy var refreshControll: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    private lazy var todoosTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.backgroundColor = .systemBackground
         tableView.separatorStyle = .none
@@ -44,6 +50,11 @@ public final class TodoListViewController: UIViewController {
         
         todoosTableView.register(TodoItemTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
     }
+    
+    // MARK: - Actions
+    @objc private func refresh() {
+        
+    }
 }
 
 // MARK: - Helpers
@@ -58,6 +69,7 @@ extension TodoListViewController {
         todoosTableView.delegate = self
         todoosTableView.dataSource = self
         footerView.delegate = self
+        todoosTableView.refreshControl = refreshControll
     }
     
     private func setupConstraints() {
