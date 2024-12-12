@@ -9,13 +9,13 @@ import UIKit
 
 public final class TodoListViewController: UIViewController {
     // MARK: - Properties
-    
-    // MARK: - View Properties
     public var tableModel = [TodoItemCellController]() {
         didSet {
             todoosTableView.reloadData()
         }
     }
+    
+    // MARK: - View Properties
     let footerView = TodoListFooterView()
     private var taskActionsMenu = UIMenu()
     
@@ -104,7 +104,7 @@ extension TodoListViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        return cellController(for: indexPath).view()
     }
 }
 
@@ -165,6 +165,7 @@ extension TodoListViewController {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension TodoListViewController: UISearchBarDelegate {
     public func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         // TODO
@@ -174,7 +175,7 @@ extension TodoListViewController: UISearchBarDelegate {
 // MARK: - UISearchResultsUpdating
 extension TodoListViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
-        todoosTableView.reloadData()
+        // TODO
     }
 }
 
