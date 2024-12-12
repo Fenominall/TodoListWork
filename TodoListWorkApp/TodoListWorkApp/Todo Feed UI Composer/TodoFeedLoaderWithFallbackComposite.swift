@@ -8,7 +8,7 @@
 import Foundation
 import TodoListWork
 
-final class TasksFeedLoaderWithFallbackComposite: TodoItemsFeedLoader {
+final class TodoFeedLoaderWithFallbackComposite: TodoItemsFeedLoader {
     private let primary: TodoItemsFeedLoader
     private let fallback: TodoItemsFeedLoader
     
