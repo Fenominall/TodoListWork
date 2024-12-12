@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class TodoItemCellController {
+public final class TodoItemCellController {
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
     private(set) var onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
