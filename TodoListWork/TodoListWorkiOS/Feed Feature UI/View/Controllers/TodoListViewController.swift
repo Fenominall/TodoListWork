@@ -16,6 +16,7 @@ public final class TodoListViewController: UIViewController {
         }
     }
     public var onRefresh: (() -> Void)?
+    public var addNewTodo: (() -> Void)?
     
     // MARK: - View Properties
     let footerView = TodoListFooterView()
@@ -210,7 +211,7 @@ extension TodoListViewController: UISearchControllerDelegate {
 // MARK: - TodoListFooterViewDelegate
 extension TodoListViewController: TodoListFooterViewDelegate {
     func didTapAddNewTaskButton() {
-        // TODO
+        addNewTodo?()
     }
 }
 
