@@ -24,6 +24,7 @@ final class TodoFeedLoaderWithFallbackComposite: TodoItemsFeedLoader {
             case .success:
                 completion(result)
             case .failure:
+                print("FAIL LOADING")
                 self?.fallback.loadFeed(completion: completion)
             }
         }

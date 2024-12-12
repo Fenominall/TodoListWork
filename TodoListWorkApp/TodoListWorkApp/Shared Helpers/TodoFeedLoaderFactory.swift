@@ -40,10 +40,15 @@ final class TodoFeedLoaderFactory {
 
     /// Facade method to create the appropriate loader
     func makeFeedLoader() -> TodoItemsFeedLoader {
+        let remoteLoader = makeRemoteFeedLoader()
+        let localLoader = makeLocalFeedLoader()
+        
         if firstFeedLaunchManager.isFirstLaunch() {
-            return makeLocalFeedLoader()
+            return TodoFeedLoaderWithFallbackComposite(
+                primary: makeCacheDecorator(decoratee: remoteLoader),
+                fallback: localLoader)
         } else {
-            return makeCacheDecorator(decoratee: makeRemoteFeedLoader())
+            return localLoader
         }
     }
 }
