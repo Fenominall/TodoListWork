@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-public final class TodoItemCellController {
+public final class TodoItemCellController: NSObject {
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
-    private(set) var selection: () -> Void
-    private(set) var deletion: () -> Void
-    private(set) var onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
+    private let selection: () -> Void
+    private let deletion: () -> Void
+    private let onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
     
     public init(
         viewModel: TodoItemFeedViewModel,
@@ -26,21 +26,34 @@ public final class TodoItemCellController {
         self.deletion = deletion
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
+}
+
+extension TodoItemCellController: UITableViewDataSource, UITableViewDelegate {
     
-    public func view() -> UITableViewCell {
-        if cell == nil {
-            cell = binded(TodoItemTableViewCell())
-        }
-        
-        return cell ?? UITableViewCell()
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
     
-    private func binded(_ cell: TodoItemTableViewCell) -> TodoItemTableViewCell {
-        cell.configure(with: viewModel) { [weak self] isCompleted in
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cell = tableView.dequeueReusableCell()
+        cell?.configure(with: viewModel) { [weak self] isCompleted in
             guard let strongSelf = self else { return }
             strongSelf.viewModel.isCompleted = isCompleted
             strongSelf.onCompletedStatusToggle(strongSelf.viewModel)
         }
-        return cell
+        return cell ?? UITableViewCell()
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selection()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        releaseCellForReuse()
+    }
+        
+    private func releaseCellForReuse() {
+        cell = nil
     }
 }
