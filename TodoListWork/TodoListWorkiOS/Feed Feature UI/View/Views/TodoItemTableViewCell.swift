@@ -144,10 +144,10 @@ class TodoItemTableViewCell: UITableViewCell {
             descriptionAndDatelabelsStackView.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
             
             divider.topAnchor.constraint(equalTo: descriptionAndDatelabelsStackView.bottomAnchor, constant: 12),
-            divider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            divider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            divider.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            divider.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             divider.heightAnchor.constraint(equalToConstant: 1),
-            divider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            divider.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
     }
     
@@ -185,8 +185,12 @@ class TodoItemTableViewCell: UITableViewCell {
 }
 
 // MARK: - Cell Configuration
-extension TodoItemTableViewCell: ConfigureableCell {
-    func configure(with data: TodoItemFeedViewModel) {
+extension TodoItemTableViewCell {
+    func configure(
+        with data: TodoItemFeedViewModel,
+        checkmarkTappedHandler: @escaping (Bool) -> Void
+    ) {
+        self.checkmarkTappedHandler = checkmarkTappedHandler
         taskTitleLabel.text = data.title
         taskDescriptionLabel.text = data.description
         taskDateLabel.text = dateConvertedToDMYString(date: data.createdAt)
