@@ -40,10 +40,8 @@ final class TodoFeedUIComposer {
         
         let presenter = TodoItemsFeedPresenter(
             view: viewAdapter,
-            // Need to be weak TODO
-            errorView: view,
-            // Need to be weak TODO
-            loadingView: view,
+            errorView: WeakRefVirtualproxy(view),
+            loadingView: WeakRefVirtualproxy(view),
             interactor: interactor,
             router: router
         )
