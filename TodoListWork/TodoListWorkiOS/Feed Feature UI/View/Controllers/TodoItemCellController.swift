@@ -14,12 +14,15 @@ public final class TodoItemCellController {
     private let cellConfigurator: TodoItemCellConfigurator
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
+    private let selection: () -> Void
     private(set) var onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
     
     public init(viewModel: TodoItemFeedViewModel,
+                selection: @escaping () -> Void,
                 onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void) {
         self.cellConfigurator = TableCellConfigurator(item: viewModel)
         self.viewModel = viewModel
+        self.selection = selection
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
     
