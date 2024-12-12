@@ -12,6 +12,7 @@ import TodoListWorkiOS
 final class TodoFeedViewAdapter: TodoItemsFeedView {
     private weak var cotroller: TodoListViewController?
     private let selection: (TodoItem) -> UIViewController
+    private var onDelete: ((TodoItem) -> Void)?
     
     init(
         cotroller: TodoListViewController,
@@ -21,6 +22,10 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
         self.selection = selection
     }
     
+    func setOnDeleteHandler(_ handler: @escaping (TodoItem) -> Void) {
+        self.onDelete = handler
+    }
+    
     func displayTasks(_ viewModel: [TodoListWork.TodoItem]) {
         cotroller?.tableModel = viewModel.map { model in
             TodoItemCellController(
@@ -28,6 +33,10 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
                 selection: { [weak self] in
                     guard let self = self else { return }
                     _ = self.selection(model)
+                },
+                deletion: {[weak self] in
+                    guard let self = self else { return }
+                    self.onDelete?(model)
                 },
                 onCompletedStatusToggle: { _ in }
             )

@@ -11,17 +11,21 @@ import UIKit
 public final class TodoItemCellController {
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
-    private let selection: () -> Void
+    private(set) var selection: () -> Void
+    private(set) var deletion: () -> Void
     private(set) var onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
     
-    public init(viewModel: TodoItemFeedViewModel,
-                selection: @escaping () -> Void,
-                onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void) {
+    public init(
+        viewModel: TodoItemFeedViewModel,
+        selection: @escaping () -> Void,
+        deletion: @escaping () -> Void,
+        onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void
+    ) {
         self.viewModel = viewModel
         self.selection = selection
+        self.deletion = deletion
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
-    
     
     public func view() -> UITableViewCell {
         if cell == nil {

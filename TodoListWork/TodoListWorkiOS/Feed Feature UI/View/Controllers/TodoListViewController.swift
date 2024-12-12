@@ -129,6 +129,8 @@ extension TodoListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension TodoListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let todoItem = cellController(for: indexPath)
+        todoItem.selection()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
