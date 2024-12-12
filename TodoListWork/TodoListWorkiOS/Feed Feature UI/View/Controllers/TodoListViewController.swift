@@ -96,7 +96,7 @@ extension TodoListViewController {
 // MARK: - UITableViewDataSource
 extension TodoListViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return tableModel.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
