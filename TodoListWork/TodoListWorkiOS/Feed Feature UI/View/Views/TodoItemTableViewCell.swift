@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoTaskTableViewCell: UITableViewCell {
+class TodoItemTableViewCell: UITableViewCell {
     var checkmarkTappedHandler: ((Bool) -> Void)?
     
     private var isTaskCompleted: Bool = false {

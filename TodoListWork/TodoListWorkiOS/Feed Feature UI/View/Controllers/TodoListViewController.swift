@@ -37,7 +37,7 @@ public final class TodoListViewController: UIViewController {
         configureSearchController()
         setupTodoTaskMenu()
         
-        todoosTableView.register(TodoTaskTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
+        todoosTableView.register(TodoItemTableViewCell.self, forCellReuseIdentifier: "TodoTaskTableViewCell")
     }
         
     private func setupTodoTaskMenu() {
@@ -106,7 +106,7 @@ extension TodoListViewController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? TodoTaskTableViewCell else {
+        guard let cell = tableView.cellForRow(at: indexPath) as? TodoItemTableViewCell else {
             return nil
         }
         
@@ -122,7 +122,7 @@ extension TodoListViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
         guard let indexPath = configuration.identifier as? IndexPath,
-              let cell = tableView.cellForRow(at: indexPath) as? TodoTaskTableViewCell else {
+              let cell = tableView.cellForRow(at: indexPath) as? TodoItemTableViewCell else {
             return
         }
         
