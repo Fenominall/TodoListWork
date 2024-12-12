@@ -35,7 +35,6 @@ final class TodoListFooterView: UIView {
         label.font = .systemFont(ofSize: 13)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.text = "7 Задач"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -81,6 +80,16 @@ final class TodoListFooterView: UIView {
     
     @objc private func addNewNoteButtonTapped() {
         delegate?.didTapAddNewTaskButton()
+    }
+    
+    func updateCountLabel(with itemCount: Int) {
+        if itemCount == 0 {
+            itemsCountLabel.isHidden = true
+        } else {
+            itemsCountLabel.isHidden = false
+            let itemText = itemCount == 1 ? "Задача" : "Задач"
+            itemsCountLabel.text = "\(itemCount) \(itemText)"
+        }
     }
     
     // MARK: - Setup Methods

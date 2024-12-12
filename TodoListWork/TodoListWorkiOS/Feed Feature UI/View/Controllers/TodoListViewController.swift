@@ -12,6 +12,7 @@ public final class TodoListViewController: UIViewController {
     public var tableModel = [TodoItemCellController]() {
         didSet {
             todoosTableView.reloadData()
+            updateCountDisplay()
         }
     }
     public var onRefresh: (() -> Void)?
@@ -60,6 +61,9 @@ public final class TodoListViewController: UIViewController {
 
 // MARK: - Helpers
 extension TodoListViewController {
+    private func updateCountDisplay() {
+        footerView.updateCountLabel(with: tableModel.count)
+    }
     private func setupUI() {
         title = "Задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
