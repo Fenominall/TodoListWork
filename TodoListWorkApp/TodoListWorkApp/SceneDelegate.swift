@@ -63,6 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         navigationController.viewControllers = [todoFeedVCComposer]
         window?.rootViewController = navigationController
+        window?.overrideUserInterfaceStyle = .dark // Force dark mode
         window?.makeKeyAndVisible()
     }
     
