@@ -11,6 +11,11 @@ public final class TodoListViewController: UIViewController {
     // MARK: - Properties
     
     // MARK: - View Properties
+    public var tableModel = [TodoItemCellController]() {
+        didSet {
+            todoosTableView.reloadData()
+        }
+    }
     let footerView = TodoListFooterView()
     private var taskActionsMenu = UIMenu()
     
