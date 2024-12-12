@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+final class TodoItemCellController {
+    private var cell: TodoItemTableViewCell?
+    
+}
