@@ -224,6 +224,6 @@ extension TodoListViewController: TodoItemsErrorView {
 // MARK: - TodoItemsLoadingView
 extension TodoListViewController: TodoItemsLoadingView {
     public func display(_ viewModel: TodoItemsLoadingViewModel) {
-        // TODO
+        refreshControll.update(isRefreshing: viewModel.isLoading)
     }
 }
