@@ -13,7 +13,7 @@ public final class TodoItemsFeedRouter: TodoItemsFeedRouterNavigator {
     private let todoDetailComposer: (TodoItem) -> UIViewController
     private let addTodoComposer: () -> UIViewController
     
-    init(
+    public init(
         navigationController: UINavigationController,
         todoDetailComposer: @escaping (TodoItem) -> UIViewController,
         addTodoComposer: @escaping () -> UIViewController
