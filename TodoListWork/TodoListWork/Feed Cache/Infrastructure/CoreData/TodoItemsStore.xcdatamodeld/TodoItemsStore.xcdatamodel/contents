@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="24B91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ManagedCache" representedClassName="ManagedCache" syncable="YES">
+    <entity name="ManagedCache" representedClassName="TodoListWork.ManagedCache" syncable="YES">
         <relationship name="feed" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ManagedTodoItem" inverseName="cache" inverseEntity="ManagedTodoItem"/>
     </entity>
-    <entity name="ManagedTodoItem" representedClassName="ManagedTodoItem" syncable="YES">
+    <entity name="ManagedTodoItem" representedClassName="TodoListWork.ManagedTodoItem" syncable="YES">
         <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="descriptionText" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <attribute name="userId" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="userId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="cache" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedCache" inverseName="feed" inverseEntity="ManagedCache"/>
     </entity>
 </model>
