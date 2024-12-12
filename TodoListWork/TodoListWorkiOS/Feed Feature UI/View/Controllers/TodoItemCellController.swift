@@ -28,9 +28,9 @@ final class TodoItemCellController {
     
     private func binded(_ cell: TodoItemTableViewCell) -> TodoItemTableViewCell {
         cell.configure(
-            taskTitle: viewModel.title,
-            taskDescription: viewModel.description ?? "",
-            taskDate: dateConvertedToDMYString(date: viewModel.createdAt),
+            todoTitle: viewModel.title,
+            todokDescription: viewModel.description ?? "",
+            todokDate: dateConvertedToDMYString(date: viewModel.createdAt),
             isCompleted: viewModel.completed
         )
         return cell

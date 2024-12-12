@@ -135,10 +135,10 @@ class TodoItemTableViewCell: UITableViewCell {
         checkmarkButton.setImage(imageName, for: .normal)
     }
     
-    func configure(taskTitle: String, taskDescription: String, taskDate: String, isCompleted: Bool) {
-        taskTitleLabel.text = taskTitle
-        taskDescriptionLabel.text = taskDescription
-        taskDateLabel.text = taskDate
+    func configure(todoTitle: String, todokDescription: String, todokDate: String, isCompleted: Bool) {
+        taskTitleLabel.text = todoTitle
+        taskDescriptionLabel.text = todokDescription
+        taskDateLabel.text = todokDate
     }
     
     private func applyTextAttributes(for completed: Bool) -> [NSAttributedString.Key: Any] {
