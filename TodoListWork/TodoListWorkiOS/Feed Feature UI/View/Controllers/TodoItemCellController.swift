@@ -9,9 +9,6 @@ import Foundation
 import UIKit
 
 public final class TodoItemCellController {
-    private typealias TodoItemCellConfigurator = TableCellConfigurator<TodoItemTableViewCell, TodoItemFeedViewModel>
-    
-    private let cellConfigurator: TodoItemCellConfigurator
     private(set) var viewModel: TodoItemFeedViewModel
     private var cell: TodoItemTableViewCell?
     private let selection: () -> Void
@@ -20,32 +17,26 @@ public final class TodoItemCellController {
     public init(viewModel: TodoItemFeedViewModel,
                 selection: @escaping () -> Void,
                 onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void) {
-        self.cellConfigurator = TableCellConfigurator(item: viewModel)
         self.viewModel = viewModel
         self.selection = selection
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
     
-    func registerCell(in tableView: UITableView) {
-        cellConfigurator.register(tableView)
+    
+    public func view() -> UITableViewCell {
+        if cell == nil {
+            cell = binded(TodoItemTableViewCell())
+        }
+        
+        return cell ?? UITableViewCell()
     }
     
-    func configureCell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: TableCellConfigurator<TodoItemTableViewCell, TodoItemFeedViewModel>.reuseIdentifier,
-            for: indexPath
-        ) as? TodoItemTableViewCell else {
-            return UITableViewCell()
+    private func binded(_ cell: TodoItemTableViewCell) -> TodoItemTableViewCell {
+        cell.configure(with: viewModel) { [weak self] isCompleted in
+            guard let strongSelf = self else { return }
+            strongSelf.viewModel.isCompleted = isCompleted
+            strongSelf.onCompletedStatusToggle(strongSelf.viewModel)
         }
-        cellConfigurator.configure(cell: cell)
-        
-        // Additional Configuration
-        cell.checkmarkTappedHandler = { [weak self] isCompleted in
-            guard let self = self else { return }
-            self.viewModel.isCompleted = isCompleted
-            self.onCompletedStatusToggle(self.viewModel)
-        }
-        
         return cell
     }
 }
