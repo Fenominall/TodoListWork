@@ -43,14 +43,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        configureWindow()
         modifyUINavigationBarAppearence()
+        configureWindow()
     }
     
     private func configureWindow() {
-        let viewController = TodoListViewController()
+        let todoFeedVCComposer = TodoFeedUIComposer
+            .todoFeedComposedWith(
+                feedLoader: feedLoaderFactory.makeFeedLoader(),
+                todoSaver: feedLoaderFactory.makeLocalFeedLoader(),
+                todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
+                navigationController: navigationController) { _ in
+                    // Todo
+                    UIViewController()
+                } addnewTodo: {
+                    UIViewController()
+                }
+
         
-        navigationController.viewControllers = [viewController]
+        navigationController.viewControllers = [todoFeedVCComposer]
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
