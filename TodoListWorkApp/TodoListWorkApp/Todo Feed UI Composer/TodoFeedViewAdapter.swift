@@ -13,6 +13,7 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
     private weak var controller: TodoListViewController?
     private let selection: (TodoItem) -> UIViewController
     private var onDelete: ((TodoItem) -> Void)?
+    private var onUpdate: ((TodoItem) -> Void)?
     private let currentFeed: [TodoItem: CellController]
     
     init(currentFeed: [TodoItem: CellController] = [:],
@@ -26,6 +27,10 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
     
     func setOnDeleteHandler(_ handler: @escaping (TodoItem) -> Void) {
         self.onDelete = handler
+    }
+    
+    func setOnUpdateHandler(_ handler: @escaping (TodoItem) -> Void) {
+        self.onUpdate = handler
     }
     
     func displayTasks(_ viewModel: [TodoListWork.TodoItem]) {
@@ -46,7 +51,9 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
                     guard let self = self else { return }
                     self.onDelete?(model)
                 },
-                onCompletedStatusToggle: { _ in }
+                onCompletedStatusToggle: { [weak self] updatedTask in
+                    self?.onUpdate?(updatedTask.toDomainModel())
+                }
             )
             
             let controller = CellController(id: model, view)
@@ -64,6 +71,19 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
             completed: dto.completed,
             createdAt: dto.createdAt,
             userId: dto.userId
+        )
+    }
+}
+
+private extension TodoItemFeedViewModel {
+    func toDomainModel() -> TodoItem {
+        TodoItem(
+            id: id,
+            title: title,
+            description: description,
+            completed: isCompleted,
+            createdAt: createdAt,
+            userId: userId
         )
     }
 }
