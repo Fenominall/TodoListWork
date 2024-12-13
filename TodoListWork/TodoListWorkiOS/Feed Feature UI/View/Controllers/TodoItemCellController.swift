@@ -45,6 +45,7 @@ extension TodoItemCellController: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("TEST TAPPED")
         selection()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -55,5 +56,52 @@ extension TodoItemCellController: UITableViewDataSource, UITableViewDelegate {
         
     private func releaseCellForReuse() {
         cell = nil
+    }
+    
+    public func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        // Hide the checkmark button when the menu is active
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.cell?.isMenuActive = true
+        }
+        
+        return UIContextMenuConfiguration(
+            identifier: indexPath as NSIndexPath,
+            previewProvider: nil
+        ) { _ in
+            let edit = UIAction(
+                title: "Редатировать",
+                image: AppImages.squareAndPencil.image
+            ) { _ in
+                // Handle edit
+            }
+            
+            let share = UIAction(
+                title: "Поделиться",
+                image: AppImages.squareAndArrowUp.image
+            ) { _ in
+                // Handle share
+            }
+            
+            let delete = UIAction(
+                title: "Удалить",
+                image: AppImages.trash.image,
+                attributes: .destructive
+            ) { [weak self] _ in
+                self?.deletion()
+            }
+            
+            return UIMenu(title: "", children: [edit, share, delete])
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
+        
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.cell?.isMenuActive = false
+        }
     }
 }

@@ -10,15 +10,17 @@ import TodoListWork
 import TodoListWorkiOS
 
 final class TodoFeedViewAdapter: TodoItemsFeedView {
-    private weak var cotroller: TodoListViewController?
+    private weak var controller: TodoListViewController?
     private let selection: (TodoItem) -> UIViewController
     private var onDelete: ((TodoItem) -> Void)?
+    private let currentFeed: [TodoItem: CellController]
     
-    init(
-        cotroller: TodoListViewController,
+    init(currentFeed: [TodoItem: CellController] = [:],
+        controller: TodoListViewController,
         selection: @escaping (TodoItem) -> UIViewController
     ) {
-        self.cotroller = cotroller
+        self.currentFeed = currentFeed
+        self.controller = controller
         self.selection = selection
     }
     
@@ -27,8 +29,14 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
     }
     
     func displayTasks(_ viewModel: [TodoListWork.TodoItem]) {
-        cotroller?.tableModel = viewModel.map { model in
-            TodoItemCellController(
+        guard let controller = controller else { return }
+        var currentFeed = self.currentFeed
+        let feed: [CellController] = viewModel.map { model in
+            if let controller = currentFeed[model] {
+                return controller
+            }
+            
+            let view = TodoItemCellController(
                 viewModel: mapToViewModel(from: model),
                 selection: { [weak self] in
                     guard let self = self else { return }
@@ -40,7 +48,12 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
                 },
                 onCompletedStatusToggle: { _ in }
             )
+            
+            let controller = CellController(id: model, view)
+            currentFeed[model] = controller
+            return controller
         }
+        controller.display(feed)
     }
     
     private func mapToViewModel(from dto: TodoItem) -> TodoItemFeedViewModel {

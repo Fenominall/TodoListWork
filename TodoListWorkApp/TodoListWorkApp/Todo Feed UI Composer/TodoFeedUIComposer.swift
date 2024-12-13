@@ -34,7 +34,7 @@ final class TodoFeedUIComposer {
         )
         
         let viewAdapter = TodoFeedViewAdapter(
-            cotroller: view) { todo in
+            controller: view) { todo in
                 router.navigateToTodoItemDetails(for: todo)
                 return selection(todo)
             }

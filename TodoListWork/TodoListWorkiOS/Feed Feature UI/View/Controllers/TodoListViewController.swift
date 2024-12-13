@@ -9,18 +9,20 @@ import UIKit
 
 public final class TodoListViewController: UIViewController {
     // MARK: - Properties
-    public var tableModel = [TodoItemCellController]() {
-        didSet {
-            todoosTableView.reloadData()
-            updateCountDisplay()
-        }
-    }
     public var onRefresh: (() -> Void)?
     public var addNewTodo: (() -> Void)?
     
+    // # Step 1
+    // control the state to reload automatically what change, using Int for section and the models for data source
+    // The model needs to be hashable
+    private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
+        .init(tableView: todoosTableView) { (tableView, indexPath, controller) in
+            return controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
+        }
+    }()
+    
     // MARK: - View Properties
     let footerView = TodoListFooterView()
-    private var taskActionsMenu = UIMenu()
     
     private lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
@@ -50,7 +52,6 @@ public final class TodoListViewController: UIViewController {
         setDelegates()
         setupConstraints()
         configureSearchController()
-        setupTodoTaskMenu()
         refresh()
     }
     
@@ -62,9 +63,26 @@ public final class TodoListViewController: UIViewController {
 
 // MARK: - Helpers
 extension TodoListViewController {
-    private func updateCountDisplay() {
-        footerView.updateCountLabel(with: tableModel.count)
+    
+    // # Step 3
+    // every time new controllers arrive
+    // Using ... dots to support multiple sections if needed
+    public func display(_ sections: [CellController]...) {
+        // a new empty snapshot created
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CellController>()
+        // new controllers appended
+        sections.enumerated().forEach { section, cellControllers in
+            snapshot.appendSections([section])
+            snapshot.appendItems(cellControllers, toSection: section)
+        }
+        // data source will ceck what change using the hashable implementation and only updates what is necessary
+        dataSource.applySnapshotUsingReloadData(snapshot)
+        
+        // Update the footer view count label
+        let itemCount = sections.flatMap { $0 }.count
+        footerView.updateCountLabel(with: itemCount)
     }
+    
     private func setupUI() {
         title = "Задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -72,8 +90,10 @@ extension TodoListViewController {
     }
     
     private func setDelegates() {
+        dataSource.defaultRowAnimation = .fade
+        // # Step 2 - make UITableView as UITableViewDiffableDataSource
+        todoosTableView.dataSource = dataSource
         todoosTableView.delegate = self
-        todoosTableView.dataSource = self
         footerView.delegate = self
         todoosTableView.refreshControl = refreshControll
     }
@@ -98,66 +118,41 @@ extension TodoListViewController {
         view.bringSubviewToFront(footerView)
     }
     
-    private func setupTodoTaskMenu() {
-        let edit = UIAction(title: "Редатировать", image: AppImages.squareAndPencil.image) { _ in
-            
-        }
-        let share = UIAction(title: "Поделиться", image: AppImages.squareAndArrowUp.image) { _ in
-            
-        }
-        let delete = UIAction(title: "Удалить", image: AppImages.trash.image, attributes: .destructive) { _ in }
-        
-        taskActionsMenu = UIMenu(title: "", children: [edit, share, delete])
-    }
-    
-    private func cellController(for indexPath: IndexPath) -> TodoItemCellController {
-        return tableModel[indexPath.row]
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension TodoListViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableModel.count
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cellController(for: indexPath).view()
+    private func cellController(at indexPath: IndexPath) -> CellController? {
+        dataSource.itemIdentifier(for: indexPath)
     }
 }
 
 // MARK: - UITableViewDelegate
 extension TodoListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let todoItem = cellController(for: indexPath)
-        todoItem.selection()
-        tableView.deselectRow(at: indexPath, animated: true)
+        let delegate = cellController(at: indexPath)?.delegate
+        delegate?.tableView?(todoosTableView, didSelectRowAt: indexPath)
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let dl = cellController(at: indexPath)?.delegate
+        dl?.tableView?(todoosTableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let delegate = cellController(at: indexPath)?.delegate
+        delegate?.tableView?(todoosTableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? TodoItemTableViewCell else {
-            return nil
-        }
-        
-        // Hide the checkmark button when the menu is active
-        UIView.animate(withDuration: 0.2) {
-            cell.isMenuActive = true
-        }
-        
-        return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
-            self.taskActionsMenu
-        }
+        let delegate = cellController(at: indexPath)?.delegate
+        return delegate?.tableView?(todoosTableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
     
     public func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
-        guard let indexPath = configuration.identifier as? IndexPath,
-              let cell = tableView.cellForRow(at: indexPath) as? TodoItemTableViewCell else {
+        guard let indexPath = configuration.identifier as? IndexPath else {
             return
         }
         
-        UIView.animate(withDuration: 0.2) {
-            cell.isMenuActive = false
-        }
+        // Retrieve the delegate for the cell controller
+        let delegate = cellController(at: indexPath)?.delegate
+        delegate?.tableView?(todoosTableView, willEndContextMenuInteraction: configuration, animator: animator)
     }
 }
 
