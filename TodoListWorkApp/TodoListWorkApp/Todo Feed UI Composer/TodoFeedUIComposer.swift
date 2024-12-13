@@ -47,6 +47,11 @@ final class TodoFeedUIComposer {
             router: router
         )
         
+        viewAdapter.setOnDeleteHandler { [weak presenter] item in
+            presenter?.didRequestTodoItemDeletion(item)
+            view.onRefresh?()
+        }
+        
         view.onRefresh = presenter.viewDidLoad
         interactor.loadingPresenter = presenter
         interactor.processingPresenter = presenter
