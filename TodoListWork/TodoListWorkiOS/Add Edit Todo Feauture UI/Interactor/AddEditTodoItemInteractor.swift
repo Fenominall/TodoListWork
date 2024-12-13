@@ -14,17 +14,23 @@ public protocol AddEditTodoItemInteractorInput {
 }
 
 public final class AddEditTodoItemInteractor: AddEditTodoItemInteractorInput {
-    public let todoSaver: TodoItemSaver
+    public weak var presenter: AddEditTodoItemInteractorOutput?
+    private let todoSaver: TodoItemSaver
     
     init(todoSaver: TodoItemSaver) {
         self.todoSaver = todoSaver
     }
     
     public func save(_ item: TodoListWork.TodoItem) {
-        
+        todoSaver.save(item) { _ in
+            // TODO
+        }
     }
     
     public func update(_ item: TodoListWork.TodoItem) {
-        
+        todoSaver.update(item) { _ in
+            // TODO
+        }
     }
 }
+
