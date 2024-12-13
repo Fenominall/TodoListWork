@@ -10,8 +10,13 @@ import TodoListWork
 
 public final class AddEditTodoItemPresenter {
     private let interactor: AddEditTodoItemInteractorInput
+    private let router: AddEditTodoRouter
 
-    init(interactor: AddEditTodoItemInteractorInput) {
+    public init(
+        interactor: AddEditTodoItemInteractorInput,
+        router: AddEditTodoRouter
+    ) {
         self.interactor = interactor
+        self.router = router
     }
 }
