@@ -195,5 +195,8 @@ extension TodoItemTableViewCell {
         taskDescriptionLabel.text = data.description
         taskDateLabel.text = dateConvertedToDMYString(date: data.createdAt)
         isTaskCompleted = data.isCompleted
+        
+        updateCheckmarkState()
+        updateTodoTitleText()
     }
 }
