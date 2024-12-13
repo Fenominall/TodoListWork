@@ -28,7 +28,8 @@ public final class TodoItemCellController: NSObject {
     }
 }
 
-extension TodoItemCellController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - UITableViewDataSource
+extension TodoItemCellController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
@@ -43,9 +44,11 @@ extension TodoItemCellController: UITableViewDataSource, UITableViewDelegate {
         }
         return cell ?? UITableViewCell()
     }
-    
+}
+
+// MARK: - UITableViewDelegate
+extension TodoItemCellController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("TEST TAPPED")
         selection()
         tableView.deselectRow(at: indexPath, animated: true)
     }
