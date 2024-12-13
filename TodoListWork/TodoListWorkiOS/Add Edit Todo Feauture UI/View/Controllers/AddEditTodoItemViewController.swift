@@ -8,6 +8,7 @@
 import UIKit
 
 public final class AddEditTodoItemViewController: UIViewController {
+    private let viewModel: AddEditTodoItemViewModel
     
     // MARK: - UI Elements
     private lazy var containerView: UIView = {
@@ -32,7 +33,6 @@ public final class AddEditTodoItemViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
-        label.text = "Date"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,7 +61,16 @@ public final class AddEditTodoItemViewController: UIViewController {
         super.viewDidAppear(animated)
         makeFirstResponder()
     }
-        
+    
+    public init(viewModel: AddEditTodoItemViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Helpers
     private func setupUI() {
         view.backgroundColor = .systemBackground
@@ -94,6 +103,20 @@ public final class AddEditTodoItemViewController: UIViewController {
             contentTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             contentTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
+    }
+    
+    private func configureTodo() {
+        if viewModel.isEditing {
+            configureExistingTodo()
+        } else {
+            dateLabel.text = dateConvertedToDMYString(date: Date())
+        }
+    }
+    
+    private func configureExistingTodo() {
+        titleTextField.text = viewModel.todoTitle
+        dateLabel.text = viewModel.dateCreated
+        contentTextView.text = viewModel.todoDescription
     }
 }
 
