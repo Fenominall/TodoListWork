@@ -32,6 +32,4 @@ public final class TodoItemsFeedRouter: TodoItemsFeedRouterNavigator {
         let addTodoVC = addTodoComposer()
         navigationController.pushViewController(addTodoVC, animated: true)
     }
-    
-    
 }

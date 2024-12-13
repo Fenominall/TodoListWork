@@ -57,6 +57,7 @@ final class TodoFeedUIComposer {
             view.onRefresh?()
         }
         
+        view.addNewTodo = presenter.navigateToAddTodoItem
         view.onRefresh = presenter.viewDidLoad
         interactor.loadingPresenter = presenter
         interactor.processingPresenter = presenter

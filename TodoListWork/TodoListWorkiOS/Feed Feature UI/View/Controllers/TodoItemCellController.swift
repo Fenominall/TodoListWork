@@ -86,7 +86,7 @@ extension TodoItemCellController: UITableViewDelegate {
                 title: "Поделиться",
                 image: AppImages.squareAndArrowUp.image
             ) { _ in
-                // Handle share
+                // TODO
             }
             
             let delete = UIAction(
