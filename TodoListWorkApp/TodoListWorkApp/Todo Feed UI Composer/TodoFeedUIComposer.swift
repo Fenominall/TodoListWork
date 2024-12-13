@@ -52,6 +52,11 @@ final class TodoFeedUIComposer {
             view.onRefresh?()
         }
         
+        viewAdapter.setOnUpdateHandler { [weak presenter] item in
+            presenter?.didRequestTodoItemUpdate(item)
+            view.onRefresh?()
+        }
+        
         view.onRefresh = presenter.viewDidLoad
         interactor.loadingPresenter = presenter
         interactor.processingPresenter = presenter
