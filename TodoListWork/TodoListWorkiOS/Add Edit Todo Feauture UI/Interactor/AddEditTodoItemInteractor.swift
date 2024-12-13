@@ -17,7 +17,7 @@ public final class AddEditTodoItemInteractor: AddEditTodoItemInteractorInput {
     public weak var presenter: AddEditTodoItemInteractorOutput?
     private let todoSaver: TodoItemSaver
     
-    init(todoSaver: TodoItemSaver) {
+    public init(todoSaver: TodoItemSaver) {
         self.todoSaver = todoSaver
     }
     
