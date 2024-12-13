@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }()
     private lazy var baseURL = URL(string: "https://dummyjson.com/todos")!
-    private let navigationController = UINavigationController()
+    private var navigationController = UINavigationController()
     
     private lazy var firstLaunchManager = FirstFeedLaunchManager()
     private lazy var feedLoaderFactory = TodoFeedLoaderFactory(
@@ -53,15 +53,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 feedLoader: feedLoaderFactory.makeFeedLoader(),
                 todoSaver: feedLoaderFactory.makeLocalFeedLoader(),
                 todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
-                navigationController: navigationController) { _ in
+                navigationController: navigationController,
+                selection: { _ in
                     // Todo
                     UIViewController()
-                } addnewTodo: {
-                    UIViewController()
-                }
+                }, addnewTodo: makeAddTodoComposer)
 
-        
         navigationController.viewControllers = [todoFeedVCComposer]
+        
         window?.rootViewController = navigationController
         window?.overrideUserInterfaceStyle = .dark // Force dark mode
         window?.makeKeyAndVisible()
@@ -71,6 +70,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Set global appearance for UINavigationBar
         let appearance = UINavigationBar.appearance()
         appearance.tintColor = .systemYellow // Sets back button and other bar item colors
+    }
+    
+    private func makeAddTodoComposer() -> UIViewController {
+        return AddTodoItemUIComposer.composedWith(
+                todoSaver: feedLoaderFactory.makeLocalFeedLoader())
     }
 }
 
