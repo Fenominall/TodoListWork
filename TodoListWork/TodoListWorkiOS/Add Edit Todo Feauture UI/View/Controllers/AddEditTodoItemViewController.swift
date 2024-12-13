@@ -37,7 +37,7 @@ public final class AddEditTodoItemViewController: UIViewController {
         return label
     }()
     
-    private lazy var contentTextView: UITextView = {
+    private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 18)
         textView.tintColor = .systemYellow
@@ -71,13 +71,20 @@ public final class AddEditTodoItemViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        if viewModel.hasChanges {
+            viewModel.saveTodo()
+        }
+    }
+    
     // MARK: - Helpers
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(containerView)
         containerView.addSubview(titleTextField)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(contentTextView)
+        containerView.addSubview(descriptionTextView)
     }
     
     private func setupConstraints() {
@@ -98,30 +105,39 @@ public final class AddEditTodoItemViewController: UIViewController {
             dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             // Content TextView
-            contentTextView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 16),
-            contentTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            contentTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            contentTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            descriptionTextView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 16),
+            descriptionTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            descriptionTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
     }
     
-    private func configureTodo() {
-        if viewModel.isEditing {
-            configureExistingTodo()
-        } else {
-            dateLabel.text = dateConvertedToDMYString(date: Date())
-        }
-    }
-    
-    private func configureExistingTodo() {
-        titleTextField.text = viewModel.todoTitle
-        dateLabel.text = viewModel.dateCreated
-        contentTextView.text = viewModel.todoDescription
+    private func setupBackButton () {
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Back",
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
+        navigationItem.leftBarButtonItem?.tintColor = .systemYellow
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension AddEditTodoItemViewController: UITextFieldDelegate {
+    // MARK: - TextField Updates
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == titleTextField {
+            viewModel.updateTitle(textField.text ?? "")
+        }
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        viewModel.updateDescription(textView.text ?? "")
+    }
+    
+    
     // Automatically focus the titleTextField
     private func makeFirstResponder() {
         titleTextField.becomeFirstResponder()
@@ -154,7 +170,7 @@ extension AddEditTodoItemViewController: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == titleTextField {
-            contentTextView.becomeFirstResponder() // Move focus to contentTextView
+            descriptionTextView.becomeFirstResponder() // Move focus to contentTextView
         }
         return true
     }

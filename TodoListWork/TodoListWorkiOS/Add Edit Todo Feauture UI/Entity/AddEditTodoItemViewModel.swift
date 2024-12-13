@@ -11,25 +11,22 @@ import TodoListWork
 public final class  AddEditTodoItemViewModel {
     // MARK: - Properties
     private var todoToEdit: TodoItem?
+    private var originalTitle: String
+    private var originalDescription: String?
+    
     public var onSaveAddTodo: ((TodoItem) -> Void)?
     public var onSaveUpdateTodo: ((TodoItem) -> Void)?
     
-    private let title: String
-    private let description: String?
-    private let createdAt: Date
-    
+    private(set) var currentTitle: String
+    private(set) var currentDescription: String?
+    // MARK: - Lifecycle
     // MARK: - Lifecycle
     public init(todoToEdit: TodoItem? = nil) {
-        if let editTodo = todoToEdit {
-            self.title = editTodo.title
-            self.description = editTodo.description
-            self.createdAt = editTodo.createdAt
-        } else {
-            self.title = ""
-            self.description = ""
-            self.createdAt = Date()
-        }
         self.todoToEdit = todoToEdit
+        self.originalTitle = todoToEdit?.title ?? ""
+        self.originalDescription = todoToEdit?.description
+        self.currentTitle = self.originalTitle
+        self.currentDescription = self.originalDescription
     }
     
     // MARK: - Helpers
@@ -37,15 +34,28 @@ public final class  AddEditTodoItemViewModel {
         todoToEdit != nil
     }
     
-    var todoTitle: String {
-        title
+    var hasChanges: Bool {
+        currentTitle != originalTitle || currentDescription != originalDescription
     }
     
-    var todoDescription: String? {
-        description
+    func updateTitle(_ title: String) {
+        self.currentTitle = title
     }
     
-    var dateCreated: String {
-        dateConvertedToDMYString(date: createdAt)
+    func updateDescription(_ description: String) {
+        self.currentDescription = description
+    }
+    
+    func saveTodo() {
+        guard hasChanges else { return }
+        let todoItem = TodoItem(
+            id: todoToEdit?.id ?? UUID(),
+            title: currentTitle,
+            description: currentDescription,
+            completed: todoToEdit?.completed ?? false,
+            createdAt: todoToEdit?.createdAt ?? Date(),
+            userId: todoToEdit?.userId ?? 5
+        )
+        isEditing ? onSaveUpdateTodo?(todoItem) : onSaveAddTodo?(todoItem)
     }
 }
