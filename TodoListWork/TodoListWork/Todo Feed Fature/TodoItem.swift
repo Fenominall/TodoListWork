@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TodoItem {
+public struct TodoItem: Hashable {
     public let id: UUID
     public let title: String
     public let description: String?
