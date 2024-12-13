@@ -79,7 +79,7 @@ extension TodoItemCellController: UITableViewDelegate {
                 title: "Редатировать",
                 image: AppImages.squareAndPencil.image
             ) { _ in
-                // Handle edit
+                self.selection()
             }
             
             let share = UIAction(
