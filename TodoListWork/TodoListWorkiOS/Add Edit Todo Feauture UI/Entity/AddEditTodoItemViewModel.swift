@@ -36,4 +36,16 @@ public final class  AddEditTodoItemViewModel {
     var isEditing: Bool {
         todoToEdit != nil
     }
+    
+    var todoTitle: String {
+        title
+    }
+    
+    var todoDescription: String? {
+        description
+    }
+    
+    var dateCreated: String {
+        dateConvertedToDMYString(date: createdAt)
+    }
 }
