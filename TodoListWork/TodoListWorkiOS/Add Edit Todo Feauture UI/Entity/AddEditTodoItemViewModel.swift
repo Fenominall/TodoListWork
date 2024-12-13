@@ -54,8 +54,15 @@ public final class  AddEditTodoItemViewModel {
             description: currentDescription,
             completed: todoToEdit?.completed ?? false,
             createdAt: todoToEdit?.createdAt ?? Date(),
-            userId: todoToEdit?.userId ?? 5
+            userId: todoToEdit?.userId ?? generateUniqueInt()
         )
         isEditing ? onSaveUpdateTodo?(todoItem) : onSaveAddTodo?(todoItem)
+    }
+    
+    // Generate a unique Int based on UUID
+    private func generateUniqueInt() -> Int {
+        let uuid = UUID().uuidString
+        let hash = uuid.hashValue
+        return abs(hash) // Ensure a positive integer
     }
 }
