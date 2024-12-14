@@ -8,8 +8,6 @@
 import UIKit
 
 public final class AddEditTodoItemViewController: UIViewController {
-    private let viewModel: AddEditTodoItemViewModel
-    
     // MARK: - UI Elements
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -61,21 +59,9 @@ public final class AddEditTodoItemViewController: UIViewController {
         super.viewDidAppear(animated)
         makeFirstResponder()
     }
-    
-    public init(viewModel: AddEditTodoItemViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+        
     // MARK: - Actions
     @objc private func backButtonTapped() {
-        if viewModel.hasChanges {
-            viewModel.saveTodo()
-        }
     }
     
     // MARK: - Helpers
@@ -130,12 +116,10 @@ extension AddEditTodoItemViewController: UITextFieldDelegate {
     // MARK: - TextField Updates
     public func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == titleTextField {
-            viewModel.updateTitle(textField.text ?? "")
         }
     }
     
     public func textViewDidEndEditing(_ textView: UITextView) {
-        viewModel.updateDescription(textView.text ?? "")
     }
     
     

@@ -14,7 +14,7 @@ final class AddTodoItemUIComposer {
     
     static func composedWith(todoSaver: TodoItemSaver) -> AddEditTodoItemViewController {
         let viewModel = AddEditTodoItemViewModel()
-        let controller = AddEditTodoItemViewController(viewModel: viewModel)
+        let controller = AddEditTodoItemViewController()
         let router = AddEditTodoNavigationRouter(controller: controller)
         
         let interactor = AddEditTodoItemInteractor(todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver))
