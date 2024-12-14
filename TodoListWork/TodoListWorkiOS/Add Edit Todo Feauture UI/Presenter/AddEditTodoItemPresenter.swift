@@ -22,13 +22,11 @@ public final class AddEditTodoItemPresenter {
 }
 
 extension AddEditTodoItemPresenter: AddEditTodoItemInteractorOutput {
-    public func didSaveTodo(_ todo: TodoListWork.TodoItem) {
-        interactor.save(todo)
+    public func didSaveTodo() {
         router.routeToTasksFeed()
     }
     
-    public func didUpdateTodo(_ todo: TodoListWork.TodoItem) {
-        interactor.update(todo)
+    public func didUpdateTodo() {
         router.routeToTasksFeed()
     }
 }

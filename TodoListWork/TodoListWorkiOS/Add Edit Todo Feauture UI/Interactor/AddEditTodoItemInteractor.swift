@@ -22,14 +22,28 @@ public final class AddEditTodoItemInteractor: AddEditTodoItemInteractorInput {
     }
     
     public func save(_ item: TodoListWork.TodoItem) {
-        todoSaver.save(item) { _ in
-            // TODO
+        todoSaver.save(item) { [weak self] result in
+            switch result {
+                
+            case .success:
+                self?.presenter?.didSaveTodo()
+            case .failure(_):
+                // TODO
+                break
+            }
         }
     }
     
     public func update(_ item: TodoListWork.TodoItem) {
-        todoSaver.update(item) { _ in
-            // TODO
+        todoSaver.update(item) { [weak self] result in
+            switch result {
+                
+            case .success:
+                self?.presenter?.didUpdateTodo()
+            case .failure(_):
+                // TODO
+                break
+            }
         }
     }
 }
