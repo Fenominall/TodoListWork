@@ -19,7 +19,12 @@ final class AddTodoItemUIComposer {
         
         let interactor = AddEditTodoItemInteractor(todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver))
         
-        let presenter = AddEditTodoItemPresenter(interactor: interactor, router: router)
+        let viewAdapter = AddEditTotoItemViewAdapter(controller: controller)
+        let presenter = AddEditTodoItemPresenter(
+            interactor: interactor,
+            router: router,
+            view: WeakRefVirtualproxy(viewAdapter)
+        )
         
         interactor.presenter = presenter
         

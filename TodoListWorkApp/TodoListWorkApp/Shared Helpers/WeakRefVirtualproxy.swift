@@ -27,3 +27,13 @@ extension WeakRefVirtualproxy: TodoItemsErrorView where T: TodoItemsErrorView {
         object?.display(viewModel)
     }
 }
+
+extension WeakRefVirtualproxy: AddEditTodoItemViewInput where T: AddEditTodoItemViewInput {
+    func updateWith(title: String, description: String?) {
+        object?.updateWith(title: title, description: description)
+    }
+    
+    func showError(_ message: String) {
+        object?.showError(message)
+    }
+}
