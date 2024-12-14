@@ -112,10 +112,11 @@ public final class AddEditTodoItemViewController: UIViewController {
         ])
     }
     
+    // Does not work TODO
     private func setupBackButton () {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Back",
+            title: "Назад",
             style: .plain,
             target: self,
             action: #selector(backButtonTapped)
