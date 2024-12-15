@@ -49,7 +49,7 @@ public final class AddEditTodoItemPresenter {
     public func loadData() {
         view.updateTodoWith(
             title: currentTitle,
-            date: dateConvertedToDMYString(date: currentDate),
+            date: currentDate,
             description: currentDescription
         )
     }

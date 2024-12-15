@@ -138,7 +138,7 @@ public final class AddEditTodoItemViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = .systemYellow
     }
     
-    public func updateUIwith(title: String, date: String, description: String?) {
+    public func updateUIwith(title: String, date: Date, description: String?) {
         titleTextField.text = title
         dateTextField.text = date
         descriptionTextView.text = description

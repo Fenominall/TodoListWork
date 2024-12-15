@@ -15,7 +15,7 @@ final class AddEditTotoItemViewAdapter: AddEditTodoItemViewInput {
         self.controller = controller
     }
     
-    func updateTodoWith(title: String, date: String, description: String?) {
+    func updateTodoWith(title: String, date: Date, description: String?) {
         controller?.updateUIwith(title: title, date: date, description: description)
     }
 }
