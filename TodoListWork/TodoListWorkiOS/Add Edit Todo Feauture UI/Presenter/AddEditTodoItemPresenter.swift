@@ -9,6 +9,7 @@ import Foundation
 import TodoListWork
 
 public final class AddEditTodoItemPresenter {
+    // MARK: - Properties
     private let interactor: AddEditTodoItemInteractorInput
     private let router: AddEditTodoRouter
     private let view: AddEditTodoItemViewInput
@@ -18,6 +19,7 @@ public final class AddEditTodoItemPresenter {
     private var currentDate: Date
     private var currentDescription: String?
 
+    // MARK: - Lifecycle
     public init(
         interactor: AddEditTodoItemInteractorInput,
         router: AddEditTodoRouter,
@@ -33,6 +35,7 @@ public final class AddEditTodoItemPresenter {
         self.currentDescription = todoToEdit?.description
     }
     
+    // MARK: - Helpers
     private var hasChanges: Bool {
         currentTitle != todoToEdit?.title ||
         currentDate != todoToEdit?.createdAt ||
