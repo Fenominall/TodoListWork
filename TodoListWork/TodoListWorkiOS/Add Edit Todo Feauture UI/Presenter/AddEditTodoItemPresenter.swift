@@ -18,7 +18,7 @@ public final class AddEditTodoItemPresenter {
     private var currentTitle: String
     private var currentDate: Date
     private var currentDescription: String?
-
+    
     // MARK: - Lifecycle
     public init(
         interactor: AddEditTodoItemInteractorInput,
@@ -38,8 +38,16 @@ public final class AddEditTodoItemPresenter {
     // MARK: - Helpers
     private var hasChanges: Bool {
         currentTitle != todoToEdit?.title ||
-        currentDate != todoToEdit?.createdAt ||
-        currentDescription != todoToEdit?.description
+        currentDescription != todoToEdit?.description ||
+        hasDateChanged
+    }
+    
+    private var hasDateChanged: Bool {
+        return todoToEdit?.createdAt != currentDate ? true : false
+    }
+    
+    private var isTitleValid: Bool {
+        !currentTitle.isEmpty
     }
     
     private var isEditing: Bool {
@@ -55,19 +63,28 @@ public final class AddEditTodoItemPresenter {
     }
     
     public func saveTodo() {
-        guard hasChanges else { return }
+        guard hasChanges else {
+            router.routeToTasksFeed()
+            return
+        }
         
+        guard isTitleValid else {
+            router.routeToTasksFeed()
+            return
+        }
+                
         let todoItem = TodoItem(
             id: todoToEdit?.id ?? UUID(),
             title: currentTitle,
             description: currentDescription,
             completed: todoToEdit?.completed ?? false,
-            createdAt: todoToEdit?.createdAt ?? Date(),
+            createdAt: currentDate,
             userId: todoToEdit?.userId ?? generateUniqueInt()
         )
+        
         isEditing ?
-        interactor.save(todoItem) :
-        interactor.update(todoItem)
+        interactor.update(todoItem) :
+        interactor.save(todoItem)
     }
     
     // Generate a unique Int based on UUID
@@ -75,6 +92,19 @@ public final class AddEditTodoItemPresenter {
         let uuid = UUID().uuidString
         let hash = uuid.hashValue
         return abs(hash) // Ensure a positive integer
+    }
+}
+
+// MARK: - AddEditTodoItemViewOutput
+extension AddEditTodoItemPresenter: AddEditTodoItemViewOutput {
+    public func updatePresenterWith(
+        _ title: String,
+        date: Date,
+        description: String?
+    ) {
+        currentTitle = title
+        currentDate = date
+        currentDescription = description
     }
 }
 

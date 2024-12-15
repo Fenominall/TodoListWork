@@ -8,7 +8,7 @@
 import UIKit
 
 public final class AddEditTodoItemViewController: UIViewController {
-    
+    public var presenter: AddEditTodoItemViewOutput?
     public var onSave: (() -> Void)?
     public var onViewDidLoad: (() -> Void)?
     
@@ -74,7 +74,7 @@ public final class AddEditTodoItemViewController: UIViewController {
         
         setupUI()
         setupConstraints()
-        setDelegates()
+        setupBackButton()
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -84,6 +84,8 @@ public final class AddEditTodoItemViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func backButtonTapped() {
+        updatePresenterData()
+        // Tiggers save in the presenter from the composition root
         onSave?()
     }
     
@@ -126,11 +128,10 @@ public final class AddEditTodoItemViewController: UIViewController {
         ])
     }
     
-    // Does not work TODO
-    private func setupBackButton () {
+    private func setupBackButton() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Назад",
+            title: "< Назад",
             style: .plain,
             target: self,
             action: #selector(backButtonTapped)
@@ -140,8 +141,22 @@ public final class AddEditTodoItemViewController: UIViewController {
     
     public func updateUIwith(title: String, date: Date, description: String?) {
         titleTextField.text = title
-        dateTextField.text = date
+        dateTextField.text = dateConvertedToDMYString(date: date)
+        datePicker.date = date
         descriptionTextView.text = description
+    }
+    
+    private func updatePresenterData() {
+        guard let title = titleTextField.text, !title.isEmpty else { return }
+        
+        let selectedDate = datePicker.date
+        let description = descriptionTextView.text
+        
+        presenter?.updatePresenterWith(
+            title,
+            date: selectedDate,
+            description: description
+        )
     }
 }
 
