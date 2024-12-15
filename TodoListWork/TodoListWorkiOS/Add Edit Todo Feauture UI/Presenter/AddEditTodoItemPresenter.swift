@@ -46,6 +46,14 @@ public final class AddEditTodoItemPresenter {
         todoToEdit != nil
     }
     
+    public func loadData() {
+        view.updateTodoWith(
+            title: currentTitle,
+            date: dateConvertedToDMYString(date: currentDate),
+            description: currentDescription
+        )
+    }
+    
     public func saveTodo() {
         guard hasChanges else { return }
         
