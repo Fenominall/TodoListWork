@@ -15,12 +15,13 @@ enum AppImages {
     case microphoneFill
     case trash
     case squareAndArrowUp
+    case chevronLeft
 }
 
 extension AppImages {
     var image: UIImage? {
         switch self {
-            case .squareAndPencil:
+        case .squareAndPencil:
             return UIImage(systemName: "square.and.pencil")
         case .circle:
             return UIImage(systemName: "circle")
@@ -32,6 +33,9 @@ extension AppImages {
             return UIImage(systemName: "trash")
         case .squareAndArrowUp:
             return UIImage(systemName: "square.and.arrow.up")
+        case .chevronLeft:
+            let imageConfig = UIImage.SymbolConfiguration(weight: .bold)
+            return UIImage(systemName: "chevron.left", withConfiguration: imageConfig)
         }
     }
 }
