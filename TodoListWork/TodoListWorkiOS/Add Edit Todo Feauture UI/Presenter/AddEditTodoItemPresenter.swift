@@ -32,6 +32,39 @@ public final class AddEditTodoItemPresenter {
         self.currentDate = todoToEdit?.createdAt ?? Date()
         self.currentDescription = todoToEdit?.description
     }
+    
+    private var hasChanges: Bool {
+        currentTitle != todoToEdit?.title ||
+        currentDate != todoToEdit?.createdAt ||
+        currentDescription != todoToEdit?.description
+    }
+    
+    private var isEditing: Bool {
+        todoToEdit != nil
+    }
+    
+    func saveTodo() {
+        guard hasChanges else { return }
+        
+        let todoItem = TodoItem(
+            id: todoToEdit?.id ?? UUID(),
+            title: currentTitle,
+            description: currentDescription,
+            completed: todoToEdit?.completed ?? false,
+            createdAt: todoToEdit?.createdAt ?? Date(),
+            userId: todoToEdit?.userId ?? generateUniqueInt()
+        )
+        isEditing ?
+        interactor.save(todoItem) :
+        interactor.update(todoItem)
+    }
+    
+    // Generate a unique Int based on UUID
+    private func generateUniqueInt() -> Int {
+        let uuid = UUID().uuidString
+        let hash = uuid.hashValue
+        return abs(hash) // Ensure a positive integer
+    }
 }
 
 // MARK: - AddEditTodoItemInteractorOutput
