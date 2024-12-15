@@ -29,8 +29,4 @@ extension AddEditTodoItemPresenter: AddEditTodoItemInteractorOutput {
     public func didSaveTodo() {
         router.routeToTasksFeed()
     }
-    
-    public func didUpdateTodo() {
-        router.routeToTasksFeed()
-    }
 }
