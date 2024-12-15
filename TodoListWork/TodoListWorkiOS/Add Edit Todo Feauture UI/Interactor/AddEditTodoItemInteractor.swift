@@ -39,7 +39,7 @@ public final class AddEditTodoItemInteractor: AddEditTodoItemInteractorInput {
             switch result {
                 
             case .success:
-                self?.presenter?.didUpdateTodo()
+                self?.presenter?.didSaveTodo()
             case .failure(_):
                 // TODO
                 break

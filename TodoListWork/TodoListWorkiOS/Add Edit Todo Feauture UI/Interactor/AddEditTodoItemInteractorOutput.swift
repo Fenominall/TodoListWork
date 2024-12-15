@@ -10,5 +10,4 @@ import TodoListWork
 
 public protocol AddEditTodoItemInteractorOutput: AnyObject {
     func didSaveTodo()
-    func didUpdateTodo()
 }
