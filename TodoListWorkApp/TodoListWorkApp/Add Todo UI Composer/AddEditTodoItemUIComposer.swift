@@ -31,8 +31,10 @@ final class AddEditTodoItemUIComposer {
             )
             
             interactor.presenter = presenter
+            
             view.onSave = presenter.saveTodo
             view.onViewDidLoad = presenter.loadData
+            view.presenter = presenter
             
             return view
         }
