@@ -55,6 +55,11 @@ public final class TodoListViewController: UIViewController {
         refresh()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
+    
     // MARK: - Actions
     @objc private func refresh() {
         onRefresh?()
