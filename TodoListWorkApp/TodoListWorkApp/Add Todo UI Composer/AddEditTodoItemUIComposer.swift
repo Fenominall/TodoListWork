@@ -15,22 +15,24 @@ final class AddEditTodoItemUIComposer {
     static func composedWith(
         todoToEdit: TodoItem?,
         todoSaver: TodoItemSaver) -> AddEditTodoItemViewController {
-        let viewModel = AddEditTodoItemViewModel()
-        let controller = AddEditTodoItemViewController()
-        let router = AddEditTodoNavigationRouter(controller: controller)
-        
-        let interactor = AddEditTodoItemInteractor(todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver))
-        
-        let viewAdapter = AddEditTotoItemViewAdapter(controller: controller)
-        let presenter = AddEditTodoItemPresenter(
-            interactor: interactor,
-            router: router,
-            view: WeakRefVirtualproxy(viewAdapter),
-            todoToEdit: todoToEdit
-        )
-        
-        interactor.presenter = presenter
-        
-        return controller
-    }
+            let view = AddEditTodoItemViewController()
+            let router = AddEditTodoNavigationRouter(controller: view)
+            
+            let interactor = AddEditTodoItemInteractor(
+                todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver)
+            )
+            
+            let viewAdapter = AddEditTotoItemViewAdapter(controller: view)
+            let presenter = AddEditTodoItemPresenter(
+                interactor: interactor,
+                router: router,
+                view: WeakRefVirtualproxy(viewAdapter),
+                todoToEdit: todoToEdit
+            )
+            
+            interactor.presenter = presenter
+            view.onSave = presenter.saveTodo
+            
+            return view
+        }
 }

@@ -8,6 +8,9 @@
 import UIKit
 
 public final class AddEditTodoItemViewController: UIViewController {
+    
+    public var onSave: (() -> Void)?
+    
     // MARK: - UI Elements
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -62,6 +65,7 @@ public final class AddEditTodoItemViewController: UIViewController {
         
     // MARK: - Actions
     @objc private func backButtonTapped() {
+        onSave?()
     }
     
     // MARK: - Helpers
