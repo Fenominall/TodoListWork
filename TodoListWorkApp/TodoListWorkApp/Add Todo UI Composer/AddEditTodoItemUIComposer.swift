@@ -26,12 +26,13 @@ final class AddEditTodoItemUIComposer {
             let presenter = AddEditTodoItemPresenter(
                 interactor: interactor,
                 router: router,
-                view: WeakRefVirtualproxy(viewAdapter),
+                view: viewAdapter,
                 todoToEdit: todoToEdit
             )
             
             interactor.presenter = presenter
             view.onSave = presenter.saveTodo
+            view.onViewDidLoad = presenter.loadData
             
             return view
         }

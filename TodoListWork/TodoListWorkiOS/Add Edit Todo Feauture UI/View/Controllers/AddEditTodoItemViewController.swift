@@ -10,6 +10,7 @@ import UIKit
 public final class AddEditTodoItemViewController: UIViewController {
     
     public var onSave: (() -> Void)?
+    public var onViewDidLoad: (() -> Void)?
     
     // MARK: - UI Elements
     private lazy var containerView: UIView = {
@@ -69,6 +70,8 @@ public final class AddEditTodoItemViewController: UIViewController {
     // MARK: - Lifecycle
     public override func viewDidLoad() {
         super.viewDidLoad()
+        onViewDidLoad?()
+        
         setupUI()
         setupConstraints()
         setDelegates()
@@ -118,7 +121,7 @@ public final class AddEditTodoItemViewController: UIViewController {
             descriptionTextView.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 16),
             descriptionTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             descriptionTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            descriptionTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),            
+            descriptionTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
     }
     
@@ -132,6 +135,12 @@ public final class AddEditTodoItemViewController: UIViewController {
             action: #selector(backButtonTapped)
         )
         navigationItem.leftBarButtonItem?.tintColor = .systemYellow
+    }
+    
+    public func updateUIwith(title: String, date: String, description: String?) {
+        titleTextField.text = title
+        dateTextField.text = date
+        descriptionTextView.text = description
     }
 }
 
