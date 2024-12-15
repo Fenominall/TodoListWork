@@ -8,7 +8,5 @@
 import Foundation
 
 public protocol AddEditTodoItemViewOutput: AnyObject {
-    func updateTitle(_ title: String)
-    func updateDate(_ date: Date)
-    func updateDescription(_ description: String?)
+    func updatePresenterWith(_ title: String, date: Date, description: String?)
 }
