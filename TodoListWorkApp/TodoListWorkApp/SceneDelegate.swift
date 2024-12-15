@@ -54,13 +54,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 todoSaver: feedLoaderFactory.makeLocalFeedLoader(),
                 todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
                 navigationController: navigationController,
-                selection: { _ in
-                    // Todo
-                    UIViewController()
-                }, addnewTodo: makeAddTodoComposer)
+                selection: makeEditTodoComposer,
+                addnewTodo: makeAddTodoComposer
+            )
 
         navigationController.viewControllers = [todoFeedVCComposer]
-        
         window?.rootViewController = navigationController
         window?.overrideUserInterfaceStyle = .dark // Force dark mode
         window?.makeKeyAndVisible()
@@ -72,9 +70,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.tintColor = .systemYellow // Sets back button and other bar item colors
     }
     
+    private func makeEditTodoComposer(for item: TodoItem?) -> UIViewController {
+        return AddEditTodoItemUIComposer.composedWith(
+            todoToEdit: item,
+            todoSaver: feedLoaderFactory.makeLocalFeedLoader())
+    }
+    
     private func makeAddTodoComposer() -> UIViewController {
-        return AddTodoItemUIComposer.composedWith(
-                todoSaver: feedLoaderFactory.makeLocalFeedLoader())
+        return AddEditTodoItemUIComposer.composedWith(
+            todoToEdit: nil,
+            todoSaver: feedLoaderFactory.makeLocalFeedLoader())
     }
 }
 

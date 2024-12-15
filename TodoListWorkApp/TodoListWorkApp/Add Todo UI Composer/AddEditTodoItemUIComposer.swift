@@ -9,10 +9,12 @@ import UIKit
 import TodoListWork
 import TodoListWorkiOS
 
-final class AddTodoItemUIComposer {
+final class AddEditTodoItemUIComposer {
     private init() {}
     
-    static func composedWith(todoSaver: TodoItemSaver) -> AddEditTodoItemViewController {
+    static func composedWith(
+        todoToEdit: TodoItem?,
+        todoSaver: TodoItemSaver) -> AddEditTodoItemViewController {
         let viewModel = AddEditTodoItemViewModel()
         let controller = AddEditTodoItemViewController()
         let router = AddEditTodoNavigationRouter(controller: controller)
@@ -23,7 +25,8 @@ final class AddTodoItemUIComposer {
         let presenter = AddEditTodoItemPresenter(
             interactor: interactor,
             router: router,
-            view: WeakRefVirtualproxy(viewAdapter)
+            view: WeakRefVirtualproxy(viewAdapter),
+            todoToEdit: todoToEdit
         )
         
         interactor.presenter = presenter
