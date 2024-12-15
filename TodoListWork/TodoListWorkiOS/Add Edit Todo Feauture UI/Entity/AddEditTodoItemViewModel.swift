@@ -30,7 +30,7 @@ public final class  AddEditTodoItemViewModel {
     }
     
     // MARK: - Helpers
-    var isEditing: Bool {
+    private var isEditing: Bool {
         todoToEdit != nil
     }
     
