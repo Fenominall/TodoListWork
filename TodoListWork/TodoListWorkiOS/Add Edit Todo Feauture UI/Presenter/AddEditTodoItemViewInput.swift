@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol AddEditTodoItemViewInput: AnyObject {
-    func updateWith(title: String, description: String?)
+    func updateTodoWith(title: String, date: String, description: String?)
 }

@@ -30,12 +30,28 @@ public final class AddEditTodoItemViewController: UIViewController {
         return textField
     }()
     
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .secondaryLabel
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var dateTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.tintColor = .systemYellow
+        textField.textColor = .secondaryLabel
+        textField.borderStyle = .none
+        textField.backgroundColor = .clear
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.inputView = datePicker
+        textField.reloadInputViews()
+        return textField
+    }()
+    
+    private lazy var datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .inline
+        picker.tintColor = .secondaryLabel
+        picker.backgroundColor = .clear
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        return picker
     }()
     
     private lazy var descriptionTextView: UITextView = {
@@ -68,12 +84,16 @@ public final class AddEditTodoItemViewController: UIViewController {
         onSave?()
     }
     
+    @objc private func datePickerChanged(_ sender: UIDatePicker) {
+        dateTextField.text = dateConvertedToDMYString(date: sender.date)
+    }
+    
     // MARK: - Helpers
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(containerView)
         containerView.addSubview(titleTextField)
-        containerView.addSubview(dateLabel)
+        containerView.addSubview(dateTextField)
         containerView.addSubview(descriptionTextView)
     }
     
@@ -90,15 +110,15 @@ public final class AddEditTodoItemViewController: UIViewController {
             titleTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             // Date Label
-            dateLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8),
-            dateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            dateTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8),
+            dateTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            dateTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             // Content TextView
-            descriptionTextView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 16),
+            descriptionTextView.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 16),
             descriptionTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             descriptionTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            descriptionTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            descriptionTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),            
         ])
     }
     

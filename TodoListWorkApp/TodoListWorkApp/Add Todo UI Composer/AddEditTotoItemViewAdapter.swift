@@ -9,17 +9,13 @@ import Foundation
 import TodoListWorkiOS
 
 final class AddEditTotoItemViewAdapter: AddEditTodoItemViewInput {
+    func updateTodoWith(title: String, date: String, description: String?) {
+        
+    }
+    
     private weak var controller: AddEditTodoItemViewController?
     
     init(controller: AddEditTodoItemViewController) {
         self.controller = controller
-    }
-    
-    func updateWith(title: String, description: String?) {
-        
-    }
-    
-    func showError(_ message: String) {
-        
     }
 }
