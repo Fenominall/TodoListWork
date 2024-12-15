@@ -43,7 +43,7 @@ public final class AddEditTodoItemPresenter {
         todoToEdit != nil
     }
     
-    func saveTodo() {
+    public func saveTodo() {
         guard hasChanges else { return }
         
         let todoItem = TodoItem(
