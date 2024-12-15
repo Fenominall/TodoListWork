@@ -9,5 +9,4 @@ import Foundation
 
 public protocol AddEditTodoItemViewInput: AnyObject {
     func updateWith(title: String, description: String?)
-    func showError(_ message: String)
 }
