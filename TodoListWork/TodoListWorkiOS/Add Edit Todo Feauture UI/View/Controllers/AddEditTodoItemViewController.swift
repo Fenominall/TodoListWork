@@ -51,7 +51,7 @@ public final class AddEditTodoItemViewController: UIViewController {
         picker.tintColor = .secondaryLabel
         picker.backgroundColor = .clear
         picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         return picker
     }()
     
@@ -81,14 +81,15 @@ public final class AddEditTodoItemViewController: UIViewController {
         super.viewDidAppear(animated)
         makeFirstResponder()
     }
-        
+    
     // MARK: - Actions
     @objc private func backButtonTapped() {
         onSave?()
     }
     
-    @objc private func datePickerChanged(_ sender: UIDatePicker) {
-        dateTextField.text = dateConvertedToDMYString(date: sender.date)
+    // MARK: - Actions
+    @objc private func datePickerValueChanged() {
+        dateTextField.text = dateConvertedToDMYString(date: datePicker.date)
     }
     
     // MARK: - Helpers
@@ -146,24 +147,9 @@ public final class AddEditTodoItemViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension AddEditTodoItemViewController: UITextFieldDelegate {
-    // MARK: - TextField Updates
-    public func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == titleTextField {
-        }
-    }
-    
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        // TODO
-    }
-    
-    
     // Automatically focus the titleTextField
     private func makeFirstResponder() {
         titleTextField.becomeFirstResponder()
-    }
-    
-    private func setDelegates() {
-        titleTextField.delegate = self
     }
     
     //    # Function to return false if the input in UITextFiled is " " or "    ".
@@ -194,4 +180,3 @@ extension AddEditTodoItemViewController: UITextFieldDelegate {
         return true
     }
 }
-
