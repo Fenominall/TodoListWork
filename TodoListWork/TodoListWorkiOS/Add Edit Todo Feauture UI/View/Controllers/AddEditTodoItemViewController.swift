@@ -8,6 +8,7 @@
 import UIKit
 
 public final class AddEditTodoItemViewController: UIViewController {
+    private let backButtonProvider = BackButtonProvider()
     public var presenter: AddEditTodoItemViewOutput?
     public var onSave: (() -> Void)?
     public var onViewDidLoad: (() -> Void)?
@@ -130,15 +131,22 @@ public final class AddEditTodoItemViewController: UIViewController {
     
     private func setupBackButton() {
         navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "< Назад",
-            style: .plain,
-            target: self,
-            action: #selector(backButtonTapped)
-        )
-        navigationItem.leftBarButtonItem?.tintColor = .systemYellow
+        
+        let backButton = backButtonProvider
+            .createCutomUIBarButtonItemWith(
+                title: "Назад",
+                image: AppImages.chevronLeft.image,
+                color: .systemYellow,
+                target: self,
+                action: #selector(backButtonTapped)
+            )
+        
+        navigationItem.leftBarButtonItem = backButton
     }
-    
+}
+
+// MARK: - Updating UI Helpers
+extension AddEditTodoItemViewController {
     public func updateUIwith(title: String, date: Date, description: String?) {
         titleTextField.text = title
         dateTextField.text = dateConvertedToDMYString(date: date)
