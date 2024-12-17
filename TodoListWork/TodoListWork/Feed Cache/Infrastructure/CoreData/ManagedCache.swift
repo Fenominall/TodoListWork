@@ -72,8 +72,8 @@ extension ManagedCache {
         let existingTaskIDs = try ManagedTodoItem.fetchExistingTodoIDs(in: context)
         
         // Filter new tasks (skip existing tasks)
-        let newTasks = tasks.filter { task in
-            !existingTaskIDs.contains(task.id)
+        let newTasks = tasks.filter {
+            !existingTaskIDs.contains($0.id)
         }
         
         // Insert only new tasks into the cache
