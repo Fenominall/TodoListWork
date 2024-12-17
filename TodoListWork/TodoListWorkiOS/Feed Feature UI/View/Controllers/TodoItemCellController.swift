@@ -13,17 +13,20 @@ public final class TodoItemCellController: NSObject {
     private var cell: TodoItemTableViewCell?
     private let selection: () -> Void
     private let deletion: () -> Void
+    private let share: () -> Void
     private let onCompletedStatusToggle: (TodoItemFeedViewModel) -> Void
     
     public init(
         viewModel: TodoItemFeedViewModel,
         selection: @escaping () -> Void,
         deletion: @escaping () -> Void,
+        share: @escaping () -> Void,
         onCompletedStatusToggle: @escaping (TodoItemFeedViewModel) -> Void
     ) {
         self.viewModel = viewModel
         self.selection = selection
         self.deletion = deletion
+        self.share = share
         self.onCompletedStatusToggle = onCompletedStatusToggle
     }
 }
@@ -79,15 +82,15 @@ extension TodoItemCellController: UITableViewDelegate {
             let edit = UIAction(
                 title: "Редатировать",
                 image: AppImages.squareAndPencil.image
-            ) { _ in
-                self.selection()
+            ) { [weak self] _ in
+                self?.selection()
             }
             
             let share = UIAction(
                 title: "Поделиться",
                 image: AppImages.squareAndArrowUp.image
-            ) { _ in
-                // TODO
+            ) { [weak self] _ in
+                self?.share()
             }
             
             let delete = UIAction(

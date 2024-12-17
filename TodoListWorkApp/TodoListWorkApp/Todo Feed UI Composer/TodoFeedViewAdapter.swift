@@ -14,6 +14,7 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
     private let selection: (TodoItem) -> UIViewController
     private var onDelete: ((TodoItem) -> Void)?
     private var onUpdate: ((TodoItem) -> Void)?
+    private var onShare: ((TodoItem) -> Void)?
     private let currentFeed: [TodoItem: CellController]
     
     init(currentFeed: [TodoItem: CellController] = [:],
@@ -50,6 +51,10 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
                 deletion: {[weak self] in
                     guard let self = self else { return }
                     self.onDelete?(model)
+                },
+                share: { [weak self] in
+                    guard let self = self else { return }
+                    self.onShare?(model)
                 },
                 onCompletedStatusToggle: { [weak self] updatedTask in
                     self?.onUpdate?(updatedTask.toDomainModel())
