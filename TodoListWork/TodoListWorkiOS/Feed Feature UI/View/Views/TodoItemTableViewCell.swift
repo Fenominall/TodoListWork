@@ -8,7 +8,6 @@
 import UIKit
 
 class TodoItemTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "TodoItemTableViewCell"
     var checkmarkTappedHandler: ((Bool) -> Void)?
     
     private var isTaskCompleted: Bool = false {

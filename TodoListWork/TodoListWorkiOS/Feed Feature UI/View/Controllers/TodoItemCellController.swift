@@ -36,6 +36,7 @@ extension TodoItemCellController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.registerCell(TodoItemTableViewCell.self)
         cell = tableView.dequeueReusableCell()
         cell?.configure(with: viewModel) { [weak self] isCompleted in
             guard let strongSelf = self else { return }

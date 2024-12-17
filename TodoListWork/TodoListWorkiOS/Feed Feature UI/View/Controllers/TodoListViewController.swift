@@ -40,7 +40,6 @@ public final class TodoListViewController: UIViewController {
         tableView.backgroundColor = .systemBackground
         tableView.separatorStyle = .none
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        tableView.register(TodoItemTableViewCell.self, forCellReuseIdentifier: TodoItemTableViewCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
