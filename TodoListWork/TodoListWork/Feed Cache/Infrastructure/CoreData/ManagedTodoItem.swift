@@ -115,28 +115,37 @@ extension ManagedTodoItem {
         _ task: LocalTodoItem,
         in context: NSManagedObjectContext
     ) throws {
-        // Ensure the cache exists before proceeding
-        guard let cache = try ManagedCache.find(in: context) else {
-            throw CoreDataFeedStoreError.missingManagedObjectContext
-        }
-        
         // Find the task to delete
         guard let managedTodo = try ManagedTodoItem.first(with: task, in: context) else {
             throw CoreDataFeedStoreError.todokNotFound
         }
         
-        // Remove the task from the cache feed
-        if let mutableCache = cache.feed.mutableCopy() as? NSMutableOrderedSet {
-            mutableCache.remove(managedTodo)
-            cache.feed = mutableCache as NSOrderedSet
-        } else {
-            throw CoreDataFeedStoreError.unableToCreateMutableCopy
-        }
+        // Attempt to update the cache and remove the task
+        try removeTaskFromCache(managedTodo, in: context)
         
         // Delete the task from Core Data context
         context.delete(managedTodo)
         
         // Save the context
         try context.save()
+    }
+    
+    private static func removeTaskFromCache(
+        _ task: ManagedTodoItem,
+        in context: NSManagedObjectContext
+    ) throws {
+        guard let cache = try ManagedCache.find(in: context) else {
+            throw CoreDataFeedStoreError.missingManagedObjectContext
+        }
+        
+        guard let mutableFeed = cache.feed.mutableCopy() as? NSMutableOrderedSet else {
+            throw CoreDataFeedStoreError.unableToCreateMutableCopy
+        }
+        
+        // Remove the task
+        mutableFeed.remove(task)
+        
+        // Update the feed
+        cache.feed = mutableFeed.copy() as? NSOrderedSet ?? NSOrderedSet()
     }
 }
