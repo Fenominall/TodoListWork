@@ -27,13 +27,18 @@ public final class TodoFeedItemsMapper {
         var item: TodoItem {
             
             return TodoItem(
-                id: UUID(uuidString: String(id)) ?? UUID(),
+                id: uuidFromID(id),
                 title: todo,
                 description: nil,
                 completed: completed,
                 createdAt: Date(),
                 userId: userId
             )
+        }
+        
+        private func uuidFromID(_ id: Int) -> UUID {
+            let uuidString = String(format: "%08x-0000-0000-0000-000000000000", id)
+            return UUID(uuidString: uuidString) ?? UUID()
         }
     }
     
