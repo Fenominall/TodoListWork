@@ -45,22 +45,26 @@ extension ManagedCache {
         in context: NSManagedObjectContext
     ) throws {
         let managedCache = try ManagedCache.fetchOrCreateCache(in: context)
-
-        // Copy existing tasks from the feed
-        let existingTasks = feed.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
-
-        // Create new managed tasks and associate them with the cache
-        let newTasks = ManagedTodoItem.createManagedTodoitem(from: tasks, in: context, cache: managedCache)
         
-        // Add new tasks to the existing cache
-        existingTasks.addObjects(from: newTasks.array)
-
-        // Update the cache feed
-        if let updatedCache = existingTasks.copy() as? NSOrderedSet {
-            feed = updatedCache
-        } else {
-            throw CoreDataFeedStoreError.unableToCreateMutableCopy
+        // Get existing tasks to avoid duplicates
+        let existingTasks = feed.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
+        
+        // Filter and add only new tasks
+        let newTasks = ManagedTodoItem.createBatch(from: tasks, in: context, cache: managedCache)
+        addTasksToCache(existingTasks, newTasks: newTasks)
+        
+        // Safely update the cache feed
+        guard let updatedCache = existingTasks.copy() as? NSOrderedSet else {
+            throw CoreDataFeedStoreError.missingManagedObjectContext
         }
+        feed = updatedCache
+    }
+    
+    private func addTasksToCache(
+        _ existingTasks: NSMutableOrderedSet,
+        newTasks: [ManagedTodoItem]
+    ) {
+        existingTasks.addObjects(from: newTasks)
     }
     
     static func insertTasks(
@@ -90,20 +94,14 @@ extension ManagedCache {
         _ task: LocalTodoItem,
         context: NSManagedObjectContext
     ) throws {
+        // Fetch the task or throw an error
         guard let managedTask = try ManagedTodoItem.first(with: task, in: context) else {
             throw CoreDataFeedStoreError.todokNotFound
         }
         
-        guard managedTask.id == task.id else {
-            throw CoreDataFeedStoreError.todoIDMismatch
-        }
-        
+        // Update the managed task
         ManagedTodoItem.update(managedTask, with: task)
         
-        do {
-            try context.save()
-        } catch {
-            throw error
-        }
+        try context.save()
     }
 }

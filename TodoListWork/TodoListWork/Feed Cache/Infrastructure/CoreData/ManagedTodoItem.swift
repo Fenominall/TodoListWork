@@ -34,12 +34,12 @@ extension ManagedTodoItem {
 
 // MARK: - Insertion Helpers
 extension ManagedTodoItem {
-    static func createManagedTodoitem(
+    static func createBatch(
         from localTasks: [LocalTodoItem],
         in context: NSManagedObjectContext,
         cache: ManagedCache
-    ) -> NSOrderedSet {
-        let tasks = NSOrderedSet(array: localTasks.map { local in
+    ) -> [ManagedTodoItem] {
+        return  localTasks.map { local in
             let managedTodo = ManagedTodoItem(context: context)
             managedTodo.id = local.id
             managedTodo.title = local.title
@@ -50,9 +50,7 @@ extension ManagedTodoItem {
             managedTodo.cache = cache
             
             return managedTodo
-        })
-        
-        return tasks
+        }
     }
     
     /// The function fetches all id values from the ManagedTodoItem entity in a highly optimized way
@@ -70,9 +68,7 @@ extension ManagedTodoItem {
         let results = try context.fetch(request) as? [[String: Any]]
         
         // dict["id"] as? UUID attempts to cast the value to UUID. If the cast fails (e.g., the value is not a UUID), it is ignored.
-        let ids = results?.compactMap { dict in
-            dict["id"] as? UUID
-        }
+        let ids = results?.compactMap { $0["id"] as? UUID }
         
         return Set(ids ?? [])
     }
