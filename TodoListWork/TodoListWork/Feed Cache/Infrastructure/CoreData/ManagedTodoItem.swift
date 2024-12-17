@@ -55,15 +55,22 @@ extension ManagedTodoItem {
         return tasks
     }
     
+    /// The function fetches all id values from the ManagedTodoItem entity in a highly optimized way
+    /// It retrieves only the id field (not the full objects).
+    /// It avoids duplicates by returning a Set<UUID>.
     static func fetchExistingTodoIDs(in context: NSManagedObjectContext) throws -> Set<UUID> {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: ManagedTodoItem.entity().name!)
         request.resultType = .dictionaryResultType
         request.propertiesToFetch = ["id"]
         
+        // as? [[String: Any]]:
+        //        The result of context.fetch is cast to an optional array of dictionaries ([[String: Any]]).
+        //        Each dictionary represents a fetched row where the keys are property names (like "id") and values are the corresponding data.
+        
         let results = try context.fetch(request) as? [[String: Any]]
         
+        // dict["id"] as? UUID attempts to cast the value to UUID. If the cast fails (e.g., the value is not a UUID), it is ignored.
         let ids = results?.compactMap { dict in
-            // Extract UUID from dictionary using the key "id"
             dict["id"] as? UUID
         }
         
