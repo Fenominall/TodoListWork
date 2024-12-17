@@ -14,7 +14,6 @@ class TodoItemTableViewCell: UITableViewCell {
     private var isTaskCompleted: Bool = false {
         didSet {
             updateCheckmarkState()
-            updateTodoTitleText()
         }
     }
     
@@ -160,21 +159,6 @@ class TodoItemTableViewCell: UITableViewCell {
         checkmarkButton.setImage(imageName, for: .normal)
     }
     
-    private func applyTextAttributes(for completed: Bool) -> [NSAttributedString.Key: Any] {
-        return completed ? [.strikethroughStyle: NSUnderlineStyle.single.rawValue] : [:]
-    }
-    
-    private func updateTodoTitleText() {
-        let text = taskTitleLabel.text ?? ""
-        let attributedText = NSAttributedString(
-            string: text,
-            attributes: applyTextAttributes(for: isTaskCompleted)
-        )
-        taskTitleLabel.attributedText = attributedText
-        let textColor: UIColor = isTaskCompleted ? .secondaryLabel : .label
-        taskTitleLabel.textColor = textColor
-    }
-    
     private func setupBackgroundView() {
         let roundedBackgroundView = UIView()
         roundedBackgroundView.backgroundColor = .systemBackground
@@ -190,13 +174,26 @@ extension TodoItemTableViewCell {
         with data: TodoItemFeedViewModel,
         checkmarkTappedHandler: @escaping (Bool) -> Void
     ) {
+        updateTitleText(data.title)
         self.checkmarkTappedHandler = checkmarkTappedHandler
-        taskTitleLabel.text = data.title
         taskDescriptionLabel.text = data.description
         taskDateLabel.text = dateConvertedToDMYString(date: data.createdAt)
         isTaskCompleted = data.isCompleted
-        
-        updateCheckmarkState()
-        updateTodoTitleText()
+    }
+    
+    private func updateTitleText(_ text: String) {
+        if isTaskCompleted {
+            let attributedText = NSAttributedString(
+                string: text,
+                attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
+            )
+            taskTitleLabel.attributedText = attributedText
+            taskTitleLabel.textColor = .secondaryLabel
+        } else {
+            // Remove attributed text and reset to plain text
+            taskTitleLabel.attributedText = nil
+            taskTitleLabel.text = text
+            taskTitleLabel.textColor = .label
+        }
     }
 }
