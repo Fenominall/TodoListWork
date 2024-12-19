@@ -55,9 +55,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
                 navigationController: navigationController,
                 selection: makeEditTodoComposer,
-                addnewTodo: makeAddTodoComposer
+                addnewTodo: makeAddTodoComposer,
+                shareTodo: makeTodoSharedComposer
             )
-
+        
         navigationController.viewControllers = [todoFeedVCComposer]
         window?.rootViewController = navigationController
         window?.overrideUserInterfaceStyle = .dark // Force dark mode
@@ -80,6 +81,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return AddEditTodoItemUIComposer.composedWith(
             todoToEdit: nil,
             todoSaver: feedLoaderFactory.makeLocalFeedLoader())
+    }
+    
+    private func makeTodoSharedComposer(for item: TodoItem) -> UIActivityViewController {
+        return UIActivityViewController(activityItems: [nil], applicationActivities: nil)
     }
 }
 
