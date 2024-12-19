@@ -53,12 +53,15 @@ extension TodoItemsFeedPresenter: TodoItemsFeedLoadingInteractorOutput {
     public func didFinishLoading(with items: [TodoListWork.TodoItem]) {
         loadingView.display(TodoItemsLoadingViewModel(isLoading: false))
         errorView.display(.noError)
-        view.displayTasks(items)
+        
+        let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
+        
+        view.displayTasks(sortedItems)
     }
     
     public func didFinishLoading(with error: any Error) {
         loadingView.display(TodoItemsLoadingViewModel(isLoading: false))
-        errorView.display(.error(message: error.localizedDescription))
+        errorView.display(.error(message: "Нет подключения к интернету!"))
     }
 }
 
