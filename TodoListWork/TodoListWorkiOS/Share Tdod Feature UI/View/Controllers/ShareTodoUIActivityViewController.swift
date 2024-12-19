@@ -9,6 +9,8 @@ import UIKit
 import TodoListWork
 
 public final class ShareTodoUIActivityViewController: UIActivityViewController {
+    private let viewModel: ShareTodoItemViewModel
+    
     public init(
         viewModel: ShareTodoItemViewModel,
         excludedActivityTypes: [UIActivity.ActivityType]? = [
@@ -22,7 +24,8 @@ public final class ShareTodoUIActivityViewController: UIActivityViewController {
             .addToReadingList,
         ]
     ) {
-        super.init(activityItems: [viewModel], applicationActivities: nil)
+        self.viewModel = viewModel
+        super.init(activityItems: [viewModel.content], applicationActivities: nil)
         self.excludedActivityTypes = excludedActivityTypes
     }
 }
