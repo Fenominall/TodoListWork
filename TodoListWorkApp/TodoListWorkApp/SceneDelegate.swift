@@ -84,7 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeTodoSharedComposer(for item: TodoItem) -> UIActivityViewController {
-        return UIActivityViewController(activityItems: [nil], applicationActivities: nil)
+        return ShareTodoUIComposer.composed(with: item)
     }
 }
 
