@@ -11,19 +11,21 @@ import TodoListWorkiOS
 
 final class TodoFeedViewAdapter: TodoItemsFeedView {
     private weak var controller: TodoListViewController?
-    private let selection: (TodoItem) -> UIViewController
+    private let selection: (TodoItem) -> Void
     private var onDelete: ((TodoItem) -> Void)?
     private var onUpdate: ((TodoItem) -> Void)?
-    private var onShare: ((TodoItem) -> Void)?
+    private var onShare: (TodoItem) -> Void
     private let currentFeed: [TodoItem: CellController]
     
     init(currentFeed: [TodoItem: CellController] = [:],
-        controller: TodoListViewController,
-        selection: @escaping (TodoItem) -> UIViewController
+         controller: TodoListViewController,
+         selection: @escaping (TodoItem) -> Void,
+         onShare: @escaping (TodoItem) -> Void
     ) {
         self.currentFeed = currentFeed
         self.controller = controller
         self.selection = selection
+        self.onShare = onShare
     }
     
     func setOnDeleteHandler(_ handler: @escaping (TodoItem) -> Void) {
@@ -54,7 +56,7 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
                 },
                 share: { [weak self] in
                     guard let self = self else { return }
-                    self.onShare?(model)
+                    self.onShare(model)
                 },
                 onCompletedStatusToggle: { [weak self] updatedTask in
                     self?.onUpdate?(updatedTask.toDomainModel())

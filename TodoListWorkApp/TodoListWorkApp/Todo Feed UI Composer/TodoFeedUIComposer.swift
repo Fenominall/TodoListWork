@@ -18,12 +18,15 @@ final class TodoFeedUIComposer {
         todoDeleter: TodoItemDeleter,
         navigationController: UINavigationController,
         selection: @escaping (TodoItem) -> UIViewController,
-        addnewTodo: @escaping () -> UIViewController
+        addnewTodo: @escaping () -> UIViewController,
+        shareTodo: @escaping (TodoItem) -> UIActivityViewController
     ) -> TodoListViewController {
+        
         let router = TodoItemsFeedRouter(
             navigationController: navigationController,
             todoDetailComposer: selection,
-            addTodoComposer: addnewTodo
+            addTodoComposer: addnewTodo,
+            shareTodoComposer: shareTodo
         )
         
         let view = TodoListViewController()
@@ -34,10 +37,10 @@ final class TodoFeedUIComposer {
         )
         
         let viewAdapter = TodoFeedViewAdapter(
-            controller: view) { todo in
-                router.navigateToTodoItemDetails(for: todo)
-                return selection(todo)
-            }
+            controller: view,
+            selection: router.navigateToTodoItemDetails,
+            onShare: router.shareTodo
+        )
         
         let presenter = TodoItemsFeedPresenter(
             view: viewAdapter,
