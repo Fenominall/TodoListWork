@@ -9,5 +9,6 @@ import TodoListWork
 
 public protocol TodoItemsFeedRouterNavigator {
     func navigateToTodoItemDetails(for item: TodoItem)
-    func addNewTask()
+    func addNewTodo()
+    func shareTodo(for item: TodoItem)
 }

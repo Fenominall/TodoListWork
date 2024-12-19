@@ -75,7 +75,7 @@ extension TodoItemsFeedPresenter: TodoItemsOperationInteractorOutput {
 // MARK: - Router Navigation
 extension TodoItemsFeedPresenter {
     public func navigateToAddTodoItem() {
-        router.addNewTask()
+        router.addNewTodo()
     }
     
     public func navigateToTodoItemDetails(for item: TodoItem) {
