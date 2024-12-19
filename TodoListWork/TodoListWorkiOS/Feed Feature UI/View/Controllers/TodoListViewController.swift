@@ -22,7 +22,8 @@ public final class TodoListViewController: UIViewController {
     }()
     
     // MARK: - View Properties
-    let footerView = TodoListFooterView()
+    private let errorView = ErrorView()
+    private let footerView = TodoListFooterView()
     
     private lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
@@ -104,13 +105,21 @@ extension TodoListViewController {
     
     private func setupConstraints() {
         view.addSubview(todoosTableView)
+        view.addSubview(errorView)
         view.addSubview(footerView)
+        
+        errorView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             footerView.heightAnchor.constraint(equalToConstant: 83),
+            
+            errorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             todoosTableView.topAnchor.constraint(equalTo: view.topAnchor),
             todoosTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -219,7 +228,7 @@ extension TodoListViewController: TodoListFooterViewDelegate {
 // MARK: - TodoItemsErrorView
 extension TodoListViewController: TodoItemsErrorView {
     public func display(_ viewModel: TodoItemsErrorViewModel) {
-        // TODO
+        errorView.message = viewModel.message
     }
 }
 
