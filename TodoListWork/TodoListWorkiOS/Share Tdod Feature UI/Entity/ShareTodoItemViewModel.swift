@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import TodoListWork
 
 public struct ShareTodoItemViewModel {
     public let title: String
     public let description: String
     public let createdAt: Date
     
-    public init(
-        title: String,
-        description: String,
-        createdAt: Date
-    ) {
-        self.title = title
-        self.description = description
-        self.createdAt = createdAt
+    public init(with item: TodoItem) {
+        self.title = item.title
+        self.description = item.description ?? ""
+        self.createdAt = item.createdAt
+    }
+    
+    func shareFormattedContent() -> String {
+        "\(title)\n\(description)\n\(dateConvertedToDMYString(date: createdAt))"
     }
 }
