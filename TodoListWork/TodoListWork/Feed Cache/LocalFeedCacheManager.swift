@@ -39,7 +39,7 @@ extension LocalFeedCacheManager: TodoItemsFeedLoader {
             case let .failure(error):
                 completion(.failure(error))
             case .success(.none):
-                break
+                completion(.success([]))
             }
         }
     }
