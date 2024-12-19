@@ -19,7 +19,7 @@ public struct ShareTodoItemViewModel {
         self.createdAt = item.createdAt
     }
     
-    func shareFormattedContent() -> String {
+    var content: String {
         "\(title)\n\(description)\n\(dateConvertedToDMYString(date: createdAt))"
     }
 }
