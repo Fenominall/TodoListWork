@@ -10,7 +10,7 @@ import TodoListWork
 import TodoListWorkiOS
 
 final class TodoFeedViewAdapter: TodoItemsFeedView {
-    private weak var controller: TodoListViewController?
+    private weak var controller: ListViewController?
     private let selection: (TodoItem) -> Void
     private var onDelete: ((TodoItem) -> Void)?
     private var onUpdate: ((TodoItem) -> Void)?
@@ -18,7 +18,7 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
     private let currentFeed: [TodoItem: CellController]
     
     init(currentFeed: [TodoItem: CellController] = [:],
-         controller: TodoListViewController,
+         controller: ListViewController,
          selection: @escaping (TodoItem) -> Void,
          onShare: @escaping (TodoItem) -> Void
     ) {

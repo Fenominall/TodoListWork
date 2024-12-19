@@ -20,7 +20,7 @@ final class TodoFeedUIComposer {
         selection: @escaping (TodoItem) -> UIViewController,
         addnewTodo: @escaping () -> UIViewController,
         shareTodo: @escaping (TodoItem) -> UIActivityViewController
-    ) -> TodoListViewController {
+    ) -> ListViewController {
         
         let router = TodoItemsFeedRouter(
             navigationController: navigationController,
@@ -29,7 +29,7 @@ final class TodoFeedUIComposer {
             shareTodoComposer: shareTodo
         )
         
-        let view = TodoListViewController()
+        let view = ListViewController()
         let interactor = TodoItemsFeedInteractor(
             feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader),
             todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver),
