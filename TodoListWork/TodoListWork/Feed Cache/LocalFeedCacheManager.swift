@@ -96,34 +96,3 @@ extension LocalFeedCacheManager: TodoItemDeleter {
             }
     }
 }
-
-// MARK: - Converting mapping helpers
-private extension Array where Element == LocalTodoItem {
-    func toModels() -> [TodoItem] {
-        return map {
-            TodoItem(
-                id: $0.id,
-                title: $0.title,
-                description: $0.description,
-                completed: $0.completed,
-                createdAt: $0.createdAt,
-                userId: $0.userId
-            )
-        }
-    }
-}
-
-private extension Array where Element == TodoItem {
-    func toLocale() -> [LocalTodoItem] {
-        return map {
-            LocalTodoItem(
-                id: $0.id,
-                title: $0.title,
-                description: $0.description,
-                completed: $0.completed,
-                createdAt: $0.createdAt,
-                userId: $0.userId
-            )
-        }
-    }
-}
