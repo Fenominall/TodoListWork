@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class ListViewController: UIViewController {
+public final class ListViewController: UITableViewController {
     // MARK: - Properties
     public var onRefresh: (() -> Void)?
     public var addNewTodo: (() -> Void)?
@@ -16,7 +16,7 @@ public final class ListViewController: UIViewController {
     // control the state to reload automatically what change, using Int for section and the models for data source
     // The model needs to be hashable
     private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
-        .init(tableView: todoosTableView) { (tableView, indexPath, controller) in
+        .init(tableView: tableView) { (tableView, indexPath, controller) in
             return controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
         }
     }()
@@ -35,22 +35,14 @@ public final class ListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
-    
-    private lazy var todoosTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.backgroundColor = .systemBackground
-        tableView.separatorStyle = .none
-        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+        
     // MARK: - Lifecycle
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        configureTableView()
         setDelegates()
-        setupConstraints()
         configureSearchController()
         refresh()
     }
@@ -94,41 +86,20 @@ extension ListViewController {
         view.backgroundColor = .systemBackground
     }
     
-    private func setDelegates() {
+    private func configureTableView() {
         dataSource.defaultRowAnimation = .fade
         // # Step 2 - make UITableView as UITableViewDiffableDataSource
-        todoosTableView.dataSource = dataSource
-        todoosTableView.delegate = self
-        footerView.delegate = self
-        todoosTableView.refreshControl = refreshControll
+        tableView.dataSource = dataSource
+        tableView.refreshControl = refreshControll
+        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
+        tableView.tableHeaderView = errorView.makeContainer()
+        tableView.tableFooterView = footerView.makeContainer()
     }
     
-    private func setupConstraints() {
-        view.addSubview(todoosTableView)
-        view.addSubview(errorView)
-        view.addSubview(footerView)
-        
-        errorView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footerView.heightAnchor.constraint(equalToConstant: 83),
-            
-            errorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            errorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            todoosTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            todoosTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            todoosTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            todoosTableView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
-            
-        ])
-        // Bring the footer view to the front
-        view.bringSubviewToFront(footerView)
+    private func setDelegates() {
+        footerView.delegate = self
     }
     
     private func cellController(at indexPath: IndexPath) -> CellController? {
@@ -137,35 +108,35 @@ extension ListViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension ListViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ListViewController {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(todoosTableView, didSelectRowAt: indexPath)
+        delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
     
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let dl = cellController(at: indexPath)?.delegate
-        dl?.tableView?(todoosTableView, willDisplay: cell, forRowAt: indexPath)
+        dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
-    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(todoosTableView, didEndDisplaying: cell, forRowAt: indexPath)
+        delegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
-    public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let delegate = cellController(at: indexPath)?.delegate
-        return delegate?.tableView?(todoosTableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+        return delegate?.tableView?(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
     
-    public func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
+    public override func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
         guard let indexPath = configuration.identifier as? IndexPath else {
             return
         }
         
         // Retrieve the delegate for the cell controller
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(todoosTableView, willEndContextMenuInteraction: configuration, animator: animator)
+        delegate?.tableView?(tableView, willEndContextMenuInteraction: configuration, animator: animator)
     }
 }
 
