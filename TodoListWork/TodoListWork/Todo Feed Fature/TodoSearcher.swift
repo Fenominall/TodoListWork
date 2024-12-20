@@ -10,5 +10,5 @@ import Foundation
 public protocol TodoSearcher {
     typealias Result = Swift.Result<[TodoItem], Error>
     
-    func search(query: String, completion: @escaping (Result) -> Void)
+    func search(by query: String, completion: @escaping (Result) -> Void)
 }
