@@ -149,3 +149,25 @@ extension ManagedTodoItem {
         cache.feed = mutableFeed.copy() as? NSOrderedSet ?? NSOrderedSet()
     }
 }
+
+// MARK: - Search
+extension ManagedTodoItem {
+    static func findByQuery(
+        _ query: String,
+        in context: NSManagedObjectContext
+    ) throws -> [ManagedTodoItem] {
+        let request = NSFetchRequest<ManagedTodoItem>(
+            entityName: ManagedTodoItem.entity().name!
+        )
+        
+        // Create a predicate to search within the title and descriptionText fields
+        let queryPredicate = NSPredicate(
+            format: "title CONTAINS[cd] %@ OR descriptionText CONTAINS[cd] %@",
+            query, query)
+        
+        request.predicate = queryPredicate
+        request.returnsObjectsAsFaults = false
+        
+        return try context.fetch(request)
+    }
+}

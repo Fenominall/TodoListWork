@@ -19,7 +19,10 @@ extension CoreDataFeedStore: TodoItemsStore {
         }
     }
     
-    public func insert(_ tasks: [LocalTodoItem], completion: @escaping InsertionCompletion) {
+    public func insert(
+        _ tasks: [LocalTodoItem],
+        completion: @escaping InsertionCompletion
+    ) {
         performAsync { context in
             completion(Result {
                 try ManagedCache.insertTasks(tasks, in: context)
@@ -27,11 +30,17 @@ extension CoreDataFeedStore: TodoItemsStore {
         }
     }
     
-    public func insert(_ task: LocalTodoItem, completion: @escaping InsertionCompletion) {
+    public func insert(
+        _ task: LocalTodoItem,
+        completion: @escaping InsertionCompletion
+    ) {
         insert([task], completion: completion)
     }
     
-    public func update(_ task: LocalTodoItem, completion: @escaping UpdatingCompletion) {
+    public func update(
+        _ task: LocalTodoItem,
+        completion: @escaping UpdatingCompletion
+    ) {
         performAsync { context in
             completion(Result {
                 try ManagedCache.updateTask(task, context: context)
@@ -39,7 +48,10 @@ extension CoreDataFeedStore: TodoItemsStore {
         }
     }
     
-    public func delete(_ task: LocalTodoItem, completion: @escaping DeletionCompletion) {
+    public func delete(
+        _ task: LocalTodoItem,
+        completion: @escaping DeletionCompletion
+    ) {
         performAsync { context in
             completion(Result {
                 try ManagedTodoItem.deleteTask(task, in: context)
@@ -47,7 +59,16 @@ extension CoreDataFeedStore: TodoItemsStore {
         }
     }
     
-    public func search(_ query: String, completion: @escaping SearchingCompletion) {
-        
+    public func search(
+        _ query: String,
+        completion: @escaping SearchingCompletion
+    ) {
+        performAsync { context in
+            completion(Result {
+                try ManagedTodoItem
+                    .findByQuery(query, in: context)
+                    .compactMap { return $0.local }
+            })
+        }
     }
 }
