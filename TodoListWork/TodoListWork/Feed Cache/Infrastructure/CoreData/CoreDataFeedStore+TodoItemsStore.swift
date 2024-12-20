@@ -45,6 +45,9 @@ extension CoreDataFeedStore: TodoItemsStore {
                 try ManagedTodoItem.deleteTask(task, in: context)
             })
         }
-
+    }
+    
+    public func search(_ query: String, completion: @escaping SearchingCompletion) {
+        
     }
 }

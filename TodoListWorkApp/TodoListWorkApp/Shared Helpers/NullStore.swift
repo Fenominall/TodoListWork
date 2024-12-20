@@ -28,4 +28,8 @@ final class NullStore: TodoItemsStore {
     func delete(_ task: TodoListWork.LocalTodoItem, completion: @escaping DeletionCompletion) {
         completion(.success(()))
     }
+    
+    func search(_ query: String, completion: @escaping SearchingCompletion) {
+        completion(.success((.none)))
+    }
 }
