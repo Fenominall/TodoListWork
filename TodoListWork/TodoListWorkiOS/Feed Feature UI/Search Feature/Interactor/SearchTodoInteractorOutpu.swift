@@ -5,4 +5,9 @@
 //  Created by Fenominall on 12/21/24.
 //
 
-import Foundation
+import TodoListWork
+
+public protocol SearchTodoInteractorOutput: AnyObject {
+    func didFinishSearchingTodo(with result: [TodoItem])
+    func didFinishSearchingTodo(with error: Error)
+}
