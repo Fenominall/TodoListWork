@@ -17,12 +17,14 @@ public final class SearchTodoInteractor: SearchTodoInteractorInput {
     }
     
     public func searchTodo(query: String) {
-        store.search(by: query) { result in
+        store.search(by: query) { [weak self] result in
+            
             switch result {
+            case let .success(items):
+                self?.presenter?.didFinishSearchingTodo(with: items)
                 
-            case let .success(items): break
-                
-            case let .failure(error): break
+            case let .failure(error):
+                self?.presenter?.didFinishSearchingTodo(with: error)
             }
         }
     }
