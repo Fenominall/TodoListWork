@@ -10,6 +10,7 @@ import TodoListWork
 
 public final class SearchTodoInteractor: SearchTodoInteractorInput {
     private let store: TodoSearcher
+    public weak var presenter: SearchTodoInteractorOutput?
     
     init(store: TodoSearcher) {
         self.store = store
