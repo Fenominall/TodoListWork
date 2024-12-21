@@ -8,10 +8,6 @@
 import Foundation
 import TodoListWork
 
-public protocol SearchTodoInteractorInput {
-    func searchTodo(query: String)
-}
-
 public final class SearchTodoInteractor: SearchTodoInteractorInput {
     private let store: TodoSearcher
     
