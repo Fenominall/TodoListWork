@@ -21,10 +21,10 @@ public final class SearchTodoInteractor: SearchTodoInteractorInput {
             
             switch result {
             case let .success(items):
-                self?.presenter?.didFinishSearchingTodo(with: items)
+                self?.presenter?.didFinishSearchingTodos(with: items)
                 
             case let .failure(error):
-                self?.presenter?.didFinishSearchingTodo(with: error)
+                self?.presenter?.didFinishSearchingTodos(with: error)
             }
         }
     }

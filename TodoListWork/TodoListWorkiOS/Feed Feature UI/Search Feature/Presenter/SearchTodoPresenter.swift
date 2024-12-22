@@ -17,11 +17,11 @@ public final class SearchTodoPresenter {
 }
 
 extension SearchTodoPresenter: SearchTodoInteractorOutput {
-    public func didFinishSearchingTodo(with result: [TodoListWork.TodoItem]) {
+    public func didFinishSearchingTodos(with result: [TodoItem]) {
         
     }
     
-    public func didFinishSearchingTodo(with error: any Error) {
+    public func didFinishSearchingTodos(with error: any Error) {
         
     }
 }

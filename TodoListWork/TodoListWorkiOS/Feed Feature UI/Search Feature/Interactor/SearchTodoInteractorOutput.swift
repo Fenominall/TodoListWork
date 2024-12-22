@@ -8,6 +8,6 @@
 import TodoListWork
 
 public protocol SearchTodoInteractorOutput: AnyObject {
-    func didFinishSearchingTodo(with result: [TodoItem])
-    func didFinishSearchingTodo(with error: Error)
+    func didFinishSearchingTodos(with result: [TodoItem])
+    func didFinishSearchingTodos(with error: Error)
 }
