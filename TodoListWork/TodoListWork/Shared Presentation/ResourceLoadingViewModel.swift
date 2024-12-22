@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct TodoItemsLoadingViewModel {
+public struct ResourceLoadingViewModel {
     public let isLoading: Bool
 }

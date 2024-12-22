@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol TodoItemsLoadingView {
-    func display(_ viewModel: TodoItemsLoadingViewModel)
+public protocol ResourceLoadingView {
+    func display(_ viewModel: ResourceLoadingViewModel)
 }

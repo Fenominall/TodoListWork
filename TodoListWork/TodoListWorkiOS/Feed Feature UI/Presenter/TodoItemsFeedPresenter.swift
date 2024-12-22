@@ -10,15 +10,15 @@ import TodoListWork
 
 public final class TodoItemsFeedPresenter {
     private let view: TodoItemsFeedView
-    private let errorView: TodoItemsErrorView
-    private let loadingView: TodoItemsLoadingView
+    private let errorView: ResourceErrorView
+    private let loadingView: ResourceLoadingView
     private let interactor: TodoItemsFeedInteractorInput
     private let router: TodoItemsFeedRouterNavigator
     
     public init(
         view: TodoItemsFeedView,
-        errorView: TodoItemsErrorView,
-        loadingView: TodoItemsLoadingView,
+        errorView: ResourceErrorView,
+        loadingView: ResourceLoadingView,
         interactor: TodoItemsFeedInteractorInput,
         router: TodoItemsFeedRouterNavigator
     ) {
@@ -47,11 +47,11 @@ extension TodoItemsFeedPresenter {
 extension TodoItemsFeedPresenter: TodoItemsFeedLoadingInteractorOutput {
     public func didStartLoading() {
         errorView.display(.noError)
-        loadingView.display(TodoItemsLoadingViewModel(isLoading: true))
+        loadingView.display(ResourceLoadingViewModel(isLoading: true))
     }
     
     public func didFinishLoading(with items: [TodoListWork.TodoItem]) {
-        loadingView.display(TodoItemsLoadingViewModel(isLoading: false))
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
         errorView.display(.noError)
         
         let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
@@ -60,7 +60,7 @@ extension TodoItemsFeedPresenter: TodoItemsFeedLoadingInteractorOutput {
     }
     
     public func didFinishLoading(with error: any Error) {
-        loadingView.display(TodoItemsLoadingViewModel(isLoading: false))
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
         errorView.display(.error(message: "Нет подключения к интернету!"))
     }
 }

@@ -201,15 +201,15 @@ extension ListViewController: TodoListFooterViewDelegate {
 }
 
 // MARK: - TodoItemsErrorView
-extension ListViewController: TodoItemsErrorView {
-    public func display(_ viewModel: TodoItemsErrorViewModel) {
+extension ListViewController: ResourceErrorView {
+    public func display(_ viewModel: ResourceErrorViewModel) {
         errorView.message = viewModel.message
     }
 }
 
 // MARK: - TodoItemsLoadingView
-extension ListViewController: TodoItemsLoadingView {
-    public func display(_ viewModel: TodoItemsLoadingViewModel) {
+extension ListViewController: ResourceLoadingView {
+    public func display(_ viewModel: ResourceLoadingViewModel) {
         refreshControll.update(isRefreshing: viewModel.isLoading)
     }
 }

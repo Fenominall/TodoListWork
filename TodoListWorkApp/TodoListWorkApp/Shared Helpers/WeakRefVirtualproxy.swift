@@ -16,14 +16,14 @@ final class WeakRefVirtualproxy<T: AnyObject> {
     }
 }
 
-extension WeakRefVirtualproxy: TodoItemsLoadingView where T: TodoItemsLoadingView {
-    func display(_ viewModel: TodoListWorkiOS.TodoItemsLoadingViewModel) {
+extension WeakRefVirtualproxy: ResourceLoadingView where T: ResourceLoadingView {
+    func display(_ viewModel: TodoListWorkiOS.ResourceLoadingViewModel) {
         object?.display(viewModel)
     }
 }
 
-extension WeakRefVirtualproxy: TodoItemsErrorView where T: TodoItemsErrorView {
-    func display(_ viewModel: TodoListWorkiOS.TodoItemsErrorViewModel) {
+extension WeakRefVirtualproxy: ResourceErrorView where T: ResourceErrorView {
+    func display(_ viewModel: TodoListWorkiOS.ResourceErrorViewModel) {
         object?.display(viewModel)
     }
 }
