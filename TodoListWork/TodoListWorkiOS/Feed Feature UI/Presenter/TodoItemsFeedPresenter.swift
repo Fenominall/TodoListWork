@@ -52,7 +52,6 @@ extension TodoItemsFeedPresenter: ResourceLoadingInteractorOutput {
     
     public func didFinishLoading(with items: [TodoListWork.TodoItem]) {
         loadingView.display(ResourceLoadingViewModel(isLoading: false))
-        errorView.display(.noError)
         
         let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
         
