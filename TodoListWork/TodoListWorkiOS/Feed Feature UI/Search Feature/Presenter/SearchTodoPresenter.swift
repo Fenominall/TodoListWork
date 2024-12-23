@@ -12,7 +12,9 @@ import TodoListWork
 public final class SearchTodoPresenter {
     private let interactor: SearchTodoInteractorInput
     
-    init(interactor: SearchTodoInteractorInput) {
+    public init(
+        interactor: SearchTodoInteractorInput
+    ) {
         self.interactor = interactor
     }
 }
