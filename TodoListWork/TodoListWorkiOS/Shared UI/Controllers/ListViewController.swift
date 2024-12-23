@@ -35,7 +35,7 @@ public final class ListViewController: UITableViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
-        
+    
     // MARK: - Lifecycle
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,7 +168,6 @@ extension ListViewController {
 // MARK: - UISearchBarDelegate
 extension ListViewController: UISearchBarDelegate {
     public func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        print("searchBarBookmarkButtonClicked was called")
         // TODO
     }
 }
@@ -183,12 +182,10 @@ extension ListViewController: UISearchResultsUpdating {
 // MARK: - UISearchControllerDelegate
 extension ListViewController: UISearchControllerDelegate {
     public func didPresentSearchController(_ searchController: UISearchController) {
-        print("didPresentSearchController was called")
         // TODO
     }
     
     public func didDismissSearchController(_ searchController: UISearchController) {
-        print("didDismissSearchController called")
         // TODO
     }
 }
