@@ -28,12 +28,22 @@ public final class SearchTodoPresenter {
     }
 }
 
-extension SearchTodoPresenter: SearchTodoInteractorOutput {
-    public func didFinishSearching(with result: [TodoItem]) {
-        
+extension SearchTodoPresenter: ResourceLoadingInteractorOutput {
+    public func didStartLoading() {
+        errorView.display(.noError)
+        loadingView.display(ResourceLoadingViewModel(isLoading: true))
     }
     
-    public func didFinishSearching(with error: any Error) {
+    public func didFinishLoading(with items: [TodoListWork.TodoItem]) {
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
         
+        let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
+        
+        view.display(sortedItems)
+    }
+    
+    public func didFinishLoading(with error: any Error) {
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
+        errorView.display(.error(message: "Ничего не найдено!"))
     }
 }
