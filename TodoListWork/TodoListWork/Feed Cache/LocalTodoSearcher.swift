@@ -10,7 +10,7 @@ import Foundation
 public final class LocalTodoSearcher: TodoSearcher {
     private let store: TodoItemsStore
     
-    init(store: TodoItemsStore) {
+    public init(store: TodoItemsStore) {
         self.store = store
     }
     
