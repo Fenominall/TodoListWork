@@ -28,6 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return NullStore()
         }
     }()
+    
+    private lazy var localSearchTodo: TodoSearcher = {
+        LocalTodoSearcher(store: store)
+    }()
+    
     private lazy var baseURL = URL(string: "https://dummyjson.com/todos")!
     private var navigationController = UINavigationController()
     
@@ -53,6 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 feedLoader: feedLoaderFactory.makeFeedLoader(),
                 todoSaver: feedLoaderFactory.makeLocalFeedLoader(),
                 todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
+                todoSearcher: localSearchTodo,
                 navigationController: navigationController,
                 selection: makeEditTodoComposer,
                 addnewTodo: makeAddTodoComposer,

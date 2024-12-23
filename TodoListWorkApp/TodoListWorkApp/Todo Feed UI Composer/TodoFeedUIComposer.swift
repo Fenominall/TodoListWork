@@ -16,12 +16,14 @@ final class TodoFeedUIComposer {
         feedLoader: TodoItemsFeedLoader,
         todoSaver: TodoItemSaver,
         todoDeleter: TodoItemDeleter,
+        todoSearcher: TodoSearcher,
         navigationController: UINavigationController,
         selection: @escaping (TodoItem) -> UIViewController,
         addnewTodo: @escaping () -> UIViewController,
         shareTodo: @escaping (TodoItem) -> UIActivityViewController
     ) -> ListViewController {
         
+        // MARK: - Loading
         let router = TodoItemsFeedRouter(
             navigationController: navigationController,
             todoDetailComposer: selection,
@@ -30,7 +32,7 @@ final class TodoFeedUIComposer {
         )
         
         let view = ListViewController()
-        let interactor = TodoItemsFeedInteractor(
+        let loadingInteractor = TodoItemsFeedInteractor(
             feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader),
             todoSaver: MainQueueDispatchDecorator(decoratee: todoSaver),
             todoDeleter: MainQueueDispatchDecorator(decoratee: todoDeleter)
@@ -42,28 +44,40 @@ final class TodoFeedUIComposer {
             onShare: router.shareTodo
         )
         
-        let presenter = TodoItemsFeedPresenter(
+        let loadingPresenter = TodoItemsFeedPresenter(
             view: viewAdapter,
             errorView: WeakRefVirtualproxy(view),
             loadingView: WeakRefVirtualproxy(view),
-            interactor: interactor,
+            interactor: loadingInteractor,
             router: router
         )
         
-        viewAdapter.setOnDeleteHandler { [weak presenter] item in
-            presenter?.didRequestTodoItemDeletion(item)
+        viewAdapter.setOnDeleteHandler { [weak loadingPresenter] item in
+            loadingPresenter?.didRequestTodoItemDeletion(item)
             view.onRefresh?()
         }
         
-        viewAdapter.setOnUpdateHandler { [weak presenter] item in
-            presenter?.didRequestTodoItemUpdate(item)
+        viewAdapter.setOnUpdateHandler { [weak loadingPresenter] item in
+            loadingPresenter?.didRequestTodoItemUpdate(item)
             view.onRefresh?()
         }
         
-        view.addNewTodo = presenter.navigateToAddTodoItem
-        view.onRefresh = presenter.viewDidLoad
-        interactor.loadingPresenter = presenter
-        interactor.processingPresenter = presenter
+        view.addNewTodo = loadingPresenter.navigateToAddTodoItem
+        view.onRefresh = loadingPresenter.viewDidLoad
+        loadingInteractor.loadingPresenter = loadingPresenter
+        loadingInteractor.processingPresenter = loadingPresenter
+        
+        // MARK: - Searching
+        let searchInteractor = SearchTodoInteractor(store: todoSearcher)
+            
+        let searchPresenter = SearchTodoPresenter(
+            view: viewAdapter,
+            errorView: WeakRefVirtualproxy(view),
+            loadingView: WeakRefVirtualproxy(view),
+            interactor: searchInteractor
+        )
+         
+        searchInteractor.presenter = searchPresenter
         
         return view
     }
