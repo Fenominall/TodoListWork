@@ -57,6 +57,7 @@
 				"Shared Presentation/ResourceErrorViewModel.swift",
 				"Shared Presentation/ResourceLoadingView.swift",
 				"Shared Presentation/ResourceLoadingViewModel.swift",
+				"Shared Presentation/ResourceView.swift",
 			);
 			target = 4FB8D96C2D0593F800EDFAF2 /* TodoListWork */;
 		};
@@ -67,6 +68,7 @@
 				"Shared Presentation/ResourceErrorViewModel.swift",
 				"Shared Presentation/ResourceLoadingView.swift",
 				"Shared Presentation/ResourceLoadingViewModel.swift",
+				"Shared Presentation/ResourceView.swift",
 			);
 			target = 4F4322CC2D08724300451D45 /* TodoListWorkiOS */;
 		};

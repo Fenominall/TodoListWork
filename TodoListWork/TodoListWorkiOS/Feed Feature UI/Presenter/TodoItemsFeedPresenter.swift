@@ -9,14 +9,14 @@ import Foundation
 import TodoListWork
 
 public final class TodoItemsFeedPresenter {
-    private let view: TodoItemsFeedView
+    private let view: ResourceView
     private let errorView: ResourceErrorView
     private let loadingView: ResourceLoadingView
     private let interactor: TodoItemsFeedInteractorInput
     private let router: TodoItemsFeedRouterNavigator
     
     public init(
-        view: TodoItemsFeedView,
+        view: ResourceView,
         errorView: ResourceErrorView,
         loadingView: ResourceLoadingView,
         interactor: TodoItemsFeedInteractorInput,
@@ -56,7 +56,7 @@ extension TodoItemsFeedPresenter: TodoItemsFeedLoadingInteractorOutput {
         
         let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
         
-        view.displayTasks(sortedItems)
+        view.display(sortedItems)
     }
     
     public func didFinishLoading(with error: any Error) {

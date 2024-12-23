@@ -9,7 +9,7 @@ import UIKit
 import TodoListWork
 import TodoListWorkiOS
 
-final class TodoFeedViewAdapter: TodoItemsFeedView {
+final class TodoFeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let selection: (TodoItem) -> Void
     private var onDelete: ((TodoItem) -> Void)?
@@ -36,7 +36,7 @@ final class TodoFeedViewAdapter: TodoItemsFeedView {
         self.onUpdate = handler
     }
     
-    func displayTasks(_ viewModel: [TodoListWork.TodoItem]) {
+    func display(_ viewModel: [TodoListWork.TodoItem]) {
         guard let controller = controller else { return }
         var currentFeed = self.currentFeed
         let feed: [CellController] = viewModel.map { model in

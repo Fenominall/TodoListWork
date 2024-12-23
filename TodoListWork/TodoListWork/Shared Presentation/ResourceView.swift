@@ -7,7 +7,7 @@
 
 import TodoListWork
 
-public protocol TodoItemsFeedView: AnyObject {
-    func displayTasks(_ viewModel: [TodoItem])
+public protocol ResourceView: AnyObject {
+    func display(_ viewModel: [TodoItem])
 }
 
