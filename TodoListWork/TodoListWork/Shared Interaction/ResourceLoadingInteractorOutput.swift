@@ -8,7 +8,7 @@
 import TodoListWork
 
 // Protocol for handling feed loading output
-public protocol TodoItemsFeedLoadingInteractorOutput: AnyObject {
+public protocol ResourceLoadingInteractorOutput: AnyObject {
     func didStartLoading()
     func didFinishLoading(with items: [TodoItem])
     func didFinishLoading(with error: Error)

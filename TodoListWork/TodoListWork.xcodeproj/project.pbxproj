@@ -53,6 +53,7 @@
 		4F3D7C442D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWork" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Shared Interaction/ResourceLoadingInteractorOutput.swift",
 				"Shared Presentation/ResourceErrorView.swift",
 				"Shared Presentation/ResourceErrorViewModel.swift",
 				"Shared Presentation/ResourceLoadingView.swift",
@@ -64,6 +65,7 @@
 		4F3D7C452D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWorkiOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Shared Interaction/ResourceLoadingInteractorOutput.swift",
 				"Shared Presentation/ResourceErrorView.swift",
 				"Shared Presentation/ResourceErrorViewModel.swift",
 				"Shared Presentation/ResourceLoadingView.swift",

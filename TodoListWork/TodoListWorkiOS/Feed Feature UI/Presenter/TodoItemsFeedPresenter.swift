@@ -44,7 +44,7 @@ extension TodoItemsFeedPresenter {
     }
 }
 
-extension TodoItemsFeedPresenter: TodoItemsFeedLoadingInteractorOutput {
+extension TodoItemsFeedPresenter: ResourceLoadingInteractorOutput {
     public func didStartLoading() {
         errorView.display(.noError)
         loadingView.display(ResourceLoadingViewModel(isLoading: true))

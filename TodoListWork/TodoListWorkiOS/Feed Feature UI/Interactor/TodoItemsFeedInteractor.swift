@@ -11,7 +11,7 @@ public final class TodoItemsFeedInteractor {
     private let feedLoader: TodoItemsFeedLoader
     private let todoSaver: TodoItemSaver
     private let todoDeleter: TodoItemDeleter
-    public weak var loadingPresenter: TodoItemsFeedLoadingInteractorOutput?
+    public weak var loadingPresenter: ResourceLoadingInteractorOutput?
     public weak var processingPresenter: TodoItemsOperationInteractorOutput?
     
     public init(
