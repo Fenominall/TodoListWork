@@ -8,9 +8,6 @@
 import Foundation
 import TodoListWork
 
-public protocol TodoItemsSearchView {
-    func display(_ viewModel: TodoItemFeedViewModel)
-}
 
 public final class SearchTodoPresenter {
     private let interactor: SearchTodoInteractorInput
