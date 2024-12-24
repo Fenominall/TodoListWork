@@ -117,7 +117,7 @@ extension ManagedTodoItem {
     ) throws {
         // Find the task to delete
         guard let managedTodo = try ManagedTodoItem.first(with: task, in: context) else {
-            throw CoreDataFeedStoreError.todokNotFound
+            throw CoreDataFeedStoreError.todoNotFound
         }
         
         // Attempt to update the cache and remove the task

@@ -9,7 +9,7 @@ import Foundation
 
 enum CoreDataFeedStoreError: Error {
     case unableToCreateMutableCopy
-    case todokNotFound
+    case todoNotFound
     case todoIDMismatch
     case missingManagedObjectContext
 }

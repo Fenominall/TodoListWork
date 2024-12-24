@@ -96,7 +96,7 @@ extension ManagedCache {
     ) throws {
         // Fetch the task or throw an error
         guard let managedTask = try ManagedTodoItem.first(with: task, in: context) else {
-            throw CoreDataFeedStoreError.todokNotFound
+            throw CoreDataFeedStoreError.todoNotFound
         }
         
         // Update the managed task
