@@ -23,6 +23,11 @@ public final class ListViewController: UITableViewController {
         }
     }()
     
+    var isFiltering: Bool {
+        guard let searchText = searchController.searchBar.text else { return false }
+        return searchController.isActive && !searchText.isEmpty
+    }
+    
     // MARK: - View Properties
     private let errorView = ErrorView()
     private let footerView = TodoListFooterView()
@@ -98,7 +103,9 @@ extension ListViewController {
         
         // Update the footer view count label
         let itemCount = sections.flatMap { $0 }.count
+        
         footerView.updateCountLabel(with: itemCount)
+        showHideNoResultsLabelBasedOnCount(with: itemCount)
     }
     
     private func setupUI() {
@@ -139,6 +146,12 @@ extension ListViewController {
     
     private func cellController(at indexPath: IndexPath) -> CellController? {
         dataSource.itemIdentifier(for: indexPath)
+    }
+    
+    private func showHideNoResultsLabelBasedOnCount(with items: Int) {
+        if isFiltering {
+            noResultsLabel.isHidden = items > 0
+        }
     }
 }
 
@@ -253,5 +266,6 @@ extension ListViewController: ResourceErrorView {
 extension ListViewController: ResourceLoadingView {
     public func display(_ viewModel: ResourceLoadingViewModel) {
         refreshControll.update(isRefreshing: viewModel.isLoading)
+        searchIndicator.update(isRefreshing: viewModel.isLoading)
     }
 }
