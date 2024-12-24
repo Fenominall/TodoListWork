@@ -18,7 +18,7 @@ public final class LocalTodoSearcher: ItemSearchable {
         by query: String,
         completion: @escaping (ItemSearchable.Result) -> Void
     ) {
-        store.search(query) { [weak self] result in
+        store.search(by: query) { [weak self] result in
             guard self != nil else { return }
             
             switch result {

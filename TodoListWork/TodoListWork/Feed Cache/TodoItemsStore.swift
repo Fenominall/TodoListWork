@@ -29,5 +29,5 @@ public protocol TodoItemsStore {
     func insert(_ task: LocalTodoItem, completion: @escaping InsertionCompletion)
     func update(_ task: LocalTodoItem, completion: @escaping UpdatingCompletion)
     func delete(_ task: LocalTodoItem, completion: @escaping DeletionCompletion)
-    func search(_ query: String, completion: @escaping SearchingCompletion)
+    func search(by query: String, completion: @escaping SearchingCompletion)
 }

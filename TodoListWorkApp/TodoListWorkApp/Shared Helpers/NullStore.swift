@@ -29,7 +29,7 @@ final class NullStore: TodoItemsStore {
         completion(.success(()))
     }
     
-    func search(_ query: String, completion: @escaping SearchingCompletion) {
+    func search(by query: String, completion: @escaping SearchingCompletion) {
         completion(.success((.none)))
     }
 }

@@ -60,7 +60,7 @@ extension CoreDataFeedStore: TodoItemsStore {
     }
     
     public func search(
-        _ query: String,
+        by query: String,
         completion: @escaping SearchingCompletion
     ) {
         performAsync { context in
