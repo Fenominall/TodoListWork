@@ -251,10 +251,6 @@ extension ListViewController: UISearchResultsUpdating {
 
 // MARK: - UISearchControllerDelegate
 extension ListViewController: UISearchControllerDelegate {
-    public func didPresentSearchController(_ searchController: UISearchController) {
-        // TODO
-    }
-    
     public func didDismissSearchController(_ searchController: UISearchController) {
         noResultsLabel.isHidden = true
     }
