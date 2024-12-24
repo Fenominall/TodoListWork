@@ -46,8 +46,8 @@ extension MainQueueDispatchDecorator: ItemSaveable where T == ItemSaveable {
     }
 }
 
-extension MainQueueDispatchDecorator: TodoItemDeleter where T == TodoItemDeleter {
-    func delete(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemDeleter.Result) -> Void) {
+extension MainQueueDispatchDecorator: ItemDeleteable where T == ItemDeleteable {
+    func delete(_ item: TodoListWork.TodoItem, completion: @escaping (ItemDeleteable.Result) -> Void) {
         decoratee.delete(item) { [weak self] result in
             self?.dispatch { completion(result) }
         }

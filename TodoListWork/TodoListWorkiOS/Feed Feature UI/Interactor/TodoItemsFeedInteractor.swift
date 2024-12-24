@@ -10,14 +10,14 @@ import TodoListWork
 public final class TodoItemsFeedInteractor {
     private let feedLoader: FeedLoader
     private let todoSaver: ItemSaveable
-    private let todoDeleter: TodoItemDeleter
+    private let todoDeleter: ItemDeleteable
     public weak var loadingPresenter: ResourceLoadingInteractorOutput?
     public weak var processingPresenter: TodoItemsOperationInteractorOutput?
     
     public init(
         feedLoader: FeedLoader,
         todoSaver: ItemSaveable,
-        todoDeleter: TodoItemDeleter
+        todoDeleter: ItemDeleteable
     ) {
         self.feedLoader = feedLoader
         self.todoSaver = todoSaver

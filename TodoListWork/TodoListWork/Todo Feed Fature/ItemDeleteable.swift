@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol TodoItemDeleter {
+public protocol ItemDeleteable {
     typealias Result = Swift.Result<Void, Error>
     
     func delete(_ item: TodoItem, completion: @escaping (Result) -> Void)

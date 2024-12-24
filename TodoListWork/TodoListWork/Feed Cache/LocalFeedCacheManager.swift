@@ -87,10 +87,10 @@ extension LocalFeedCacheManager: ItemSaveable {
 }
 
 // MARK: - Deleting Todoitem
-extension LocalFeedCacheManager: TodoItemDeleter {
+extension LocalFeedCacheManager: ItemDeleteable {
     public func delete(
         _ item: TodoItem,
-        completion: @escaping (TodoItemDeleter.Result) -> Void) {
+        completion: @escaping (ItemDeleteable.Result) -> Void) {
             store.delete(convertToLcalTodoItem(item)) { [weak self] deletionError in
                 self?.execute(completion, result: deletionError)
             }

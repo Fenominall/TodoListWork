@@ -15,7 +15,7 @@ final class TodoFeedUIComposer {
     static func todoFeedComposedWith(
         feedLoader: FeedLoader,
         todoSaver: ItemSaveable,
-        todoDeleter: TodoItemDeleter,
+        todoDeleter: ItemDeleteable,
         todoSearcher: TodoSearcher,
         navigationController: UINavigationController,
         selection: @escaping (TodoItem) -> UIViewController,
