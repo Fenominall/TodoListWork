@@ -8,5 +8,5 @@
 import TodoListWork
 
 public protocol SearchTodoInteractorInput {
-    func searchTodo(query: String)
+    func searchTodo(by query: String)
 }
