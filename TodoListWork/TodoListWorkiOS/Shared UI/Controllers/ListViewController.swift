@@ -11,6 +11,7 @@ public final class ListViewController: UITableViewController {
     // MARK: - Properties
     public var onRefresh: (() -> Void)?
     public var addNewTodo: (() -> Void)?
+    public var onSearch: ((String) -> Void)?
     
     // # Step 1
     // control the state to reload automatically what change, using Int for section and the models for data source
@@ -168,6 +169,9 @@ extension ListViewController {
 // MARK: - UISearchBarDelegate
 extension ListViewController: UISearchBarDelegate {
     public func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+//        if searchController.isActive && !searchController.searchBar.text?.isEmpty {
+        guard let searchText = searchController.searchBar.text,
+              !searchText.isEmpty else { return }
         // TODO
     }
 }
@@ -175,6 +179,7 @@ extension ListViewController: UISearchBarDelegate {
 // MARK: - UISearchResultsUpdating
 extension ListViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
+        
         // TODO
     }
 }
@@ -197,14 +202,14 @@ extension ListViewController: TodoListFooterViewDelegate {
     }
 }
 
-// MARK: - TodoItemsErrorView
+// MARK: - ResourceErrorView
 extension ListViewController: ResourceErrorView {
     public func display(_ viewModel: ResourceErrorViewModel) {
         errorView.message = viewModel.message
     }
 }
 
-// MARK: - TodoItemsLoadingView
+// MARK: - ResourceLoadingView
 extension ListViewController: ResourceLoadingView {
     public func display(_ viewModel: ResourceLoadingViewModel) {
         refreshControll.update(isRefreshing: viewModel.isLoading)

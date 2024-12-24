@@ -50,7 +50,7 @@ extension LocalFeedCacheManager: TodoItemsFeedCache {
     public func save(
         _ feed: [TodoItem],
         completion: @escaping (TodoItemsFeedCache.Result) -> Void) {
-            store.insert(feed.toLocale()) { [weak self] insertionError in
+            store.insert(feed.toLocaleModels()) { [weak self] insertionError in
                 self?.execute(completion, result: insertionError)
             }
         }

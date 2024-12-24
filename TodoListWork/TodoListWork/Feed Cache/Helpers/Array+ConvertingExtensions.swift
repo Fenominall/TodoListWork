@@ -24,7 +24,7 @@ extension Array where Element == LocalTodoItem {
 }
 
 extension Array where Element == TodoItem {
-    func toLocale() -> [LocalTodoItem] {
+    func toLocaleModels() -> [LocalTodoItem] {
         return map {
             LocalTodoItem(
                 id: $0.id,
