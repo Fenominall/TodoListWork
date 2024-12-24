@@ -27,6 +27,24 @@ public final class ListViewController: UITableViewController {
     private let errorView = ErrorView()
     private let footerView = TodoListFooterView()
     
+    private let searchIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
+    private let noResultsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "No Results Found!"
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.textColor = .secondaryLabel
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
         return search
@@ -46,6 +64,7 @@ public final class ListViewController: UITableViewController {
         configureTableView()
         setDelegates()
         configureSearchController()
+        setupSearchingActivityUI()
         refresh()
     }
     
@@ -99,7 +118,21 @@ extension ListViewController {
         tableView.tableHeaderView = errorView.makeContainer()
         tableView.tableFooterView = footerView.makeContainer()
     }
+    
+    private func setupSearchingActivityUI() {
+        // Add search indicator and no-results label
+        view.addSubview(searchIndicator)
+        view.addSubview(noResultsLabel)
         
+        NSLayoutConstraint.activate([
+            searchIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            noResultsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noResultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     private func setDelegates() {
         footerView.delegate = self
     }
