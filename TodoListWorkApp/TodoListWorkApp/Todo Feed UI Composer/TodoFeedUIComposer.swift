@@ -12,7 +12,7 @@ import TodoListWorkiOS
 final class TodoFeedUIComposer {
     private init() {}
     
-    static func todoFeedComposedWith(
+    static func composeFeedWith(
         feedLoader: FeedLoader,
         todoSaver: ItemSaveable,
         todoDeleter: ItemDeleteable,

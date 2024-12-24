@@ -54,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureWindow() {
         let todoFeedVCComposer = TodoFeedUIComposer
-            .todoFeedComposedWith(
+            .composeFeedWith(
                 feedLoader: feedLoaderFactory.makeFeedLoader(),
                 todoSaver: feedLoaderFactory.makeLocalFeedLoader(),
                 todoDeleter: feedLoaderFactory.makeLocalFeedLoader(),
