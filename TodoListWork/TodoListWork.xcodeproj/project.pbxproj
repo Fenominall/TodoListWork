@@ -49,33 +49,6 @@
 		4FB8D9812D05BD1700EDFAF2 /* TodoListWorkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListWorkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4F3D7C442D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWork" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Shared Interaction/ResourceLoadingInteractorOutput.swift",
-				"Shared Presentation/ResourceErrorView.swift",
-				"Shared Presentation/ResourceErrorViewModel.swift",
-				"Shared Presentation/ResourceLoadingView.swift",
-				"Shared Presentation/ResourceLoadingViewModel.swift",
-				"Shared Presentation/ResourceView.swift",
-			);
-			target = 4FB8D96C2D0593F800EDFAF2 /* TodoListWork */;
-		};
-		4F3D7C452D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWorkiOS" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Shared Interaction/ResourceLoadingInteractorOutput.swift",
-				"Shared Presentation/ResourceErrorView.swift",
-				"Shared Presentation/ResourceErrorViewModel.swift",
-				"Shared Presentation/ResourceLoadingView.swift",
-				"Shared Presentation/ResourceLoadingViewModel.swift",
-				"Shared Presentation/ResourceView.swift",
-			);
-			target = 4F4322CC2D08724300451D45 /* TodoListWorkiOS */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4F4322CE2D08724300451D45 /* TodoListWorkiOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -84,10 +57,6 @@
 		};
 		4FB8D96F2D0593F800EDFAF2 /* TodoListWork */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				4F3D7C442D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWork" target */,
-				4F3D7C452D17DF5100F50ED3 /* Exceptions for "TodoListWork" folder in "TodoListWorkiOS" target */,
-			);
 			path = TodoListWork;
 			sourceTree = "<group>";
 		};

@@ -5,7 +5,6 @@
 //  Created by Fenominall on 12/10/24.
 //
 
-import TodoListWork
 
 // Protocol for handling feed loading output
 public protocol ResourceLoadingInteractorOutput: AnyObject {
