@@ -46,10 +46,10 @@ extension LocalFeedCacheManager: FeedLoader {
 }
 
 // MARK: - Feed Caching
-extension LocalFeedCacheManager: TodoItemsFeedCache {
+extension LocalFeedCacheManager: FeedCache {
     public func save(
         _ feed: [TodoItem],
-        completion: @escaping (TodoItemsFeedCache.Result) -> Void) {
+        completion: @escaping (FeedCache.Result) -> Void) {
             store.insert(feed.toLocaleModels()) { [weak self] insertionError in
                 self?.execute(completion, result: insertionError)
             }

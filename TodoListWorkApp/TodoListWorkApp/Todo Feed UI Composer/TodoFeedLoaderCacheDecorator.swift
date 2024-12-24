@@ -9,9 +9,9 @@ import TodoListWork
 
 final class TodoFeedLoaderCacheDecorator: FeedLoader {
     private let decoratee: FeedLoader
-    private let cache: TodoItemsFeedCache
+    private let cache: FeedCache
     
-    init(decoratee: FeedLoader, cache: TodoItemsFeedCache) {
+    init(decoratee: FeedLoader, cache: FeedCache) {
         self.decoratee = decoratee
         self.cache = cache
     }
@@ -26,7 +26,7 @@ final class TodoFeedLoaderCacheDecorator: FeedLoader {
     }
 }
 
-private extension TodoItemsFeedCache {
+private extension FeedCache {
     func saveIgnoringResult(_ feed: [TodoItem]) {
         save(feed) { _ in }
     }

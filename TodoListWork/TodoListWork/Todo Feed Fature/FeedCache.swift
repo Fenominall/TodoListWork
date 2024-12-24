@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol TodoItemsFeedCache {
+public protocol FeedCache {
     typealias Result = Swift.Result<Void, Error>
     
     func save(_ feed: [TodoItem], completion: @escaping (Result) -> Void)
