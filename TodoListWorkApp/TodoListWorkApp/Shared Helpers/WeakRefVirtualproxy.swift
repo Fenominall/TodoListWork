@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import TodoListWork
 import TodoListWorkiOS
 
 final class WeakRefVirtualproxy<T: AnyObject> {
@@ -17,13 +18,13 @@ final class WeakRefVirtualproxy<T: AnyObject> {
 }
 
 extension WeakRefVirtualproxy: ResourceLoadingView where T: ResourceLoadingView {
-    func display(_ viewModel: TodoListWorkiOS.ResourceLoadingViewModel) {
+    func display(_ viewModel: ResourceLoadingViewModel) {
         object?.display(viewModel)
     }
 }
 
 extension WeakRefVirtualproxy: ResourceErrorView where T: ResourceErrorView {
-    func display(_ viewModel: TodoListWorkiOS.ResourceErrorViewModel) {
+    func display(_ viewModel: ResourceErrorViewModel) {
         object?.display(viewModel)
     }
 }
