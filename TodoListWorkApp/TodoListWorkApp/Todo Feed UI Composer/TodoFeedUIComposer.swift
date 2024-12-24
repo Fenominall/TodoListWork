@@ -78,6 +78,7 @@ final class TodoFeedUIComposer {
         )
          
         searchInteractor.presenter = searchPresenter
+        view.onSearch = searchPresenter.searchTodo
         
         return view
     }

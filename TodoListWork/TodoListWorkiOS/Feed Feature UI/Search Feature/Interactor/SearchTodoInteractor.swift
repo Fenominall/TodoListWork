@@ -13,14 +13,12 @@ public final class SearchTodoInteractor: SearchTodoInteractorInput {
     public weak var presenter: ResourceLoadingInteractorOutput?
 
     public init(
-        store: ItemSearchable,
-        presenter: ResourceLoadingInteractorOutput? = nil
+        store: ItemSearchable
     ) {
         self.store = store
-        self.presenter = presenter
     }
     
-    public func searchTodo(query: String) {
+    public func search(by query: String) {
         presenter?.didStartLoading()
         
         store.search(by: query) { [weak self] result in

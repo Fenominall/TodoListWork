@@ -170,7 +170,6 @@ extension ListViewController {
 // MARK: - UISearchBarDelegate
 extension ListViewController: UISearchBarDelegate {
     public func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-//        if searchController.isActive && !searchController.searchBar.text?.isEmpty {
         guard let searchText = searchController.searchBar.text,
               !searchText.isEmpty else { return }
         // TODO
@@ -180,8 +179,10 @@ extension ListViewController: UISearchBarDelegate {
 // MARK: - UISearchResultsUpdating
 extension ListViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text?.lowercased(),
+        !searchText.isEmpty else { return }
         
-        // TODO
+        onSearch?(searchText)
     }
 }
 

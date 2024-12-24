@@ -27,8 +27,8 @@ public final class SearchTodoPresenter {
         self.interactor = interactor
     }
     
-    public func search(by query: String) {
-        interactor.searchTodo(by: query)
+    public func searchTodo(by query: String) {
+        interactor.search(by: query)
     }
 }
 
