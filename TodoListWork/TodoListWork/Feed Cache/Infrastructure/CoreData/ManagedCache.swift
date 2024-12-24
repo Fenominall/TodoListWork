@@ -15,7 +15,7 @@ final class ManagedCache: NSManagedObject {
 
 // MARK: - Retrieving
 extension ManagedCache {
-    var localTodoTasksFeed: [LocalTodoItem] {
+    var localeTodoFeed: [LocalTodoItem] {
         // Ensure cache is not nil and contains valid objects
         guard let cache = feed.array as? [ManagedTodoItem] else {
             return []
@@ -41,7 +41,7 @@ extension ManagedCache {
     }
     
     func updateCache(
-        with tasks: [LocalTodoItem],
+        with items: [LocalTodoItem],
         in context: NSManagedObjectContext
     ) throws {
         let managedCache = try ManagedCache.fetchOrCreateCache(in: context)
@@ -50,8 +50,8 @@ extension ManagedCache {
         let existingTasks = feed.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
         
         // Filter and add only new tasks
-        let newTasks = ManagedTodoItem.createBatch(from: tasks, in: context, cache: managedCache)
-        addTasksToCache(existingTasks, newTasks: newTasks)
+        let newTasks = ManagedTodoItem.createBatch(from: items, in: context, with: managedCache)
+        addItemsToCache(existingTasks, newItems: newTasks)
         
         // Safely update the cache feed
         guard let updatedCache = existingTasks.copy() as? NSOrderedSet else {
@@ -60,14 +60,14 @@ extension ManagedCache {
         feed = updatedCache
     }
     
-    private func addTasksToCache(
-        _ existingTasks: NSMutableOrderedSet,
-        newTasks: [ManagedTodoItem]
+    private func addItemsToCache(
+        _ existingItems: NSMutableOrderedSet,
+        newItems: [ManagedTodoItem]
     ) {
-        existingTasks.addObjects(from: newTasks)
+        existingItems.addObjects(from: newItems)
     }
     
-    static func insertTasks(
+    static func insert(
         _ tasks: [LocalTodoItem],
         in context: NSManagedObjectContext
     ) throws {
@@ -90,17 +90,17 @@ extension ManagedCache {
 
 // MARK: - Updating
 extension ManagedCache {
-    static func updateTask(
-        _ task: LocalTodoItem,
+    static func update(
+        _ item: LocalTodoItem,
         context: NSManagedObjectContext
     ) throws {
         // Fetch the task or throw an error
-        guard let managedTask = try ManagedTodoItem.first(with: task, in: context) else {
+        guard let managedTodo = try ManagedTodoItem.first(with: item, in: context) else {
             throw CoreDataFeedStoreError.todoNotFound
         }
         
         // Update the managed task
-        ManagedTodoItem.update(managedTask, with: task)
+        ManagedTodoItem.update(managedTodo, with: item)
         
         try context.save()
     }

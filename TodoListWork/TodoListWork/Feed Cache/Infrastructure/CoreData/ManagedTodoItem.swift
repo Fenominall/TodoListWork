@@ -37,7 +37,7 @@ extension ManagedTodoItem {
     static func createBatch(
         from localTasks: [LocalTodoItem],
         in context: NSManagedObjectContext,
-        cache: ManagedCache
+        with cache: ManagedCache
     ) -> [ManagedTodoItem] {
         return  localTasks.map { local in
             let managedTodo = ManagedTodoItem(context: context)

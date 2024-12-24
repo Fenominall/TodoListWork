@@ -13,7 +13,7 @@ extension CoreDataFeedStore: TodoItemsStore {
         performAsync { context in
             completion(Result {
                 try ManagedCache.find(in: context).map {
-                    return $0.localTodoTasksFeed
+                    return $0.localeTodoFeed
                 }
             })
         }
@@ -25,7 +25,7 @@ extension CoreDataFeedStore: TodoItemsStore {
     ) {
         performAsync { context in
             completion(Result {
-                try ManagedCache.insertTasks(tasks, in: context)
+                try ManagedCache.insert(tasks, in: context)
             })
         }
     }
@@ -43,7 +43,7 @@ extension CoreDataFeedStore: TodoItemsStore {
     ) {
         performAsync { context in
             completion(Result {
-                try ManagedCache.updateTask(task, context: context)
+                try ManagedCache.update(task, context: context)
             })
         }
     }
