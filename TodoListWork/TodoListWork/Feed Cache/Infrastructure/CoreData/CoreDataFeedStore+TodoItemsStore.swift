@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-extension CoreDataFeedStore: TodoItemsStore {
+extension CoreDataFeedStore: FeedStore {
     public func retrieve(completion: @escaping RetrievalCompletion) {
         performAsync { context in
             completion(Result {

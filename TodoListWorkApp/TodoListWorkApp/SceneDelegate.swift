@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         URLSessionHTTPclient(session: URLSession(configuration: .ephemeral))
     }()
     
-    private lazy var store: TodoItemsStore = {
+    private lazy var store: FeedStore = {
         do {
             return try CoreDataFeedStore(
                 storeURL: CoreDataFeedStore.storeURL

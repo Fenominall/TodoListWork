@@ -8,7 +8,7 @@
 import Foundation
 
 
-public protocol TodoItemsStore {
+public protocol FeedStore {
     typealias DeletionResult = Swift.Result<Void, Error>
     typealias DeletionCompletion = (DeletionResult) -> Void
     

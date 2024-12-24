@@ -8,9 +8,9 @@
 import Foundation
 
 public final class LocalTodoSearcher: ItemSearchable {
-    private let store: TodoItemsStore
+    private let store: FeedStore
     
-    public init(store: TodoItemsStore) {
+    public init(store: FeedStore) {
         self.store = store
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import TodoListWork
 
-final class NullStore: TodoItemsStore {
+final class NullStore: FeedStore {
     func retrieve(completion: @escaping RetrievalCompletion) {
         completion(.success((.none)))
     }

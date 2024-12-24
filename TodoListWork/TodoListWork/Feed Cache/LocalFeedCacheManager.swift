@@ -9,10 +9,10 @@ import Foundation
 
 public final class LocalFeedCacheManager {
     // MARK: - Properties
-    private let store: TodoItemsStore
+    private let store: FeedStore
     
     // MARK: - Lifecycle
-    public init(store: TodoItemsStore) {
+    public init(store: FeedStore) {
         self.store = store
     }
     

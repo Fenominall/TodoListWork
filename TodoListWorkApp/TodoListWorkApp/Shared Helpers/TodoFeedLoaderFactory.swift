@@ -11,13 +11,13 @@ import TodoListWork
 final class TodoFeedLoaderFactory {
     private let client: HTTPClient
     private let url: URL
-    private let localStore: TodoItemsStore
+    private let localStore: FeedStore
     private let firstFeedLaunchManager: FirstFeedLaunchManager
 
     init(
         client: HTTPClient,
         url: URL,
-        localStore: TodoItemsStore,
+        localStore: FeedStore,
         firstFeedLaunchManager: FirstFeedLaunchManager
     ) {
         self.client = client
