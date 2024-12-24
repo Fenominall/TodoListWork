@@ -7,8 +7,8 @@
 
 import Foundation
 
-public protocol TodoItemsFeedLoader {
+public protocol FeedLoader {
     typealias Result = Swift.Result<[TodoItem], Error>
     
-    func loadFeed(completion: @escaping (Result) -> Void)
+    func load(completion: @escaping (Result) -> Void)
 }

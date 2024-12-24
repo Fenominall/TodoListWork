@@ -8,14 +8,14 @@
 import TodoListWork
 
 public final class TodoItemsFeedInteractor {
-    private let feedLoader: TodoItemsFeedLoader
+    private let feedLoader: FeedLoader
     private let todoSaver: TodoItemSaver
     private let todoDeleter: TodoItemDeleter
     public weak var loadingPresenter: ResourceLoadingInteractorOutput?
     public weak var processingPresenter: TodoItemsOperationInteractorOutput?
     
     public init(
-        feedLoader: TodoItemsFeedLoader,
+        feedLoader: FeedLoader,
         todoSaver: TodoItemSaver,
         todoDeleter: TodoItemDeleter
     ) {
@@ -30,7 +30,7 @@ extension TodoItemsFeedInteractor: TodoItemsFeedInteractorInput {
     public func loadFeed() {
         loadingPresenter?.didStartLoading()
         
-        feedLoader.loadFeed { [weak self] result in
+        feedLoader.load { [weak self] result in
             guard let self = self else { return }
             
             switch result {

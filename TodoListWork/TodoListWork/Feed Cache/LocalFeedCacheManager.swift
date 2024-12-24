@@ -27,8 +27,8 @@ public final class LocalFeedCacheManager {
 }
 
 // MARK: - Feed Loading
-extension LocalFeedCacheManager: TodoItemsFeedLoader {
-    public func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
+extension LocalFeedCacheManager: FeedLoader {
+    public func load(completion: @escaping (FeedLoader.Result) -> Void) {
         store.retrieve { [weak self] result in
             guard self != nil else { return }
             

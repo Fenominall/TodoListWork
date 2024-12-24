@@ -34,12 +34,12 @@ final class TodoFeedLoaderFactory {
         return LocalFeedCacheManager(store: localStore)
     }
 
-    private func makeCacheDecorator(decoratee: TodoItemsFeedLoader) -> TodoFeedLoaderCacheDecorator {
+    private func makeCacheDecorator(decoratee: FeedLoader) -> TodoFeedLoaderCacheDecorator {
         return TodoFeedLoaderCacheDecorator(decoratee: decoratee, cache: makeLocalFeedLoader())
     }
 
     /// Facade method to create the appropriate loader
-    func makeFeedLoader() -> TodoItemsFeedLoader {
+    func makeFeedLoader() -> FeedLoader {
         let remoteLoader = makeRemoteFeedLoader()
         let localLoader = makeLocalFeedLoader()
         

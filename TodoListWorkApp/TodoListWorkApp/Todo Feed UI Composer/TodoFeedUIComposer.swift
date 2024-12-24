@@ -13,7 +13,7 @@ final class TodoFeedUIComposer {
     private init() {}
     
     static func todoFeedComposedWith(
-        feedLoader: TodoItemsFeedLoader,
+        feedLoader: FeedLoader,
         todoSaver: TodoItemSaver,
         todoDeleter: TodoItemDeleter,
         todoSearcher: TodoSearcher,

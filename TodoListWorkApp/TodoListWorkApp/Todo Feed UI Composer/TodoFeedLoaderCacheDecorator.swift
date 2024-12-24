@@ -7,17 +7,17 @@
 
 import TodoListWork
 
-final class TodoFeedLoaderCacheDecorator: TodoItemsFeedLoader {
-    private let decoratee: TodoItemsFeedLoader
+final class TodoFeedLoaderCacheDecorator: FeedLoader {
+    private let decoratee: FeedLoader
     private let cache: TodoItemsFeedCache
     
-    init(decoratee: TodoItemsFeedLoader, cache: TodoItemsFeedCache) {
+    init(decoratee: FeedLoader, cache: TodoItemsFeedCache) {
         self.decoratee = decoratee
         self.cache = cache
     }
 
-    func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
-        decoratee.loadFeed { [weak self] result in
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        decoratee.load { [weak self] result in
             completion(result.map { feed in
                 self?.cache.saveIgnoringResult(feed)
                 return feed

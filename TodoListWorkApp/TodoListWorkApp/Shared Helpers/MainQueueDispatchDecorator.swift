@@ -24,9 +24,9 @@ final class MainQueueDispatchDecorator<T> {
     }
 }
 
-extension MainQueueDispatchDecorator: TodoItemsFeedLoader where T == TodoItemsFeedLoader {
-    func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
-        decoratee.loadFeed { [weak self] result in
+extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        decoratee.load { [weak self] result in
             self?.dispatch { completion(result) }
         }
     }

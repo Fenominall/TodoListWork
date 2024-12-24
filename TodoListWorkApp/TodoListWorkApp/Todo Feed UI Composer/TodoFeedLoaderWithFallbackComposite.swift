@@ -8,23 +8,23 @@
 import Foundation
 import TodoListWork
 
-final class TodoFeedLoaderWithFallbackComposite: TodoItemsFeedLoader {
-    private let primary: TodoItemsFeedLoader
-    private let fallback: TodoItemsFeedLoader
+final class TodoFeedLoaderWithFallbackComposite: FeedLoader {
+    private let primary: FeedLoader
+    private let fallback: FeedLoader
     
-    init(primary: TodoItemsFeedLoader, fallback: TodoItemsFeedLoader) {
+    init(primary: FeedLoader, fallback: FeedLoader) {
         self.primary = primary
         self.fallback = fallback
     }
     
     
-    func loadFeed(completion: @escaping (TodoItemsFeedLoader.Result) -> Void) {
-        primary.loadFeed { [weak self] result in
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        primary.load { [weak self] result in
             switch result {
             case .success:
                 completion(result)
             case .failure:
-                self?.fallback.loadFeed(completion: completion)
+                self?.fallback.load(completion: completion)
             }
         }
     }

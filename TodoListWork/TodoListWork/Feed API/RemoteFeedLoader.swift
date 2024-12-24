@@ -7,12 +7,12 @@
 
 import Foundation
 
-public final class RemoteFeedLoader: TodoItemsFeedLoader {
+public final class RemoteFeedLoader: FeedLoader {
     // MARK: - Properties
     private let url: URL
     private let client: HTTPClient
     
-    public typealias LoadResult = TodoItemsFeedLoader.Result
+    public typealias LoadResult = FeedLoader.Result
     
     // MARK: - Lifecycle
     public init(
@@ -29,7 +29,7 @@ public final class RemoteFeedLoader: TodoItemsFeedLoader {
     }
     
     // MARK: - Methods
-    public func loadFeed(completion: @escaping (LoadResult) -> Void) {
+    public func load(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { [weak self] result in
             // safety mechanism to prevent executing logic in the closure when the self instance(RemoteFeedLoader) has been deallocated
             guard self != nil else { return }
