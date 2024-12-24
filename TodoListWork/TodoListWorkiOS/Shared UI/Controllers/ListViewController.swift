@@ -111,27 +111,46 @@ extension ListViewController {
 
 // MARK: - UITableViewDelegate
 extension ListViewController {
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public override func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let delegate = cellController(at: indexPath)?.delegate
         delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
     
-    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public override func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
         let dl = cellController(at: indexPath)?.delegate
         dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
-    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public override func tableView(
+        _ tableView: UITableView,
+        didEndDisplaying cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
         let delegate = cellController(at: indexPath)?.delegate
         delegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
-    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    public override func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
         let delegate = cellController(at: indexPath)?.delegate
         return delegate?.tableView?(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
     
-    public override func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: (any UIContextMenuInteractionAnimating)?) {
+    public override func tableView(
+        _ tableView: UITableView,
+        willEndContextMenuInteraction configuration: UIContextMenuConfiguration,
+        animator: (any UIContextMenuInteractionAnimating)?
+    ) {
         guard let indexPath = configuration.identifier as? IndexPath else {
             return
         }
