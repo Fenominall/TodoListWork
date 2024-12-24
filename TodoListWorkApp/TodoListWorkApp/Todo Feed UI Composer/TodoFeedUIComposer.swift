@@ -68,7 +68,9 @@ final class TodoFeedUIComposer {
         loadingInteractor.processingPresenter = loadingPresenter
         
         // MARK: - Searching
-        let searchInteractor = SearchTodoInteractor(store: todoSearcher)
+        let searchInteractor = SearchTodoInteractor(
+            store: MainQueueDispatchDecorator(decoratee: todoSearcher)
+        )
             
         let searchPresenter = SearchTodoPresenter(
             view: viewAdapter,

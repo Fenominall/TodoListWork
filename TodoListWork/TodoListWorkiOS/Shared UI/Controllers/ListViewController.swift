@@ -99,7 +99,7 @@ extension ListViewController {
         tableView.tableHeaderView = errorView.makeContainer()
         tableView.tableFooterView = footerView.makeContainer()
     }
-    
+        
     private func setDelegates() {
         footerView.delegate = self
     }
@@ -149,9 +149,6 @@ extension ListViewController {
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.placeholder = "Search"
         searchController.searchResultsUpdater = self
-        // Used for searchBarBookmarkButtonClicked method
-        searchController.searchBar.delegate = self
-        searchController.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.showsBookmarkButton = true
         
@@ -183,17 +180,6 @@ extension ListViewController: UISearchResultsUpdating {
         !searchText.isEmpty else { return }
         
         onSearch?(searchText)
-    }
-}
-
-// MARK: - UISearchControllerDelegate
-extension ListViewController: UISearchControllerDelegate {
-    public func didPresentSearchController(_ searchController: UISearchController) {
-        // TODO
-    }
-    
-    public func didDismissSearchController(_ searchController: UISearchController) {
-        // TODO
     }
 }
 
