@@ -10,11 +10,11 @@ import Foundation
 public struct ResourceErrorViewModel {
     public let message: String?
     
-    static var noError: ResourceErrorViewModel {
+    public static var noError: ResourceErrorViewModel {
         return ResourceErrorViewModel(message: nil)
     }
     
-    static func error(message: String) -> ResourceErrorViewModel {
+    public static func error(message: String) -> ResourceErrorViewModel {
         return ResourceErrorViewModel(message: message)
     }
 }
