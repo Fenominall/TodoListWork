@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }()
     
-    private lazy var localSearchTodo: TodoSearcher = {
+    private lazy var localSearchTodo: ItemSearchable = {
         LocalTodoSearcher(store: store)
     }()
     

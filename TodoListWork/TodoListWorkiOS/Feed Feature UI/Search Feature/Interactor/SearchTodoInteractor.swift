@@ -9,11 +9,11 @@ import Foundation
 import TodoListWork
 
 public final class SearchTodoInteractor: SearchTodoInteractorInput {
-    private let store: TodoSearcher
+    private let store: ItemSearchable
     public weak var presenter: ResourceLoadingInteractorOutput?
 
     public init(
-        store: TodoSearcher,
+        store: ItemSearchable,
         presenter: ResourceLoadingInteractorOutput? = nil
     ) {
         self.store = store

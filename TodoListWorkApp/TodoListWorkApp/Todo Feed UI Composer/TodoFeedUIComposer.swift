@@ -16,7 +16,7 @@ final class TodoFeedUIComposer {
         feedLoader: FeedLoader,
         todoSaver: ItemSaveable,
         todoDeleter: ItemDeleteable,
-        todoSearcher: TodoSearcher,
+        todoSearcher: ItemSearchable,
         navigationController: UINavigationController,
         selection: @escaping (TodoItem) -> UIViewController,
         addnewTodo: @escaping () -> UIViewController,

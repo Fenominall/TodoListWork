@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class LocalTodoSearcher: TodoSearcher {
+public final class LocalTodoSearcher: ItemSearchable {
     private let store: TodoItemsStore
     
     public init(store: TodoItemsStore) {
@@ -16,7 +16,7 @@ public final class LocalTodoSearcher: TodoSearcher {
     
     public func search(
         by query: String,
-        completion: @escaping (TodoSearcher.Result) -> Void
+        completion: @escaping (ItemSearchable.Result) -> Void
     ) {
         store.search(query) { [weak self] result in
             guard self != nil else { return }
