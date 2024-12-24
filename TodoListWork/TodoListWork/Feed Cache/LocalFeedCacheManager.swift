@@ -57,10 +57,10 @@ extension LocalFeedCacheManager: FeedCache {
 }
 
 // MARK: - Saving and Updaing TodoItem
-extension LocalFeedCacheManager: TodoItemSaver {
+extension LocalFeedCacheManager: ItemSaveable {
     public func save(
         _ item: TodoItem,
-        completion: @escaping (TodoItemSaver.Result) -> Void) {
+        completion: @escaping (ItemSaveable.Result) -> Void) {
             store.insert(convertToLcalTodoItem(item)) { [weak self] insertionError in
                 self?.execute(completion, result: insertionError)
             }
@@ -68,7 +68,7 @@ extension LocalFeedCacheManager: TodoItemSaver {
     
     public func update(
         _ item: TodoItem,
-        completion: @escaping (TodoItemSaver.Result) -> Void) {
+        completion: @escaping (ItemSaveable.Result) -> Void) {
             store.update(convertToLcalTodoItem(item)) { [weak self] updationError in
                 self?.execute(completion, result: updationError)
             }

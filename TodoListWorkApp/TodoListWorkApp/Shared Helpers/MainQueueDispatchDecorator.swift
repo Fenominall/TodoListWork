@@ -32,14 +32,14 @@ extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
     }
 }
 
-extension MainQueueDispatchDecorator: TodoItemSaver where T == TodoItemSaver {
-    func save(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+extension MainQueueDispatchDecorator: ItemSaveable where T == ItemSaveable {
+    func save(_ item: TodoListWork.TodoItem, completion: @escaping (ItemSaveable.Result) -> Void) {
         decoratee.save(item) { [weak self] result in
             self?.dispatch { completion(result) }
         }
     }
     
-    func update(_ item: TodoListWork.TodoItem, completion: @escaping (TodoItemSaver.Result) -> Void) {
+    func update(_ item: TodoListWork.TodoItem, completion: @escaping (ItemSaveable.Result) -> Void) {
         decoratee.update(item) { [weak self] result in
             self?.dispatch { completion(result) }
         }

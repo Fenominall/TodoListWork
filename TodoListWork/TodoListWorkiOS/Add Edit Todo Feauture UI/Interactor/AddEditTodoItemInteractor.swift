@@ -15,9 +15,9 @@ public protocol AddEditTodoItemInteractorInput {
 
 public final class AddEditTodoItemInteractor: AddEditTodoItemInteractorInput {
     public weak var presenter: AddEditTodoItemInteractorOutput?
-    private let todoSaver: TodoItemSaver
+    private let todoSaver: ItemSaveable
     
-    public init(todoSaver: TodoItemSaver) {
+    public init(todoSaver: ItemSaveable) {
         self.todoSaver = todoSaver
     }
     

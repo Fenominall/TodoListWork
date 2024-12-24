@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol TodoItemSaver {
+public protocol ItemSaveable {
     typealias Result = Swift.Result<Void, Error>
     
     func save(_ item: TodoItem, completion: @escaping (Result) -> Void)
