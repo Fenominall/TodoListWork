@@ -54,7 +54,7 @@ extension CoreDataFeedStore: TodoItemsStore {
     ) {
         performAsync { context in
             completion(Result {
-                try ManagedTodoItem.deleteTask(task, in: context)
+                try ManagedTodoItem.delete(task, in: context)
             })
         }
     }

@@ -111,17 +111,17 @@ extension ManagedTodoItem {
 
 // MARK: - Deletion helpers
 extension ManagedTodoItem {
-    static func deleteTask(
-        _ task: LocalTodoItem,
+    static func delete(
+        _ item: LocalTodoItem,
         in context: NSManagedObjectContext
     ) throws {
         // Find the task to delete
-        guard let managedTodo = try ManagedTodoItem.first(with: task, in: context) else {
+        guard let managedTodo = try ManagedTodoItem.first(with: item, in: context) else {
             throw CoreDataFeedStoreError.todoNotFound
         }
         
         // Attempt to update the cache and remove the task
-        try removeTaskFromCache(managedTodo, in: context)
+        try removeFromCache(managedTodo, in: context)
         
         // Delete the task from Core Data context
         context.delete(managedTodo)
@@ -130,8 +130,8 @@ extension ManagedTodoItem {
         try context.save()
     }
     
-    private static func removeTaskFromCache(
-        _ task: ManagedTodoItem,
+    private static func removeFromCache(
+        _ item: ManagedTodoItem,
         in context: NSManagedObjectContext
     ) throws {
         guard let cache = try ManagedCache.find(in: context) else {
@@ -143,7 +143,7 @@ extension ManagedTodoItem {
         }
         
         // Remove the task
-        mutableFeed.remove(task)
+        mutableFeed.remove(item)
         
         // Update the feed
         cache.feed = mutableFeed.copy() as? NSOrderedSet ?? NSOrderedSet()
