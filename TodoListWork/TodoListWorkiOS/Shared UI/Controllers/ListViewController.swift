@@ -214,6 +214,7 @@ extension ListViewController {
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.placeholder = "Search"
         searchController.searchResultsUpdater = self
+        searchController.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.showsBookmarkButton = true
         
@@ -242,9 +243,20 @@ extension ListViewController: UISearchBarDelegate {
 extension ListViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased(),
-        !searchText.isEmpty else { return }
+              !searchText.isEmpty else { return }
         
         onSearch?(searchText)
+    }
+}
+
+// MARK: - UISearchControllerDelegate
+extension ListViewController: UISearchControllerDelegate {
+    public func didPresentSearchController(_ searchController: UISearchController) {
+        // TODO
+    }
+    
+    public func didDismissSearchController(_ searchController: UISearchController) {
+        noResultsLabel.isHidden = true
     }
 }
 
