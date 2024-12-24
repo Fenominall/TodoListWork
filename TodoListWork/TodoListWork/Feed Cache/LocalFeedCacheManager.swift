@@ -61,7 +61,7 @@ extension LocalFeedCacheManager: ItemSaveable {
     public func save(
         _ item: TodoItem,
         completion: @escaping (ItemSaveable.Result) -> Void) {
-            store.insert(convertToLcalTodoItem(item)) { [weak self] insertionError in
+            store.insert(convertToLcalTodoItem(with: item)) { [weak self] insertionError in
                 self?.execute(completion, result: insertionError)
             }
         }
@@ -69,12 +69,12 @@ extension LocalFeedCacheManager: ItemSaveable {
     public func update(
         _ item: TodoItem,
         completion: @escaping (ItemSaveable.Result) -> Void) {
-            store.update(convertToLcalTodoItem(item)) { [weak self] updationError in
+            store.update(convertToLcalTodoItem(with: item)) { [weak self] updationError in
                 self?.execute(completion, result: updationError)
             }
         }
     
-    private func convertToLcalTodoItem(_ item: TodoItem) -> LocalTodoItem {
+    private func convertToLcalTodoItem(with item: TodoItem) -> LocalTodoItem {
         LocalTodoItem(
             id: item.id,
             title: item.title,
@@ -91,7 +91,7 @@ extension LocalFeedCacheManager: ItemDeleteable {
     public func delete(
         _ item: TodoItem,
         completion: @escaping (ItemDeleteable.Result) -> Void) {
-            store.delete(convertToLcalTodoItem(item)) { [weak self] deletionError in
+            store.delete(convertToLcalTodoItem(with: item)) { [weak self] deletionError in
                 self?.execute(completion, result: deletionError)
             }
     }
