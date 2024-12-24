@@ -26,6 +26,10 @@ public final class SearchTodoPresenter {
         self.loadingView = loadingView
         self.interactor = interactor
     }
+    
+    public func search(by query: String) {
+        interactor.searchTodo(by: query)
+    }
 }
 
 extension SearchTodoPresenter: ResourceLoadingInteractorOutput {
