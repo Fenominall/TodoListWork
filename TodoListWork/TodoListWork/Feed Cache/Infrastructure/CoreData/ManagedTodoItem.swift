@@ -152,7 +152,7 @@ extension ManagedTodoItem {
 
 // MARK: - Search
 extension ManagedTodoItem {
-    static func findByQuery(
+    static func findBy(
         _ query: String,
         in context: NSManagedObjectContext
     ) throws -> [ManagedTodoItem] {
@@ -161,11 +161,11 @@ extension ManagedTodoItem {
         )
         
         // Create a predicate to search within the title and descriptionText fields
-        let queryPredicate = NSPredicate(
+        let predicate = NSPredicate(
             format: "title CONTAINS[cd] %@ OR descriptionText CONTAINS[cd] %@",
             query, query)
         
-        request.predicate = queryPredicate
+        request.predicate = predicate
         request.returnsObjectsAsFaults = false
         
         return try context.fetch(request)

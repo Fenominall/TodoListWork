@@ -66,7 +66,7 @@ extension CoreDataFeedStore: TodoItemsStore {
         performAsync { context in
             completion(Result {
                 try ManagedTodoItem
-                    .findByQuery(query, in: context)
+                    .findBy(query, in: context)
                     .compactMap { return $0.local }
             })
         }
