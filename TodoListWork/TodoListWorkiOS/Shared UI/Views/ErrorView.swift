@@ -18,10 +18,12 @@ public final class ErrorView: UIButton {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     public override var intrinsicContentSize: CGSize {
