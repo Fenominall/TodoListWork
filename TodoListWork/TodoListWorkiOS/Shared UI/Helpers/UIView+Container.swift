@@ -12,6 +12,7 @@ extension UIView {
     public func makeContainer() -> UIView {
         let container = UIView()
         container.backgroundColor = .clear
+        container.isUserInteractionEnabled = true
         container.addSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -19,8 +20,10 @@ extension UIView {
             leadingAnchor.constraint(equalTo: container.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             topAnchor.constraint(equalTo: container.topAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
+            bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+        
+        bringSubviewToFront(container)
         
         return container
     }
