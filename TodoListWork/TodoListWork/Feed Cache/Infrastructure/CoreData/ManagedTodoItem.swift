@@ -160,10 +160,14 @@ extension ManagedTodoItem {
             entityName: ManagedTodoItem.entity().name!
         )
         
+        // Preprocess the query to allow flexible matching
+        let wildcardQuery = "*" + query.replacingOccurrences(of: " ", with: "*") + "*"
+        
         // Create a predicate to search within the title and descriptionText fields
         let predicate = NSPredicate(
-            format: "title CONTAINS[cd] %@ OR descriptionText CONTAINS[cd] %@",
-            query, query)
+            format: "title LIKE[cd] %@ OR descriptionText LIKE[cd] %@",
+            wildcardQuery, wildcardQuery
+        )
         
         request.predicate = predicate
         request.returnsObjectsAsFaults = false
