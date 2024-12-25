@@ -54,7 +54,6 @@ extension MainQueueDispatchDecorator: ItemDeleteable where T == ItemDeleteable {
     }
 }
 
-
 extension MainQueueDispatchDecorator: ItemSearchable where T == ItemSearchable {
     func search(by query: String, completion: @escaping (ItemSearchable.Result) -> Void) {
         decoratee.search(by: query) { [weak self] result in
