@@ -8,7 +8,7 @@
 import UIKit
 import TodoListWork
 
-public final class ListViewController: UITableViewController {
+public final class ListViewController: UIViewController {
     // MARK: - Properties
     public var onRefresh: (() -> Void)?
     public var addNewTodo: (() -> Void)?
@@ -18,7 +18,7 @@ public final class ListViewController: UITableViewController {
     // control the state to reload automatically what change, using Int for section and the models for data source
     // The model needs to be hashable
     private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
-        .init(tableView: tableView) { (tableView, indexPath, controller) in
+        .init(tableView: feedTableView) { (tableView, indexPath, controller) in
             return controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
         }
     }()
@@ -31,6 +31,15 @@ public final class ListViewController: UITableViewController {
     // MARK: - View Properties
     private let errorView = ErrorView()
     private let footerView = TodoListFooterView()
+    
+    private lazy var feedTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     private let searchIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -66,10 +75,11 @@ public final class ListViewController: UITableViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupUIConstraints()
         configureTableView()
+        configureDataSource()
         setDelegates()
         configureSearchController()
-        setupSearchingActivityUI()
         refresh()
     }
     
@@ -115,26 +125,41 @@ extension ListViewController {
     }
     
     private func configureTableView() {
-        dataSource.defaultRowAnimation = .fade
         // # Step 2 - make UITableView as UITableViewDiffableDataSource
-        tableView.dataSource = dataSource
-        tableView.refreshControl = refreshControll
-        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        tableView.backgroundColor = .systemBackground
-        tableView.separatorStyle = .none
-        tableView.tableHeaderView = errorView.makeContainer()
-        tableView.tableFooterView = footerView.makeContainer()
+        feedTableView.dataSource = dataSource
+        feedTableView.delegate = self
+        feedTableView.refreshControl = refreshControll
+        // TODO - bug that error view not clickable
+        feedTableView.tableHeaderView = errorView.makeContainer()
     }
     
-    private func setupSearchingActivityUI() {
+    private func configureDataSource() {
+        dataSource.defaultRowAnimation = .fade
+    }
+    
+    private func setupUIConstraints() {
         // Add search indicator and no-results label
+        view.addSubview(feedTableView)
+        view.addSubview(footerView)
         view.addSubview(searchIndicator)
         view.addSubview(noResultsLabel)
-        
+                
         NSLayoutConstraint.activate([
+            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footerView.heightAnchor.constraint(equalToConstant: 83),
+            
+            feedTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            feedTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            feedTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            feedTableView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
+            
+            // SearchIndicator
             searchIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             searchIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
+            // noResultsLabel
             noResultsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             noResultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
@@ -156,43 +181,43 @@ extension ListViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension ListViewController {
-    public override func tableView(
+extension ListViewController: UITableViewDelegate {
+    public func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(tableView, didSelectRowAt: indexPath)
+        delegate?.tableView?(feedTableView, didSelectRowAt: indexPath)
     }
     
-    public override func tableView(
+    public func tableView(
         _ tableView: UITableView,
         willDisplay cell: UITableViewCell,
         forRowAt indexPath: IndexPath
     ) {
         let dl = cellController(at: indexPath)?.delegate
-        dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
+        dl?.tableView?(feedTableView, willDisplay: cell, forRowAt: indexPath)
     }
     
-    public override func tableView(
+    public func tableView(
         _ tableView: UITableView,
         didEndDisplaying cell: UITableViewCell,
         forRowAt indexPath: IndexPath
     ) {
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+        delegate?.tableView?(feedTableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
-    public override func tableView(
+    public func tableView(
         _ tableView: UITableView,
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
         let delegate = cellController(at: indexPath)?.delegate
-        return delegate?.tableView?(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+        return delegate?.tableView?(feedTableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
     
-    public override func tableView(
+    public func tableView(
         _ tableView: UITableView,
         willEndContextMenuInteraction configuration: UIContextMenuConfiguration,
         animator: (any UIContextMenuInteractionAnimating)?
@@ -203,7 +228,7 @@ extension ListViewController {
         
         // Retrieve the delegate for the cell controller
         let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(tableView, willEndContextMenuInteraction: configuration, animator: animator)
+        delegate?.tableView?(feedTableView, willEndContextMenuInteraction: configuration, animator: animator)
     }
 }
 
@@ -266,7 +291,7 @@ extension ListViewController: TodoListFooterViewDelegate {
 // MARK: - ResourceErrorView
 extension ListViewController: ResourceErrorView {
     public func display(_ viewModel: ResourceErrorViewModel) {
-        errorView.message = viewModel.message
+        errorView.message = "viewModel.message"
     }
 }
 
