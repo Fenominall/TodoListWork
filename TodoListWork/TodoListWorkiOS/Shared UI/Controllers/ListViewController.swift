@@ -291,7 +291,7 @@ extension ListViewController: TodoListFooterViewDelegate {
 // MARK: - ResourceErrorView
 extension ListViewController: ResourceErrorView {
     public func display(_ viewModel: ResourceErrorViewModel) {
-        errorView.message = "viewModel.message"
+        errorView.message = viewModel.message
     }
 }
 
