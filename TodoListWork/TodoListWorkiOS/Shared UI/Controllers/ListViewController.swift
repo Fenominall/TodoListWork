@@ -23,7 +23,9 @@ public final class ListViewController: UIViewController {
         }
     }()
     
-    var isFiltering: Bool {
+    private var isTableViewEmpty: Bool = false
+    
+    private var isFiltering: Bool {
         guard let searchText = searchController.searchBar.text else { return false }
         return searchController.isActive && !searchText.isEmpty
     }
@@ -113,6 +115,7 @@ extension ListViewController {
         
         // Update the footer view count label
         let itemCount = sections.flatMap { $0 }.count
+        isTableViewEmpty = itemCount == 0
         
         footerView.updateCountLabel(with: itemCount)
         showHideNoResultsLabelBasedOnCount(with: itemCount)
@@ -143,7 +146,7 @@ extension ListViewController {
         view.addSubview(footerView)
         view.addSubview(searchIndicator)
         view.addSubview(noResultsLabel)
-                
+        
         NSLayoutConstraint.activate([
             footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -278,6 +281,10 @@ extension ListViewController: UISearchResultsUpdating {
 extension ListViewController: UISearchControllerDelegate {
     public func didDismissSearchController(_ searchController: UISearchController) {
         noResultsLabel.isHidden = true
+        
+        if isTableViewEmpty {
+            refresh()
+        }
     }
 }
 
